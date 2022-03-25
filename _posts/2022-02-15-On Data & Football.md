@@ -1,6 +1,8 @@
 ---
-layout: post
+
 title: On Data & Football
+date: 2022-02-15 11:04:34 +0000
+tags: [Getting started]
 ---
 
 Football for me is an expression of a craft that is one of the only true meritocracies in society. Given that world view, I have always had a deep appreciation of the players who made the sport look effortless. 
