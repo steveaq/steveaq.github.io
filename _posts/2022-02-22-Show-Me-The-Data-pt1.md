@@ -1,6 +1,16 @@
 ---
-layout: post
-title: Show Me The Data pt.1
+title: Show me the Data. pt.1
+date: 2022-02-22 17:14:34 +0800
+author: steveaq
+categories: [Blogging, Data Sources]
+tags: [Getting started]
+math: true
+mermaid: true
+published: true
+image:
+  path: /commons/devices-mockup.png
+  width: 800
+  height: 500
 ---
 
 ##### *“Without data you're just another person with an opinion.”*

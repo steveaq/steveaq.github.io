@@ -1,6 +1,16 @@
 ---
-layout: post
-title: Show Me The Data pt.2
+title: Show me the Data. pt.2
+date: 2022-02-27 17:14:34 +0800
+author: steveaq
+categories: [Blogging, Data Sources]
+tags: [Getting started]
+math: true
+mermaid: true
+published: true
+image:
+  path: /commons/devices-mockup.png
+  width: 800
+  height: 500
 ---
 
 ### The Data Landscape

@@ -3,10 +3,11 @@
 title: On Data & Football
 date: 2022-02-15 11:04:34 +0800
 author: steveaq
-categories: [Blogging, Demo]
+categories: [Blogging, Intro Post]
 tags: [Getting started]
 math: true
 mermaid: true
+published: true
 image:
   path: /commons/devices-mockup.png
   width: 800
