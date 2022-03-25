@@ -1,8 +1,16 @@
 ---
 
 title: On Data & Football
-date: 2022-02-15 11:04:34 +0000
+date: 2022-02-15 11:04:34 +0800
+author: steveaq
+categories: [Blogging, Demo]
 tags: [Getting started]
+math: true
+mermaid: true
+image:
+  path: /commons/devices-mockup.png
+  width: 800
+  height: 500
 ---
 
 Football for me is an expression of a craft that is one of the only true meritocracies in society. Given that world view, I have always had a deep appreciation of the players who made the sport look effortless. 
