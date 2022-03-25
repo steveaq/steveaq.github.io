@@ -48,7 +48,7 @@ social:
     - https://github.com/stephenaq7      # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.linkedin.com/in/stephen-ahiabah-quarshie-3a9886a6/
 
 google_site_verification:               # fill in to your verification string
 
@@ -157,7 +157,7 @@ defaults:
       layout: page
       permalink: /:title/
   - scope:
-      path: _data/assets/img/favicons
+      path: assets/img/favicons
     values:
       swcache: true
   - scope:
