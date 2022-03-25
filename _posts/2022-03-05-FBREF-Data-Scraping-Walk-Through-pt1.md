@@ -15,7 +15,7 @@ image:
 
 Code & notebook for this post can be found [here](https://github.com/steveaq/Webs-Scraping-for-Fooball-Data-/blob/main/FBREF%20League%20%26%20Team%20Data%20Exploration.ipynb). 
 
-In my previous post, which you can find [here](), I outlined the current data landscape in the football analytics world including my picks for the best free resources out there.
+In my previous post, which you can find [here](https://steveaq.github.io/posts/Show-Me-The-Data-pt2/), I outlined the current data landscape in the football analytics world including my picks for the best free resources out there.
 
 
 This post is a part of series of posts, where we will explore how to use web-scraping packages available in python to get football data as efficiently as possible.
@@ -406,7 +406,7 @@ I've gone with the peak Age range of 25 to 27 as this is argued by Seife Dendir 
 
 The range was determined using WhoScored.com performance ratings of players in the four major top ﬂight leagues of Europe from 2010/11 to 2014/15. 
 
-![Napoli_Age_Squad_Chart](Napoli_Age_Squad_Chart.png)
+![Napoli_Age_Squad_Chart](images/Napoli_Age_Squad_Chart.png)
 
 
 As we can see, there's a troubling distribution here. Napoli have a high proprtion of players just about to exit their peak or past their peak with a siginifant share of league minutes. From just an eye ball I can see regular starters like Koulibaly, Di Lorenzo are very much on the 'wrong side of 30'. However we cant just take this data in isolation as there are obvious limitations a few are:
@@ -424,7 +424,7 @@ As mentioned previously, this data source has extensive minisites and other sub-
 
 Naturally when assesing a team we need performance data and the best place can look is the in FBRefs team specific fixture page Lets see if we can take some fixture data from another table in the website.
 
-![Napoli_Fixtures](Napoli_Fixture.png)
+![Napoli_Fixtures](images/Napoli_Fixture.png)
 
 We're going to write a similar function to what was used for the squad data scrape however we need to contruct a table with a new shape and new features match whats on the webpage: 
 
@@ -643,7 +643,7 @@ def generate_xg_analysis_chart(df):
 
 From this function, we are able to produce our xGD vs GD Performance chart. In this example the xGD per90 is calulated on a 5 game rolling average basis to correct for any swings in form that will detract fromt he insight we're trying to gain from this chart.
 
-![Napoli_GD_vs_xGD](GD_vs_xGD.png)
+![Napoli_GD_vs_xGD](images/GD_vs_xGD.png)
 
 From the chart we can see that Napoli started the league absolutely on fire, overperforming on their xGD by over a goal, the subsequent weeks up until MW 13 where can see a reversal of the good early season form, wherein now they are underperfroming on the thier xGD by a goal. 
 If we cross reference this against their league results, in this period, Napoli went 1 win in 5, losing to Inter, Atalanta and Empoli at home and drawing with Sassuolo. To go even further, the absense of Napoli's Talismanic forward Victor Osimhen also correlates to their weeks of underperformance in relation to xGD. Osimhen was out from the 21st of November till the 14th of January, so MW13 to MW22. Taking a second look at the chart, after MW22 is when we start to see Napoli start peforming above their xGD again. for refrence you can find Victor Osimhens injury record [here](https://www.transfermarkt.co.uk/victor-osimhen/verletzungen/spieler/401923) and I've added Napoli's league results [here](https://www.whoscored.com/Teams/276/Fixtures/Italy-Napoli).
@@ -896,7 +896,7 @@ fig.text(.325,.17,'Avg. Last 5 ppg', size=6, color='#c2c1c0',rotation=90)
 plt.savefig('xGChart.png', dpi=1200, bbox_inches = "tight")
 ```
 
-![ppg_vs_xdg_2](ppg_vs_xdg_2.png)
+![ppg_vs_xdg_2](images/ppg_vs_xdg_2.png)
 
 From this viz, we cans see that Napoli, although not accumulating that many points per game in the last 5 are still accruing a league leading xGD. Compared to a team like Sassuolo, we can see they are accumulating more points at similar pace to the league leaders AC Milan but at a negative xGD, possibly indicating a massive overperformance.
 Inter Milan & Atalanta are two examples of team that are not picking up as many points as the league average in the last 5 games but they are maintainting better xGDs than teams that are in form indicating a significant underperformance at present. 
