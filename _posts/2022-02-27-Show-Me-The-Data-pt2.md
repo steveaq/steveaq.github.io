@@ -31,20 +31,20 @@ In short, the data landscape for sports analytics is flush with options at our d
 This next batch of sources largely comprises platforms that offer either tiered services, that really focus more on match detail level data for more empirical analysis.
 
 - Basic : 
-    [Footystats](https://footystats.org/)
-    [Injuries-and-suspensions](https://injuriesandsuspensions.com/)
-    [Statista](https://www.statista.com/search/?q=Soccer&Search=)
+    - [Footystats](https://footystats.org/)
+    - [Injuries-and-suspensions](https://injuriesandsuspensions.com/)
+    - [Statista](https://www.statista.com/search/?q=Soccer&Search=)
 
 
 - Detailed event and tracking data for matches:
 
-    [Optasportspro](https://www.optasportspro.com/)
-    [Statsperform](https://www.statsperform.com/)
-    [Statsbomb](https://statsbomb.com/)
-    [Wyscout](https://wyscout.com/)
-    [Metrica-Sports](https://metrica-sports.com/)
-    [Statsbomb Open Data](https://github.com/statsbomb/open-data)
-    [Metrica Sports Open Data](https://metrica-sports.com/open-data-project/)
+    - [Optasportspro](https://www.optasportspro.com/)
+    - [Statsperform](https://www.statsperform.com/)
+    - [Statsbomb](https://statsbomb.com/)
+    - [Wyscout](https://wyscout.com/)
+    - [Metrica-Sports](https://metrica-sports.com/)
+    - [Statsbomb Open Data](https://github.com/statsbomb/open-data)
+    - [Metrica Sports Open Data](https://metrica-sports.com/open-data-project/)
 
 #### Are the pay-to-play platforms worth it for me?
 
