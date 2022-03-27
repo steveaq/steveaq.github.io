@@ -46,6 +46,10 @@ This next batch of sources largely comprises platforms that offer either tiered 
     - [Statsbomb Open Data](https://github.com/statsbomb/open-data)
     - [Metrica Sports Open Data](https://metrica-sports.com/open-data-project/)
 
+The following chart summarises the data-sources mentioned above and their various attributes:
+
+![datalist](/images/datalist.png)
+
 #### Are the pay-to-play platforms worth it for me?
 
 I’ve found in my research that if you really want to access this data, you're going to need deep pockets; however, you are assured of a much higher level of trustworthiness in the data and support for your special data needs. 
