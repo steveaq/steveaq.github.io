@@ -88,7 +88,7 @@ Let's load the data. For the sake of ease lets start with a squad page. I've gon
 ## Napoli Team Analysis
 
 
-#### Scraping Functions
+### Scraping Functions
 
  The first function requires the URL of squad to be passed, in order to return a pandas dataframe with the high level per/90 team stats available on this page.
 
@@ -124,7 +124,7 @@ def generate_squadlist(url):
     df.set_index("Player")
 ```
 
-#### Get list of players in squad
+### Get list of players in squad
 
 The above functions works on any page with this template so effectly any teams stats page will work with this function. 
 
@@ -142,7 +142,7 @@ Now lets have a look a the output
 
 ![Napoli_player_table](/images/Napoli_Player_table.png)
 
-#### Creating visualisations from based on web-scraped dataset
+### Creating visualisations from based on web-scraped dataset
 
 Okay so we've got a table with some good data. There 29 features availble including all of the match related stats in per 90 format. We even have ages and squad time. [Abhishek Sharma](https://sharmaabhishekk.github.io/projects/) provided some inspiration with his [notebook](https://sharmaabhishekk.github.io/mpl-footy/main/2021/08/09/squad-age-profile.html), where he creates a beautiful age-squad profile map. 
 
@@ -220,7 +220,7 @@ As we can see, there's a troubling distribution here. Napoli have a high proprti
 So all in all, a good start. We have managed to scrape data from FBREF, cleaned up the data we have gathered and then done some interesting data visualisations on top of this.
 As mentioned previously, this data source has extensive minisites and other sub-pages so lets take a look at scraping another on of those areas. 
 
-#### Scraping fixture data
+### Scraping fixture data
 
 Naturally when assesing a team we need performance data and the best place can look is the in FBRefs team specific fixture page Lets see if we can take some fixture data from another table in the website.
 
@@ -273,7 +273,7 @@ The resulting table will now look like this:
 
 ![Napoli_team_table](/images/Napoli_team_table.png)
 
-#### xExpected Goal Difference vs Goal Difference
+### xExpected Goal Difference vs Goal Difference
 
 Now lets dive deeper and investigate Napoli's league performance data. Naturally, you might start with looking at league standings, however we want to acertain how Napoli have performed over the course of the Season so far. 
 
@@ -337,7 +337,7 @@ If we cross reference this against their league results, in this period, Napoli 
 
 Great. Pretty simple work to get the get the data and we've done some analysis that checks out with the real world events. 
 
-#### xExpected Goal Difference vs Points Per Game
+### xExpected Goal Difference vs Points Per Game
 
 Finally we're going to have a look at the performance of the rest of the teams in the league. 
 I wrote another function to pull out the league data from this page. 
