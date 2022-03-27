@@ -83,7 +83,7 @@ from adjustText import adjust_text
 
 Let's load the data. For the sake of ease lets start with a squad page. I've gone with this as this page seems to have the most data in a table that is easy for the scrapper to access and retrieve the infomation from. I'm watching far more Serie A these days so the team I've gone with is Napoli. The fbref page used can be found [here](https://fbref.com/en/squads/d48ad4ff/Napoli-Stats).  
 
-![Napoli_Team](20220305/Napoli_Team.png)
+![Napoli_Team](_posts/20220305/Napoli_Team.png)
 
 ## Napoli Team Analysis
 
