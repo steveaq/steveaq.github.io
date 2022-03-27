@@ -69,3 +69,9 @@ Use of “expected” metrics for the evaluation of teams & players i.e. Expecte
 
 The relatively new field of prescriptive analytics allows users to “prescribe” a number of different possible actions and guide them towards a solution. In a nutshell, these analytics are all about providing advice. Prescriptive analytics attempts to quantify the effect of future decisions in order to advise on possible outcomes before the decisions are actually made. At their best, prescriptive analytics predict not only what will happen, but also why it will happen, providing recommendations regarding actions that will take advantage of the predictions. This category effectively aims to answer my initial hypothesis. 
 For the prescriptive analytics we will assess the actual validity of our predictive outcomes with respect to the real life scenario. 
+
+In [part two](https://steveaq.github.io/posts/Show-Me-The-Data-pt2/), we will assess the data landscape in football analytics and how that data can be used for meaningful analysis.
+ 
+ Thanks for reading,
+
+ Steve
