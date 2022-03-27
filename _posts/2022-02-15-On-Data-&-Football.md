@@ -2,7 +2,7 @@
 
 title: On Data & Football
 date: 2022-02-15 11:04:34 +0800
-author: steveaq
+author: stephenaq7
 categories: [Blogging, Intro Post]
 tags: [Getting started]
 math: true

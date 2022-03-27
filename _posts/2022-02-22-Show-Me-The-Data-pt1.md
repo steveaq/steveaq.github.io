@@ -1,7 +1,7 @@
 ---
 title: Show me the Data. pt.1
 date: 2022-02-22 17:14:34 +0800
-author: steveaq
+author: stephenaq7
 categories: [Blogging, Data Sources]
 tags: [Getting started]
 math: true

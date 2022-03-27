@@ -1,7 +1,7 @@
 ---
 title: 'FBREF Data Scraping Walkthough pt.1'
 date: 2022-03-05 16:35:34 +0800
-author: steveaq
+author: stephenaq7
 categories: [Tutorials, Web-scraping]
 tags: [Python]
 math: true
