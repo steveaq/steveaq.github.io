@@ -83,7 +83,7 @@ from adjustText import adjust_text
 
 Let's load the data. For the sake of ease lets start with a squad page. I've gone with this as this page seems to have the most data in a table that is easy for the scrapper to access and retrieve the infomation from. I'm watching far more Serie A these days so the team I've gone with is Napoli. The fbref page used can be found [here](https://fbref.com/en/squads/d48ad4ff/Napoli-Stats).  
 
-![Napoli_Team](images/Napoli_Team.png)
+![Napoli_Team](/images/Napoli_Team.png)
 
 ## Napoli Team Analysis
 
@@ -403,7 +403,7 @@ I've gone with the peak Age range of 25 to 27 as this is argued by Seife Dendir 
 
 The range was determined using WhoScored.com performance ratings of players in the four major top ﬂight leagues of Europe from 2010/11 to 2014/15. 
 
-![Napoli_Age_Squad_Chart](images/Napoli_Age_Squad_Chart.png)
+![Napoli_Age_Squad_Chart](/images/Napoli_Age_Squad_Chart.png)
 
 
 As we can see, there's a troubling distribution here. Napoli have a high proprtion of players just about to exit their peak or past their peak with a siginifant share of league minutes. From just an eye ball I can see regular starters like Koulibaly, Di Lorenzo are very much on the 'wrong side of 30'. However we cant just take this data in isolation as there are obvious limitations a few are:
@@ -421,7 +421,7 @@ As mentioned previously, this data source has extensive minisites and other sub-
 
 Naturally when assesing a team we need performance data and the best place can look is the in FBRefs team specific fixture page Lets see if we can take some fixture data from another table in the website.
 
-![Napoli_Fixtures](images/Napoli_Fixture.png)
+![Napoli_Fixtures](/images/Napoli_Fixture.png)
 
 We're going to write a similar function to what was used for the squad data scrape however we need to contruct a table with a new shape and new features match whats on the webpage: 
 
@@ -640,7 +640,7 @@ def generate_xg_analysis_chart(df):
 
 From this function, we are able to produce our xGD vs GD Performance chart. In this example the xGD per90 is calulated on a 5 game rolling average basis to correct for any swings in form that will detract fromt he insight we're trying to gain from this chart.
 
-![Napoli_GD_vs_xGD](images/GD_vs_xGD.png)
+![Napoli_GD_vs_xGD](/images/GD_vs_xGD.png)
 
 From the chart we can see that Napoli started the league absolutely on fire, overperforming on their xGD by over a goal, the subsequent weeks up until MW 13 where can see a reversal of the good early season form, wherein now they are underperfroming on the thier xGD by a goal. 
 If we cross reference this against their league results, in this period, Napoli went 1 win in 5, losing to Inter, Atalanta and Empoli at home and drawing with Sassuolo. To go even further, the absense of Napoli's Talismanic forward Victor Osimhen also correlates to their weeks of underperformance in relation to xGD. Osimhen was out from the 21st of November till the 14th of January, so MW13 to MW22. Taking a second look at the chart, after MW22 is when we start to see Napoli start peforming above their xGD again. for refrence you can find Victor Osimhens injury record [here](https://www.transfermarkt.co.uk/victor-osimhen/verletzungen/spieler/401923) and I've added Napoli's league results [here](https://www.whoscored.com/Teams/276/Fixtures/Italy-Napoli).
