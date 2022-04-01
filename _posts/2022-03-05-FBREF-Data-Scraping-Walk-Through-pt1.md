@@ -106,7 +106,7 @@ def generate_squadlist(url):
     columns = cols[8:37] #gets necessary column headers
     players = cols[37:-2]
 
-    #display(columns)
+    
     rows = [] #initliaze list to store all rows of data
     for rownum, row in enumerate(table.find_all('tr')): #find all rows in table
         if len(row.find_all('td')) > 0: 
@@ -122,6 +122,7 @@ def generate_squadlist(url):
     df['Nation'] = df['Nation'].str[3:]
     # df["team"] = name
     df.set_index("Player")
+    return df
 ```
 
 ### Get list of players in squad
@@ -182,7 +183,7 @@ def squad_age_profile_chart(df, team_name):
         for spine in ["top", "right"]:
                 ax.spines[spine].set_visible(False)
                 ax.spines[spine].set_color(line_color)
-        # ax.yaxis.set_major_formatter(mtick.PercentFormatter())
+       
         ax.xaxis.set_ticks(range(16, 44, 4)) ##fix the tick frequency 
         ax.xaxis.label.set(fontsize=12, fontweight='bold')
         ax.yaxis.label.set(fontsize=12, fontweight='bold') ## increase the weight of the axis labels
@@ -328,7 +329,7 @@ def generate_xg_analysis_chart(df):
                                         {"color": xgd_color}])
 ```
 
-From this function, we are able to produce our xGD vs GD Performance chart. In this example the xGD per90 is calulated on a 5 game rolling average basis to correct for any swings in form that will detract fromt he insight we're trying to gain from this chart.
+From this function, we are able to produce our xGD vs GD Performance chart. In this example the xGD per90 is calulated on a 5 game rolling average basis to correct for any swings in form that will detract from the insight we're trying to gain from this chart.
 
 ![Napoli_GD_vs_xGD](/images/GD_vs_xGD.png)
 
@@ -353,7 +354,7 @@ def generate_league_data(x):
     table = soup.find("tbody")
 
     pre_df = dict()
-    features_wanted =  {"squad" , "games","wins","draws","losses", "goals_for","goals_against", "points", "xg_for","xg_against","xg_diff","attendance","xg_diff_per90", "last_5"} #add more features here!!
+    features_wanted =  {"squad" , "games","wins","draws","losses", "goals_for","goals_against", "points", "xg_for","xg_against","xg_diff","attendance","xg_diff_per90", "last_5"} 
     rows = table.find_all('tr')
     for row in rows:
         for f in features_wanted:
@@ -483,7 +484,7 @@ Looking at the other end of the chart, we can see several mid-table teams partic
 
 ## Conclusion
 
-As mentioned in the into to this post I was looking to achieve the follwing key items: 
+As mentioned in the intro to this post I was looking to achieve the follwing key items: 
 
 - [x] *Create a set of working functions to aggregate data from FBREF.*
 - We have done so, taking 3 seprate data-tables from FBREF minisites and converting them into pandas data frames
