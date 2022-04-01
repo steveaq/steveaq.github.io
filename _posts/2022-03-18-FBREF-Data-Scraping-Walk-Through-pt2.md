@@ -425,7 +425,7 @@ def compare_players_percentile(x):
 ![full_radar](/images/full_radar.png)
 
 Here, we now have a visulisation that can be extremely insightful for comparing platers of a similar position and hence helping us start to answer which metrics are going to be useful to make some predictions on player position suitability. We can use charts like this to infer the attributes that are more or less important for any given position. 
-In this example, we can see that it can be seen above that despite leading in several attacking metrics, Foden exists in a very low percentile for a number of defensive attributes, whilst Saka appears to be a more rounded player. Now of course these players play the attacking midfield/forward roles with different instuctions and in different formation systems, but seeing as we are also assessing which percentile they exist in compared to the entire FBRef database, this is incredibly useful information. 
+In this example, we can see that it can be seen above that despite leading in several attacking metrics, Foden exists in a very low percentile for a number of defensive attributes, whilst Saka appears to be a more rounded player. Now of course these players play the attacking midfield/forward roles with different instuctions and in different formation systems, but seeing as we are also assessing which percentile they exist in compared to the entire FBRef database, this is incredibly useful information. We can conclude without much doubt that the resounding winner of our 'England Star-Boy' analysis is Phil Foden.
 
 ### Attribute Specific Radar-Plots
 
