@@ -23,7 +23,7 @@ Although there is still one action not currently explored:
 - [ ] *Assess the meaningful metrics we need to start making some predictions on player suitability to positions.*
 
 
-We have not yet aquired any player level data. This post will outline the methods by which player level performance data can be webscraped from FBREF.com and using that information to compare player metrics. Most of the code has been repurposed from this great [article](https://frankphopkins.medium.com/scraping-fbref-to-perform-comparative-football-player-analysis-cb8a1a2675a6) from [Frank Hopkins](https://frankphopkins.medium.com/) on how to scrape data from FBREF in order to compare players.  
+We have not yet aquired any player level data. This post will outline the methods by which player level performance data can be webscraped from FBREF.com and how to use that information to compare player metrics. Some of the code in this post has been repurposed from this great [article](https://frankphopkins.medium.com/scraping-fbref-to-perform-comparative-football-player-analysis-cb8a1a2675a6) from [Frank Hopkins](https://frankphopkins.medium.com/) on how to scrape data from FBREF in order to compare players.  
 
 Code and notebook for this post can be found [here](https://github.com/steveaq/Webs-Scraping-for-Fooball-Data-/blob/main/FBREF%20League%20%26%20Team%20Data%20Exploration.ipynb). 
 
@@ -463,7 +463,7 @@ We have managed to do so, and through employing more advanced data visualisation
 
 Webscraping has proved to be a useful way of circumventing the problematic mnature of finding data for a sports analytics task. The Beautiful Soup Python library, does the majority of the heavy lifting for you when scanning a website for useful information. 
 
-However accessing player and team URLs is still a clunky process that requires me to search for the page on web-browers and copy the link over to my notebooks. In order to make any more significant in-roads outside of making some nice charts, the scale of analysis has to increase and the current methods I have used are not seemless enough. So I've decided to add another action that we will explore which is to: 
+However accessing player and team URLs is still a clunky process that requires me to search for the page on web-browers and copy the link over to my notebooks. In order to make any more significant in-roads outside of making some nice charts, the scale of analysis has to increase and the current methods I have used are not seemless enough. So I've decided to add another action that we will explore, which is to: 
 
 - [ ] *Build a method to programaticaly access player & team level data with minimal input*
 
