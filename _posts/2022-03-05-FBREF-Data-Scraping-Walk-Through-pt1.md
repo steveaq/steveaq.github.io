@@ -282,7 +282,7 @@ Goal Difference vs Expected Goal difference, in my opinion is really good way to
 Going further, we could overlay this chart with key event data such change of manager, formation and even injuries to key players to allow for more comprehensive analysis.
 
 ```python
-def generate_xg_analysis_chart(df):
+def generate_xg_analysis_chart(df,team_name):
         window = 5
         gd_color = "green"
         xgd_color = "blue"
