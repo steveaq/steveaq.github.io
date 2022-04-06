@@ -12,13 +12,13 @@ published: true
 
 In part two of the data scraping walk through, we successfully achieved the following items; 
 
- [x] *Create a set of working functions to aggregate data from FBREF.*
+[x] *Create a set of working functions to aggregate data from FBREF.*
 
- [x] *Perform a series of data munging tasks to get easy to to use datasets ready for analysis.* 
+[x] *Perform a series of data munging tasks to get easy to to use datasets ready for analysis.* 
 
- [x] *Create a series of Data Visualisations from these cleaned datasets.* 
+[x] *Create a series of Data Visualisations from these cleaned datasets.* 
 
- [x] *Assess the meaningful metrics we need to start making some predictions on player suitability to positions.*
+[x] *Assess the meaningful metrics we need to start making some predictions on player suitability to positions.*
 
 I also added a new action to the objective of this task to: 
 
