@@ -334,7 +334,10 @@ From this function, we are able to produce our xGD vs GD Performance chart. In t
 ![Napoli_GD_vs_xGD](/images/GD_vs_xGD.png)
 
 From the chart we can see that Napoli started the league absolutely on fire, overperforming on their xGD by over a goal, the subsequent weeks up until MW 13 where can see a reversal of the good early season form, wherein now they are underperfroming on the thier xGD by a goal. 
-If we cross reference this against their league results, in this period, Napoli went 1 win in 5, losing to Inter, Atalanta and Empoli at home and drawing with Sassuolo. To go even further, the absense of Napoli's Talismanic forward Victor Osimhen also correlates to their weeks of underperformance in relation to xGD. Osimhen was out from the 21st of November till the 14th of January, so MW13 to MW22. Taking a second look at the chart, after MW22 is when we start to see Napoli start peforming above their xGD again. for refrence you can find Victor Osimhens injury record [here](https://www.transfermarkt.co.uk/victor-osimhen/verletzungen/spieler/401923) and I've added Napoli's league results [here](https://www.whoscored.com/Teams/276/Fixtures/Italy-Napoli).
+
+If we cross reference this against their league results, in this period, Napoli went 1 win in 5, losing to Inter, Atalanta and Empoli at home and drawing with Sassuolo. To go even further, the absense of Napoli's Talismanic forward Victor Osimhen also correlates to their weeks of underperformance in relation to xGD. Osimhen was out from the 21st of November till the 14th of January, so MW13 to MW22. 
+
+Taking a second look at the chart, after MW22 is when we start to see Napoli start peforming above their xGD again. for refrence you can find Victor Osimhens injury record [here](https://www.transfermarkt.co.uk/victor-osimhen/verletzungen/spieler/401923) and I've added Napoli's league results [here](https://www.whoscored.com/Teams/276/Fixtures/Italy-Napoli).
 
 Great. Pretty simple work to get the get the data and we've done some analysis that checks out with the real world events. 
 

@@ -15,6 +15,12 @@
   icon: 'fas fa-rss'
   noblank: true
 
+-
+  type: linkedin
+  icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
+  url:  'https://www.linkedin.com/in/stephen-ahiabah-quarshie-3a9886a6/'                  # Fill with your Linkedin homepage
+
+
 # Uncomment and complete the url below to enable more contact options
 # -
 #   type: mastodon
