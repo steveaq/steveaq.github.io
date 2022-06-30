@@ -7,7 +7,6 @@ tags: [Python]
 math: true
 mermaid: true
 published: true
-
 ---
 
 In part two of the data scraping walk through, we successfully achieved the following items; 
@@ -27,7 +26,7 @@ I also added a new action to the objective of this task to:
 In my period of research, I found sifting through the data extremely difficult. With FBREF, the webpage has been built with the User Experience of the viewers of the website in mind.
 I found 2 major issues when trying to build a way to easily access the data available of on the site.
 
-1. There isnt an obvious logic to contructing the URLs of players and teams
+1. There isn't an obvious logic to contructing the URLs of players and teams
 
 For Example:
 URLs for teams in the same league look like this:
@@ -41,7 +40,7 @@ So, it's not possible to just change the team name in order to get to the corect
 
 2. There are drop-down menus, filters, view-toggles and various sub pages within other sub-pages that are required to access more granular data, for both Players & Teams. Each of these pages has their own unique URL.
 
-For example, the hyperlinks at the bottom of screen grabs, show the sub-pages where all the mpre granular data exists:
+For example, the hyperlinks at the bottom of screen grabs, show the sub-pages where all the more granular data exists:
 
 Player Stats; 
 
@@ -51,9 +50,9 @@ Team Stats;
 
 ![brentford](/images/brentford.png)
 
-There is rough pattern with these URLs so it’s possible to write some functions to programmatically search through A database of URLs to acquire play a level data in an efficient way. And using the webscraper, we can collect the URL links of sub-pages from the parent pages. 
+There is rough pattern with these URLs, so it’s possible to write some functions to programmatically search through a database of URLs to acquire player level data in an efficient way. By using the webscraper, we can collect the URL links of sub-pages from the parent pages. 
 
-Using this basis, we can need to build a database of both Team and Player URLs given we can access the correct parent-page. Once we have the player & team URLs, we can add features like; Name, Age, Position, and playing time, to help us query the database and easily get a hold of the information we need, without having to open a webpage. 
+Using this basis, we can build a database of both Team and Player URLs, given the correct parent-page is accessed. Once we have the player & team URLs, we can add features like; Name, Age, Position, and playing-time. These fields will help us query the database to easily get a hold of the information we need, without having to open a webpage and copy the links every time. At the end of this exercise, key outputs we are trying to assemble iare effectiely 2 databases/tables. One with players and the other with teams complete with basic imformation and their relevant hyper-link in FBREF. This can be saved down and used whenever we want to quickly generate visualisations etc. 
 
 
 ## Setup
@@ -84,7 +83,7 @@ from fuzzywuzzy import process
 ```
 ### Extra Packages to install
 
-Before we start, there are few installations we need to do to make sure our functions work as seemlessly as possible. The links to these pakages can be found below. 
+Before we start, there are few installations we need to do to ensure our functions work as seemlessly as possible. The links to these pakages can be found below. 
 
 - URLLIB 3 is a dependency we need in order to help us efficently collect the URLs from the FBREF parent pages 
 
@@ -93,8 +92,7 @@ Before we start, there are few installations we need to do to make sure our func
     ```
     [urllib3](https://pypi.org/project/urllib3/)
 
-- Fuzzywuzzy, yes it's actually called that. This is a handy packages that will help us match player names, if incase the player name has a foriegn character in there ie 
-Martin Ødegaard vs Martin Odegaard
+- Fuzzywuzzy, yes it's actually called that. This is a handy packages that will help us match player names, if incase the player name has a foriegn (non-english) character in there e.g; Martin Ødegaard &rarr; Martin Odegaard
 
     ```python
     pip install fuzzywuzzy
@@ -113,7 +111,7 @@ Martin Ødegaard vs Martin Odegaard
 
 Let's start off with getting the team URLs. We can get the URLs of every team in a given league, from the league stats page in FBREF. 
 
-I have written a fucntion that only requires the the URL of a league stats page to construct a data frame of just team names and their respective URLs. So using the [EPL stats page](https://fbref.com/en/comps/9/Premier-League-Stats") as an example, lets have a look at the output. 
+I have written a function that only requires the the URL of a league stats page to construct a dataframe of just team names and their respective URLs. So using the [EPL stats page](https://fbref.com/en/comps/9/Premier-League-Stats") as an example, lets have a look at the output. 
 
 ### Getting Team URLs
 
@@ -146,17 +144,17 @@ full_urls = list(team_urls.urls.unique())
 
 ![elp_urls_df](/images/elp_urls_df.png)
 
-Great start, we can save this dataframe and whenever we want to team level data, we can just query the team name to generate the URL without having to open a web-browers. A further development of this would be to pass a list of the stats pages of all the top 5 leagues to construct a larger data frame that we can save for later. I'm just sticking with the EPL in this example so the code can run quickly. 
+Great start, we can save this dataframe and whenever we want to team level data, we can just query the team name to generate the URL without having to open a web-brower. A further development of this would be to pass a list of the stats pages of all the top 5 leagues to construct a larger data frame that we can save for later. I'm just sticking with the EPL in this example so the code can run quickly. 
 
 Let's now see if we can do the same for players in the same league
 
 ### Important Functions
 
 As I mentioned before, there are a myriad of pitfalls and issues when I tried to make this and the biggest on was getting the player names to match the URLs. 
-The EPL being the cultural melting pot that is currently exists at today has several players with non ASCII characters in their names. TLDR, loads of players are foriegn and have non english standard alphanumeric characters in their names. The following 2 function help us get around that.
+The EPL being the cultural melting pot that it currently exists as today has several players with non ASCII characters in their names. TLDR, loads of players are foriegn and have non english standard alphanumeric characters in their names. The following 2 function help us get around that.
 
  Remove accents, converts all the characters of a player name into english standard characters. As these non english characters dont always relay back to the characters we expect ie; 
-we expect Martin Ødegaard &rarr; Martin Odegaard, however we get Martin Ødegaard &rarr; Martin Oedegaard. We need to use the fuzzy merge fucntion that acts as a more accurate 'closest' match much like using an approximate match on VLOOKUP in MS Excel to ensure we are joining the correct URL to the correct player and further down the line when we query the database we don't need to worry about totally correct spelling or special characters. 
+we expect Martin Ødegaard &rarr; Martin Odegaard, however we get Martin Ødegaard &rarr; Martin Oedegaard. We need to use the fuzzy merge fucntion that acts as a more accurate 'closest' match much like using an approximate match on VLOOKUP in MS Excel to ensure we are joining the correct URL to the correct player and further down the line when we query the database we don't need to worry about *totally* correct spelling or special characters. 
 
 
 ```python
@@ -261,7 +259,7 @@ def general_url_database(full_urls):
 
 ### Data Cleaning
 
-Okay we're moving in the right direction however, we still need to do some housekeeping to make sure we can query this database easily. Firstly, we need to sort out the ages column, the data seems to constructed in age in years and days format, and more importantly the data type of this column is string so we need to convert that into an interger format.  
+Okay we're moving in the right direction however, we still need to do some housekeeping to make sure we can query this database easily. Firstly, we need to sort out the ages column, the data seems to constructed in age in years and days format, and more importantly the data type of this column is string so we need to convert that into an integer format.  
 
 ```python
 def years_converter(variable_value):
@@ -280,7 +278,7 @@ EPL_Player_db = EPL_Player_db.drop(columns=['matches'])
 
 ### Getting detailed scouting report URLs
 
-As I had mentioned previously, one of the issues with scraping FBREF is that there are sub pages within other sub-pages that are required to access more granular data. However there does exist a page called the 365 Scouting report where hundreds of player metrics are available, in far more detail than just the regular stats page where we have previously explored in [part 2](https://steveaq.github.io/posts/FBREF-Data-Scraping-Walk-Through-pt2/). In order to perfrom more detailed analysis will be needed to get data from this page for all player going forward, so we need the option of having this URL at hand. 
+As I had mentioned previously, one of the issues with scraping FBREF is that there are sub-pages within other sub-pages that are required to access more granular data. However there does exist a page called the *365 Scouting report*  where hundreds of player metrics are available, in far more detail than just the regular stats page where we have previously explored in [part 2](https://steveaq.github.io/posts/FBREF-Data-Scraping-Walk-Through-pt2/). In order to perfrom more detailed analysis, it would make a lot of sense to get all our data from this *365 Scouting report* for all players going forward, so we need the option of having this URL at hand. 
 
 The issue is again is that URL for this page is again different to that of the parent page. 
 
@@ -288,7 +286,7 @@ The issue is again is that URL for this page is again different to that of the p
 
 - Detailed Stats URL: https://fbref.com/en/players/e09f279b/scout/365_euro/Ivan-Toney-Scouting-Report
 
-Luckily there exists a rough pattern with trying to generate the Detailed Stats URL. The following fucntion constructs that URL and appends it on the EPL player database we have just created.
+Luckily there exists a rough pattern with trying to generate the Detailed Stats URL. The following function constructs that URL and appends it on the EPL player database we have just created.
 
 ```python
 def get_360_scouting_report(url):    
@@ -316,7 +314,7 @@ array(['GK', 'DF', 'FW,MF', 'FW', 'MF,FW', 'MF', 'MF,DF', 'DF,FW',
        'DF,MF', 'FW,DF'], dtype=object)
 ```
 
-In order to easily search through these combinations, I have grouped some of these psositons together. The segmentation was decided by me, feel free to edit it if you think it can be refined.
+In order to easily search through these combinations, I have grouped some of these positions together. The segmentation was decided by me, feel free to edit it if you think it can be refined.
 
 ```python
 keepers = ['GK']
@@ -442,7 +440,7 @@ In this iteration we have far greater number of players available than just the 
 
 Again in the case of Arsenal, we are in dire need of a Central Midfielder, to eventually replace Granit Xhaka as Left sided CM. So we're looking for someone who is not only an very progressive mover of the ball to help us dominante the oppsition in their own defensive 3rd, but we also need a guy who is efficent at making these passes. So I have written a function to plot the Progressive Actions Per 90 vs Number of passes attempted per 90. 
 
-I have defined "Progressive_Actions_p90" as 'Progressive Passes' + 'Progressive Carries'. This is to also consider the players who dribble more as well as. 
+I have defined "Progressive_Actions_p90" as 'Progressive Passes' + 'Progressive Carries'. This is to also considers the players who dribble more as well as. 
 
 I have shaded a zone in green to illustrate where the elite performers in this metrics exist. 
 
@@ -536,7 +534,7 @@ def generate_advanced_data(scout_links):
 
 ![CM_ALL_STATS](/images/CM_ALL_STATS.png)
 
-As we now have all the stats needed for the players, 120 in total, it's best to catergorise them. The snippet below shows how I've grouped all the stats together. i have tried to keep as close to what is used in FBREF but with some slight changes. 
+As we now have all the stats needed for the players, 120 in total, it's best to catergorise them. The snippet below shows how I've grouped all the stats together. I have tried to keep as close to what is used in FBREF but with some slight changes. 
 
 ```python
 attacking = ["Name",'Goals', 'Assists', 'Non-Penalty Goals','Penalty Kicks Attempted', 'xG',
@@ -586,7 +584,7 @@ dicipline = ["Name", 'Yellow Cards', 'Red Cards','Second Yellow Card', 'Fouls Co
 smarts = ["Name",'Penalty Kicks Won','Fouls Drawn']
 ```
 
-Now that we have categorised our metrics lets take a look at their attacking numbers. 
+Now that we have categorised our metrics let's take a look at their attacking numbers. 
 
 ```python
 per_90_dataframe = appended_data_per90[attacking]
