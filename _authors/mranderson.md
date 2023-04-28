@@ -2,12 +2,12 @@
 layout: author
 photo: /assets/img/uploads/profile.png
 name: mranderson
-display_name: Mr. Anderson
+display_name: Steve Ahiabah-Quarshie
 position: The One
-bio: Bulletproof hacker passionate about leather clothes.
-github_username: github_username
+bio: Football Fanalyst & Risk Quant.
+github_username: steveaq
 facebook_username: facebook_username
-twitter_username: twitter_username
+twitter_username: stephenaq7
 instagram_username: instagram_username
 linkedin_username: linkedin_username
 medium_username: medium_username

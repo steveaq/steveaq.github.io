@@ -11,9 +11,12 @@ permalink: /about/
 
 # About
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Hi, my name is Stephen Ahiabah-Quarshie 
+
+I am currently a Quantitive Risk Analyst @ Nawest Group. Over the course of the last few years, I've found my passion in the world of ML and sports analytics has massively grown, so I decided to start this blog to learn more about these topics in public. From coding to tactics and also, applications of ML in football.
+
+In this blog I’ll write about some things I learnt along the way, starting from zero, to what I’m working on today.
+
+Feel free to reach out to me on [twitter](https://twitter.com/stephenaq7)!
+
+Steve
