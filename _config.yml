@@ -17,7 +17,7 @@ menu:
   - title: Viz Gallery
     url: /viz-gallery
   - title: Navigation
-  url: /navigation
+    url: /navigation
   - title: Contact
     url: /contact
   - title: Feed
