@@ -229,6 +229,8 @@ As we can see, there's a troubling distribution here. Napoli have a high proprti
 So all in all, a good start. We have managed to scrape data from FBREF, cleaned up the data we have gathered and then done some interesting data visualisations on top of this.
 As mentioned previously, this data source has extensive minisites and other sub-pages so lets take a look at scraping another on of those areas. 
 
+--page-break--
+
 ### Scraping fixture data
 
 Naturally when assesing a team we need performance data and the best place can look is the in FBRefs team specific fixture page Lets see if we can take some fixture data from another table in the website.
