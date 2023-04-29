@@ -1,14 +1,22 @@
 ---
-title: 'FBREF Data Scraping Walkthough pt.1'
-date: 2022-03-05 16:35:34 +0800
-author: stephenaq7
-categories: [Tutorials, Web-scraping]
-tags: [Python]
-math: true
-mermaid: true
-published: true
 
+layout: post
+title: 'FBREF Data Scraping Walkthough pt.1'
+subtitle: 'Overview of the data sources currently available for all levels'
+description: >-
+  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+image: >-
+  https://pbs.twimg.com/media/FTiJzEsWUAIJ9Hp?format=jpg&name=small
+optimized_image: >-
+  https://pbs.twimg.com/media/FTiJzEsWUAIJ9Hp?format=jpg&name=small
+category: [Player & Team Analysis]
+tags:
+  - Blogging
+  - Data Viz
+author: stephenaq7
+paginate: true
 ---
+
 
 Code and notebook for this post can be found [here](https://github.com/steveaq/Webs-Scraping-for-Fooball-Data-/blob/main/FBREF%20League%20%26%20Team%20Data%20Exploration.ipynb). 
 

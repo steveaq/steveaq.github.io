@@ -14,11 +14,13 @@ menu:
     url: /
   - title: About
     url: /about
+  - title: Viz Gallery
+    url: /viz-gallery
   - title: Contact
     url: /contact
   - title: Feed
     url: /feed.xml
-email: youremail@test.com
+email: stephen.ahiabah@hotmail.com
 # See: https://disqus.com/
 disqus_username: disqus_username
 # Contact Form Setting

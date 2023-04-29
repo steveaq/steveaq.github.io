@@ -1,13 +1,19 @@
 ---
+layout: post
 title: 'FBREF Data Scraping Walkthough pt.2'
-date: 2022-03-18 13:15:34 +0800
+subtitle: 'Overview of the data sources currently available for all levels'
+description: >-
+  2nd Part of a 3 part post going through the basics of writing some more detailed functions to get high quality player & team data from FBREF
+image: >-
+  https://pbs.twimg.com/media/FTiJzuKXoAA4kn_?format=jpg&name=900x900
+optimized_image: >-
+  https://pbs.twimg.com/media/FTiJzuKXoAA4kn_?format=jpg&name=900x900
+category: [Player & Team Analysis]
+tags:
+  - Blogging
+  - Data Viz
 author: stephenaq7
-categories: [Tutorials, Web-scraping]
-tags: [Python]
-math: true
-mermaid: true
-published: true
-
+paginate: true
 ---
 
 In part one of the data scraping walk through, we successfully achieved the following items; 

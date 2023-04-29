@@ -1,16 +1,20 @@
 ---
 
+layout: post
 title: On Data & Football
-date: 2022-02-15 11:04:34 +0800
+subtitle: 'Motivations and Brief Project outline.'
+description: >-
+  A brief rundown of my ideas, what I will be posting on this blog.
+image: >-
+  https://newsimg.bbc.co.uk/media/images/41706000/gif/_41706982_4_4_2_416.gif
+optimized_image: >-
+  https://newsimg.bbc.co.uk/media/images/41706000/gif/_41706982_4_4_2_416.gif
+category: [Intro Post]
+tags:
+  - Blogging
+  - Getting started
 author: stephenaq7
-categories: [Blogging, Intro Post]
-tags: [Getting started]
-math: true
-mermaid: true
-published: true
-image:
-  width: 800
-  height: 500
+paginate: true
 ---
 
 Football for me is an expression of a craft that is one of the only true meritocracies in society. Given that world view, I have always had a deep appreciation of the players who made the sport look effortless. 

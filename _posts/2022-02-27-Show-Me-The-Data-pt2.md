@@ -1,17 +1,22 @@
 ---
+
+layout: post
 title: Show me the Data. pt.2
-date: 2022-02-27 17:14:34 +0800
+subtitle: 'Overview of the data sources currently available for all levels'
+description: >-
+  1st Part of a 2 part post going through where we can find good quality & free data for analysis.
+image: >-
+  https://researchoutreach.org/wp-content/uploads/2020/01/SciSports-Main-Image.jpg
+optimized_image: >-
+  https://researchoutreach.org/wp-content/uploads/2020/01/SciSports-Main-Image.jpg
+category: [Intro Post]
+tags:
+  - Blogging
+  - Getting started
 author: stephenaq7
-categories: [Blogging, Data Sources]
-tags: [Getting started]
-math: true
-mermaid: true
-published: true
-image:
-  path: /commons/devices-mockup.png
-  width: 800
-  height: 500
+paginate: true
 ---
+
 
 ### The Data Landscape
 

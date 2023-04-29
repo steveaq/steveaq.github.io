@@ -14,6 +14,8 @@ menu:
     url: /
   - title: About
     url: /about
+  - title: Viz Gallery
+    url: /viz-gallery
   - title: Contact
     url: /contact
   - title: Feed
@@ -32,7 +34,7 @@ github_username: steveaq
 facebook_username: facebook_username
 twitter_username: stephenaq7
 instagram_username: instagram_username
-linkedin_username: linkedin_username
+linkedin_username: stephen.ahiabah@hotmail.com
 medium_username: medium_username
 
 
