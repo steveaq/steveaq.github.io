@@ -7,9 +7,9 @@ subtitle: 'Overview of the data sources currently available for all levels'
 description: >-
   1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
 image: >-
-  https://pbs.twimg.com/media/Fupd4xVWYAEtxLn?format=jpg&name=large
+  https://sharmaabhishekk.github.io/images/player_roles_clustering/clustering_tsne_labelled.png
 optimized_image: >-
-  https://pbs.twimg.com/media/Fupd4xVWYAEtxLn?format=jpg&name=large
+  https://sharmaabhishekk.github.io/images/player_roles_clustering/clustering_tsne_labelled.png
 category: [Analytics]
 tags:
   - Blogging

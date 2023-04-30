@@ -7,9 +7,9 @@ subtitle: 'Overview of the data sources currently available for all levels'
 description: >-
   1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
 image: >-
-  https://pbs.twimg.com/media/Fupd4xVWYAEtxLn?format=jpg&name=large
+  https://cafetactiques.files.wordpress.com/2023/04/xpts-corr-tableau-.png
 optimized_image: >-
-  https://pbs.twimg.com/media/Fupd4xVWYAEtxLn?format=jpg&name=large
+  https://cafetactiques.files.wordpress.com/2023/04/xpts-corr-tableau-.png
 category: [Analytics]
 tags:
   - Blogging
