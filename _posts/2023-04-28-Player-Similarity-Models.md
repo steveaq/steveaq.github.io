@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: Building Player Similarity Model
+title: Building a Player Similarity Model
 
 subtitle: 'Overview of the data sources currently available for all levels'
 description: >-
