@@ -5,9 +5,9 @@ subtitle: 'Data Engineering and Visuals based on xG Metrics'
 description: >-
   3rd Part of a 3 part post going through the basics of writing some more detailed functions to get high quality player & team data from FBREF focusing on building a programatically sound & automated database to query 
 image: >-
-  https://pbs.twimg.com/media/FuQZ-e0WIAoQpzf?format=jpg&name=large
+  https://1drv.ms/i/s!AiwF3zAMLcUGgi7j94SuCzWXTnpd?e=mwIJAr
 optimized_image: >-
-  https://pbs.twimg.com/media/FuQZ-e0WIAoQpzf?format=jpg&name=large
+  https://1drv.ms/i/s!AiwF3zAMLcUGgi7j94SuCzWXTnpd?e=mwIJAr
 category: [Data Visualisation]
 tags:
   - Blogging
