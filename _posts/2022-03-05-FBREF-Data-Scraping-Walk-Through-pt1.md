@@ -1,10 +1,9 @@
 ---
-
 layout: post
-title: 'FBREF Data Scraping Walkthough pt.1'
-subtitle: 'Overview of the data sources currently available for all levels'
+title: FBREF Data Scraping Walk Through pt1
+subtitle: Step-by-step guide to scraping football data from FBREF
 description: >-
-  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+  This post presents a comprehensive tutorial on scraping football data from FBREF. Part 1 covers the basics of web scraping and provides a step-by-step walkthrough to extract football data using Python. Start harnessing the power of FBREF data for your analyses!
 image: >-
   https://pbs.twimg.com/media/FTiJzEsWUAIJ9Hp?format=jpg&name=small
 optimized_image: >-

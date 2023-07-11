@@ -1,22 +1,21 @@
 ---
-
 layout: post
-title: Player Roles Clustering Analysis
-
-subtitle: 'Overview of the data sources currently available for all levels'
+title: Player Roles Clustering
+subtitle: Analyzing and categorizing football player roles through clustering
 description: >-
-  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+  In this post, we explore player role analysis and clustering techniques in football. Discover how to categorize players based on their playing styles, positions, and attributes using clustering algorithms. Unveil the underlying patterns and gain insights into the different player roles in football.
 image: >-
   https://sharmaabhishekk.github.io/images/player_roles_clustering/clustering_tsne_labelled.png
 optimized_image: >-
   https://sharmaabhishekk.github.io/images/player_roles_clustering/clustering_tsne_labelled.png
+
 category: [Analytics]
 tags:
   - Blogging
   - Data Science
 author: stephenaq7
-
 ---
+
 
 In part two of the data scraping walk through, we successfully achieved the following items; 
 

@@ -1,22 +1,22 @@
 ---
-
 layout: post
-title: Building a Player Similarity Model
-
-subtitle: 'Overview of the data sources currently available for all levels'
+title: Player Similarity Models
+subtitle: Exploring player similarity analysis in football
 description: >-
-  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+  This post delves into the concept of player similarity analysis in football. Discover various player similarity models and techniques, explore their applications in talent scouting, team building, and performance evaluation. Unlock the power of player similarity analysis for insightful football analytics.
 image: >-
     https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2Rpc3RhbmNlLWZvcm11bGEuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0=
 optimized_image: >-
   https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2Rpc3RhbmNlLWZvcm11bGEuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0=
-category: [Analytics]
+
+category: [Data Science]
 tags:
   - Blogging
   - Data Science
+  - Models
 author: stephenaq7
-
 ---
+
 
 In part two of the data scraping walk through, we successfully achieved the following items; 
 

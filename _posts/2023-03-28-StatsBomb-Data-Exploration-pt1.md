@@ -1,20 +1,20 @@
 ---
 layout: post
-title: Statsbomb Data Exploration pt1
-subtitle: 'Overview of the data sources currently available for all levels'
+title: StatsBomb Data Exploration pt1
+subtitle: Introduction to exploring football data with StatsBomb
 description: >-
-  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+  This post provides an introduction to exploring football data with StatsBomb. Part 1 covers the fundamentals of accessing and analyzing football datasets from StatsBomb, offering insights into player performance, team tactics, and more. Get ready to unlock the power of StatsBomb data!
 image: >-
-  https://pbs.twimg.com/media/FnkZDcHWYAAU4rK?format=jpg&name=small
+  https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=900x900
 optimized_image: >-
-  https://pbs.twimg.com/media/FnkZDcHWYAAU4rK?format=jpg&name=small
-category: [Match Analysis]
+  https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=900x900
+category: [Analytics]
 tags:
   - Blogging
-  - Data Viz
+  - Data Science
 author: stephenaq7
-paginate: true
 ---
+
 
 Code and notebook for this post can be found [here](https://github.com/steveaq/Webs-Scraping-for-Fooball-Data-/blob/main/FBREF%20League%20%26%20Team%20Data%20Exploration.ipynb). 
 

@@ -1,21 +1,20 @@
 ---
-
 layout: post
-title: Statsbomb Data Exploration pt3
-subtitle: 'Overview of the data sources currently available for all levels'
+title: StatsBomb Data Exploration pt3
+subtitle: Extracting valuable insights from StatsBomb football data
 description: >-
-  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+  In the final part of the StatsBomb data exploration series, this post focuses on extracting valuable insights from StatsBomb football data. Learn how to uncover trends, perform statistical analysis, and generate meaningful visualizations using the comprehensive football datasets provided by StatsBomb.
 image: >-
-  https://pbs.twimg.com/media/FuUVtsfXsAAjFhb?format=jpg&name=large
+    https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small
 optimized_image: >-
-  https://pbs.twimg.com/media/FuUVtsfXsAAjFhb?format=jpg&name=large
-category: [Match Analysis]
+    https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small
+category: [Analytics]
 tags:
   - Blogging
-  - Data Viz
+  - Data Science
 author: stephenaq7
-paginate: true
 ---
+
 
 In part two of the data scraping walk through, we successfully achieved the following items; 
 

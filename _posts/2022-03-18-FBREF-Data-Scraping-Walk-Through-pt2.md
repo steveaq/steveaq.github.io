@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 'FBREF Data Scraping Walkthough pt.2'
-subtitle: 'Overview of the data sources currently available for all levels'
+title: FBREF Data Scraping Walk Through pt2
+subtitle: Advanced techniques for scraping football data from FBREF
 description: >-
-  2nd Part of a 3 part post going through the basics of writing some more detailed functions to get high quality player & team data from FBREF
+  Building on Part 1, this post dives deeper into scraping football data from FBREF. Discover advanced techniques, such as handling pagination, parsing complex structures, and cleaning the scraped data. Take your FBREF data scraping skills to the next level!
 image: >-
   https://pbs.twimg.com/media/FTiJzuKXoAA4kn_?format=jpg&name=900x900
 optimized_image: >-

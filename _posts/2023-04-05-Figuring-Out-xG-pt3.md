@@ -1,20 +1,19 @@
 ---
 layout: post
-title: 'Figuring Out xG pt3'
-subtitle: 'Data Engineering and Visuals based on xG Metrics'
+title: Figuring Out xG pt3
+subtitle: Advanced applications of expected goals (xG) in football analysis
 description: >-
-  3rd Part of a 3 part post going through the basics of writing some more detailed functions to get high quality player & team data from FBREF focusing on building a programatically sound & automated database to query 
+  Continuing from Part 2, this post explores advanced applications of expected goals (xG) in football analysis. Dive into xG models, xG timeline analysis, and xG in player evaluation to unlock new insights and enhance your understanding of xG's role in modern football analytics.
 image: >-
-  https://1drv.ms/i/s!AiwF3zAMLcUGgjK9NCmbf6xxj7uu?e=TB55gi
+  https://pbs.twimg.com/media/F0yqCYhWAAEWh89?format=jpg&name=small
 optimized_image: >-
-  https://1drv.ms/i/s!AiwF3zAMLcUGgjK9NCmbf6xxj7uu?e=TB55gi
-category: [Data Visualisation]
+  https://pbs.twimg.com/media/F0yqCYhWAAEWh89?format=jpg&name=small
+category: [Analytics]
 tags:
   - Blogging
   - Data Science
   - Data Viz
 author: stephenaq7
-paginate: true
 ---
 
 

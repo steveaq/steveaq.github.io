@@ -1,21 +1,20 @@
 ---
-
 layout: post
-title: Statsbomb Data Exploration pt2
-subtitle: 'Overview of the data sources currently available for all levels'
+title: StatsBomb Data Exploration pt2
+subtitle: Advanced techniques for analyzing football data from StatsBomb
 description: >-
-  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+  Continuing from Part 1, this post delves into advanced techniques for analyzing football data from StatsBomb. Explore complex queries, statistical modeling, and tactical insights using the rich datasets provided by StatsBomb. Elevate your football data analysis skills with StatsBomb!
 image: >-
-  https://pbs.twimg.com/media/FuUVtsjWYAAVF7O?format=jpg&name=large
+    https://pbs.twimg.com/media/F0yp5Z2WAAMNCqF?format=jpg&name=small
 optimized_image: >-
-  https://pbs.twimg.com/media/FuUVtsjWYAAVF7O?format=jpg&name=large
-category: [Match Analysis]
+    https://pbs.twimg.com/media/F0yp5Z2WAAMNCqF?format=jpg&name=small
+category: [Analytics]
 tags:
   - Blogging
-  - Data Viz
+  - Data Science
 author: stephenaq7
-paginate: true
 ---
+
 
 
 

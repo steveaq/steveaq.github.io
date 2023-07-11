@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 'FBREF Data Scraping Walkthough pt.3'
-subtitle: 'Overview of the data sources currently available for all levels'
+title: FBREF Data Scraping Walk Through pt3
+subtitle: Data analysis and visualization using scraped FBREF data
 description: >-
-  3rd Part of a 3 part post going through the basics of writing some more detailed functions to get high quality player & team data from FBREF focusing on building a programatically sound & automated database to query 
+  In the final part of the FBREF data scraping series, this post focuses on data analysis and visualization using the scraped FBREF data. Learn how to extract valuable insights, perform statistical analysis, and create stunning visualizations with the scraped football data.
 image: >-
-  https://pbs.twimg.com/media/FVNrOJUXEAACSXR?format=jpg&name=small
+    https://pbs.twimg.com/media/F0ywVahWIAImh3M?format=jpg&name=large
 optimized_image: >-
-  https://pbs.twimg.com/media/FVNrOJUXEAACSXR?format=jpg&name=small
+    https://pbs.twimg.com/media/F0ywVahWIAImh3M?format=jpg&name=large
 category: [Player & Team Analysis]
 tags:
   - Blogging

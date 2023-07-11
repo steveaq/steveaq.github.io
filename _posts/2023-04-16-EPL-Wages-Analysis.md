@@ -1,22 +1,21 @@
 ---
-
 layout: post
 title: EPL Wages Analysis
-subtitle: 'Overview of the data sources currently available for all levels'
+subtitle: Analyzing player wages in the English Premier League
 description: >-
-  1st Part of a 3 part post going through the basics of writing some simple applications & functions to get high quality player & team data.
+  This post provides a comprehensive analysis of player wages in the English Premier League (EPL). Explore the distribution of wages, identify trends among top earners, and examine the relationship between wages and on-pitch performance. Gain insights into the financial landscape of the EPL!
 image: >-
-  https://pbs.twimg.com/media/Fupd4xVWYAEtxLn?format=jpg&name=large
+    https://pbs.twimg.com/media/F0ypyn1WwAAXmvs?format=jpg&name=small
 optimized_image: >-
-  https://pbs.twimg.com/media/Fupd4xVWYAEtxLn?format=jpg&name=large
-category: [Data Visualisation]
+    https://pbs.twimg.com/media/F0ypyn1WwAAXmvs?format=jpg&name=small
+category: [Analytics]
 tags:
   - Blogging
   - Data Science
-  - Data Viz
+  - Matplotlib
 author: stephenaq7
-paginate: true
 ---
+
 
 In part two of the data scraping walk through, we successfully achieved the following items; 
 
