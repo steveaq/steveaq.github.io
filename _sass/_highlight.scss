@@ -1,34 +1,84 @@
+// Variables
+$copy-box-color: #f5f5f5;
+$copy-box-border-radius: 4px;
+$code-text-color: #333;
+$code-text-font-size: 12px;
+$code-text-line-height: 1.3;
+$safari-window-color: #f6f6f6;
+$safari-window-border-color: #ccc;
+$banner-height: 30px;
+$banner-bg-color: #f8f8f8;
+$banner-text-color: #333;
+$banner-font-size: 12px;
+$banner-padding: 8px;
+
+// Code snippet styling
 pre {
-  background: #282a36;
-  width: 100%;
-  padding: rem(20px) 0;
-  color: $accentDark;
-  margin: rem(30px) 0;
-  font-size: rem(14px);
+  position: relative;
+  padding: $banner-height 1rem 1rem;
+  background-color: $copy-box-color;
+  border-radius: $copy-box-border-radius;
+  overflow: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid $safari-window-border-color;
+}
 
-  @include media(">=sm") {
-    font-size: rem(16px);
-    padding: rem(40px) 0;
-    margin: rem(50px) 0;
-  }
+// Banner styling
+pre[class*="language-"] {
+  position: relative;
 
-  code {
-    @include center(rem(800px));
-    padding: 0 rem(20px);
-
-    @include media("<sm") {
-      overflow-x: scroll;
-    }
-  }
-
-  span {
-    line-height: 1.5rem;
-    font-family: "Monaco", "Consolas", "Menlo", monospace;
+  .pre-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $banner-height;
+    background-color: $banner-bg-color;
+    border-top-left-radius: $copy-box-border-radius;
+    border-top-right-radius: $copy-box-border-radius;
+    display: flex;
+    align-items: center;
+    padding: 0 $banner-padding;
+    font-size: $banner-font-size;
+    color: $banner-text-color;
   }
 }
 
+// Code text styling
+pre code {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  color: $code-text-color;
+  font-size: $code-text-font-size;
+  line-height: $code-text-line-height;
+}
+
+// Copy button styling
+pre::before {
+  content: "Copy";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: $copy-box-border-radius;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+// Copy button hover effect
+pre::before:hover {
+  background-color: #f9f9f9;
+}
+
+// Copy button click effect
+pre::before:active {
+  background-color: #eee;
+}
+
+
 .highlight {
-  margin: rem(20px) 0;
+  margin: rem(30px) 0;
 
   @include media(">=sm") {
     word-wrap: break-word;
@@ -36,7 +86,7 @@ pre {
   }
 
   .hll {
-    background-color: #282a36;
+    background-color: #006ba2;
   }
 
   .c,     // Comment
@@ -44,11 +94,11 @@ pre {
   .cp,    // Comment.Preproc
   .c1,    // Comment.Single
   .cs {   // Comment.Special
-    color: #6272a4;
+    color: #8e98b7;
   }
 
   .err {  // Error
-    color: #ff5555;
+    color: #9a607f;
     background-color: #282a36;
   }
 
@@ -57,7 +107,7 @@ pre {
   .kr,    // Keyword.Reserved
   .kt,    // Keyword.Type
   .no {   // Name.Constant
-    color: #66d9ef;
+    color: #db444b;
   }
 
   .l,     // Literal 
@@ -67,12 +117,12 @@ pre {
   .mo,    // Literal.Number.Oct
   .se,    // Literal.String.Escape
   .il {   // Literal.Number.Integer.Long
-    color: #ae81ff;
+    color: #2d2626;
   }
 
   .p,     // Punctuation
   .nx {   // Name.Other
-    color: #f7f7f2;
+    color: #0d0d01;
   }
 
   .ni,    // Name.Entity
@@ -84,7 +134,7 @@ pre {
   .vc,    // Name.Variable.Class
   .vg,    // Name.Variable.Global
   .vi {   // Name.Variable.Instance
-    color: #50fa7b;
+    color: #09069b;
   }
 
   .nl {   // Name.Label
@@ -94,7 +144,7 @@ pre {
   .n,     // Name
   .nb,    // Name.Builtin
   .m {    // Literal.Number
-    color: #bd93f9;
+    color: #fa506c;
   }
 
   .nt,    // Name.Tag
@@ -103,7 +153,7 @@ pre {
   .kd,    // Keyword.Declaration
   .o,     // Operator
   .ow {   // Operator.Word
-    color: #ff79c6;
+    color: #1a5104;
   }
 
   .ge {   // Generic.Emph
@@ -117,7 +167,7 @@ pre {
   .ld,     // Literal.Date
   .s,      // Literal.String
   .sb,     // Literal.String.Backtick
-  .sc,     // Literal.String.Char
+  .sc,     // Literal.Char
   .sd,     // Literal.String.Doc
   .s2,     // Literal.String.Double
   .sh,     // Literal.String.Heredoc
@@ -127,7 +177,7 @@ pre {
   .s1,     // Literal.String.Single
   .ss,     // Literal.String.Symbol
   .vglnk { // Link
-    color: #f1fa8c;
+    color: #6456e1;
   }
 
   .na,    // Name.Attribute
@@ -135,6 +185,6 @@ pre {
   .nd,    // Name.Decorator
   .ne,    // Name.Exception
   .nf {   // Name.Function
-    color: #50fa7b;
+    color: #a0b107;
   }
 }

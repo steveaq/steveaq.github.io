@@ -1,6 +1,6 @@
 # Site Settings
 name: PITCH IQ
-title: An Educational Football Data Science Blog and Anlytics Platform
+title: An Educational Football Data Science Blog and Analytics Platform
 description: Analysis, Visuals and Machine Learning 
 tags:
   - blog
@@ -43,8 +43,8 @@ linkedin_username: stephen-ahiabah-quarshie-3a9886a6
 # Posts Settings
 show_time_bar: true
 show_modal_on_exit: false
-show_modal_on_finish_post: true
-two_columns_layout: true
+show_modal_on_finish_post: false
+two_columns_layout: false
 
 
 # Advanced Settings

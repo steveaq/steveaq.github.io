@@ -43,6 +43,7 @@
                         {% for post in shuffled_array limit:3 %}
                             <li>
                                 <a href="{{ post.url | prepend: site.baseurl }}">
+                                    <h3>{{ post.title }}</h3>
                                     {% if post.optimized_image %}
                                         <img src="{{ post.optimized_image }}">
                                     {% elsif post.image %}
@@ -50,15 +51,25 @@
                                     {% else %}
                                         <img src="/assets/img/off.jpg">
                                     {% endif %}
-                                    <h3>{{ post.title }}</h3>
                                 </a>
                             </li>
-                        {% endfor %}
+                         {% endfor %}
+                         <div class="toc-wrapper">
+                                <div class="toc-heading">
+                                    Table of Contents
+                                </div>
+                                <div class="toc-content">
+                                    {% include toc.html html=content %}
+                                </div>
+                            </div>
                     </ul>
                 </aside>
+                 
+
             {% endif %}
 
         </section>
+        <script src="/Users/stephenahiabah/code/steveaq.github.io/assets/js/custom.js"></script>
 
         <!-- Add time bar only for pages without pagination -->
         {% if paginator.activated == nil and site.show_time_bar == true %}
