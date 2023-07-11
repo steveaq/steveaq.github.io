@@ -71,7 +71,14 @@ $texts: #333333;
   /* Adjust the layout as needed */
   .post.two-columns {
     display: grid;
-    grid-template-columns: 1fr 200px; /* Adjust the width of the TOC column as needed */
-    grid-column-gap: 50px; /* Adjust the gap between columns as needed */
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
   }
-
+  
+  @media (min-width: 768px) {
+    .post.two-columns {
+      grid-template-columns: 1fr 200px; /* Adjust the width of the TOC column as needed */
+      grid-column-gap: 20px; /* Adjust the gap between columns as needed */
+    }
+  }
+  

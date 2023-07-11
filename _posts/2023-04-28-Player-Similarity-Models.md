@@ -15,7 +15,7 @@ tags:
   - Blogging
   - Data Science
 author: stephenaq7
-paginate: true
+
 ---
 
 In part two of the data scraping walk through, we successfully achieved the following items; 
