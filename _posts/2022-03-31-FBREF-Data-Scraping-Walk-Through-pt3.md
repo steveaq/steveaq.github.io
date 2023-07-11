@@ -16,7 +16,6 @@ author: stephenaq7
 paginate: true
 ---
 
-![bars](/images/defensive_bars.png){: width="972" height="589" .w-50 .right}
 In part two of the data scraping walk through, we successfully achieved the following items; 
 
 - [x] *Create a set of working functions to aggregate data from FBREF.*

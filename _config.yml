@@ -1,14 +1,14 @@
 # Site Settings
-name: Stats by Steve
-title: Another Football & Data Science Blog 
-description: Analysis, Visuals and ML 
+name: PITCH IQ
+title: An Educational Football Data Science Blog and Anlytics Platform
+description: Analysis, Visuals and Machine Learning 
 tags:
   - blog
   - template
   - jekyll
   - theme
   - netlify
-show_hero: true
+show_hero: false
 menu:
   - title: Home
     url: /
