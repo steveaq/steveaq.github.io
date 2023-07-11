@@ -3,6 +3,7 @@ layout: page
 menu: true
 date: '2020-02-27 01:53:59'
 title: About
+author: stephenaq7
 description: Some description.
 permalink: /about/
 ---
