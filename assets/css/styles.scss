@@ -9,26 +9,26 @@ $texts: #333333;
 
 @import "jekflix";
 
-@media (min-width: 30.5rem) {
-  .post.two-columns {
-    max-width: 100rem;
+@media (min-width: 37.5rem) {
+    .post.two-columns {
+      max-width: 100rem;
+    }
   }
-}
-
-.post-content {
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  ul,
-  ol,
-  iframe {
-    max-width: 100%;
+  
+  .post-content {
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    iframe {
+      max-width: 100%;
+    }
   }
-}
 
 .toc-wrapper {
     position: fixed;
