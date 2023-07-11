@@ -44,7 +44,7 @@ linkedin_username: stephen-ahiabah-quarshie-3a9886a6
 show_time_bar: true
 show_modal_on_exit: false
 show_modal_on_finish_post: false
-two_columns_layout: false
+two_columns_layout: true
 
 
 # Advanced Settings
