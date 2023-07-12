@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 menu: True
 date: '2022-02-27 01:53:59'
 title: Projects
@@ -29,7 +29,7 @@ Overall, the notebook is a comprehensive example of web scraping and data explor
 
 Visit any of the buttons below to go through my step-by-step tutorials throughout this process
 
-![placeholder](https://pbs.twimg.com/media/Fupd4xVWYAEtxLn?format=jpg&name=large "Large example image")
+![placeholder](https://pbs.twimg.com/media/FTiJzEsWUAIJ9Hp?format=jpg&name=small "Large example image")
 
 
 <div style="text-align:center;">
@@ -52,7 +52,7 @@ The code starts by importing necessary packages like statsbombpy, pandas, numpy,
 
 These tutotials should give you a good idea about how to efficiently sift through match data from statsbomb and build insights on top. 
 
-![placeholder](https://pbs.twimg.com/media/FUEsmqeXsAEyxtS?format=jpg&name=900x900 "Large example image")
+![placeholder](https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=900x900 "Large example image")
 
 
 <div style="text-align:center;">
@@ -69,20 +69,30 @@ These tutotials should give you a good idea about how to efficiently sift throug
 
 <h2>Data Visuals</h2>
 
-Shinnar-Le Roux (SLR) radiofrequency (RF) pulses are common on MRI.  While [many tools](http://rsl.stanford.edu/research/software.html) exist to design such pulses, these are often in Matlab.  This is a version similar to the Pauly implementation, though the interface is written in Python and incorporates object-oriented design.  Source and examples are here. The backend of this code is written in C/C++ and requires Boost 1.63 to compile (with the proper paths needing to be set in the Makefile).  C++ code using the Boost Python/Numpy interfaces.  This also requires an FIR pulse design toolbox I have designed.
+In this website section, I explore the application of data visualization techniques to football xG (expected goals) metrics. Through three informative posts, I analyze how these techniques shed light on team and player performance.
 
-![placeholder](https://pbs.twimg.com/media/FnkZDcBWQAE1fqS?format=jpg&name=900x900 "Large example image")
+The first post focuses on team xG metrics, using visualizations like heatmaps and shot maps to illustrate a team's attacking prowess and goal-scoring efficiency. These visualizations offer valuable insights into a team's strengths and areas for improvement.
+
+The second post delves into individual player performance using xG metrics. Through interactive charts and graphs, I present xG maps, scatter plots, and player radars to evaluate player shot quality, conversion rates, and positioning. These visualizations help identify key performers and emerging talents.
+
+The third post introduces advanced visualization techniques that combine team and player xG metrics. Network graphs and heatmaps overlaid with player-specific data points reveal player interactions, goal-scoring partnerships, and assist networks. This provides deeper insights into team dynamics and the collaborative nature of goal-scoring.
+
+By employing data visualization techniques, these posts provide a personal perspective on understanding football xG metrics. They offer practical tools for fans, coaches, and analysts to interpret and appreciate team and player performance in a more engaging and insightful way.
+
+Through this section of the website, readers can gain a deeper understanding of how data visualization enhances our comprehension of football xG metrics, and how these insights can be applied in practical contexts.
+
+![placeholder](https://pbs.twimg.com/media/F0yr1JPXwAIY2ht?format=png&name=900x900 "Large example image")
 
 
 <div style="text-align:center;">
-  <a href="https://example.com">
-    <button class="myButton red">Button 1</button>
+  <a href="https://steveaq.github.io/Figuring-Out-xG-pt1/">
+    <button class="myButton red">Figuring Out xG Pt1</button>
   </a>
-  <a href="https://example.com">
-    <button class="myButton red">Button 2</button>
+  <a href="https://steveaq.github.io/Figuring-Out-xG-pt2/">
+    <button class="myButton red">Figuring Out xG Pt2</button>
   </a>
-  <a href="https://example.com">
-    <button class="myButton red">Button 3</button>
+  <a href="https://steveaq.github.io/Figuring-Out-xG-pt3/">
+    <button class="myButton red">Figuring Out xG Pt3</button>
   </a>
 </div>
 

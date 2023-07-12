@@ -8,7 +8,7 @@ image: >-
     https://pbs.twimg.com/media/F0ypyn1WwAAXmvs?format=jpg&name=small
 optimized_image: >-
     https://pbs.twimg.com/media/F0ypyn1WwAAXmvs?format=jpg&name=small
-category: [Analytics]
+category: [Financial Analysis]
 tags:
   - Blogging
   - Data Science

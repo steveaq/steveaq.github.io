@@ -1,0 +1,19 @@
+- selector: slidy
+  image_sliders_load_all: true
+  bullets: true
+  captions: true
+  images:
+    - src: /images/attacking_bars.png
+      title: attacking_bars. 
+      alt: viz 1.
+    - src: /images/attacking_radar.png
+      title: attacking_radar.
+      alt: viz 2. 
+    - src: /images/GD_vs_xGD.png
+      title: GD_vs_xGD
+      alt: chart.
+  settings:
+    height: "'auto'"
+    effect: "'fade'"
+
+  

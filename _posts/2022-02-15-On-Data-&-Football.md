@@ -1,5 +1,4 @@
 ---
-
 layout: post
 title: On Data & Football
 subtitle: 'Motivations and Brief Project outline.'

@@ -9,10 +9,12 @@ image: >-
 optimized_image: >-
   https://sharmaabhishekk.github.io/images/player_roles_clustering/clustering_tsne_labelled.png
 
-category: [Analytics]
+category: [Data Science]
 tags:
   - Blogging
   - Data Science
+  - Cluster Analysis 
+  - Models
 author: stephenaq7
 ---
 

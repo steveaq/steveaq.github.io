@@ -8,7 +8,7 @@ image: >-
     https://pbs.twimg.com/media/F0yq_pwXgAIzz7R?format=jpg&name=4096x4096
 optimized_image: >-
     https://pbs.twimg.com/media/F0yq_pwXgAIzz7R?format=jpg&name=4096x4096
-category: [Analytics]
+category: [Data Visualisations]
 tags:
   - Blogging
   - Data Viz

@@ -8,10 +8,11 @@ image: >-
     https://pbs.twimg.com/media/F0yr1JPXwAIY2ht?format=png&name=900x900
 optimized_image: >-
     https://pbs.twimg.com/media/F0yr1JPXwAIY2ht?format=png&name=900x900
-category: [Analytics]
+category: [Data Visualisations]
 tags:
   - Blogging
   - Data Science
+  - Data Viz
 author: stephenaq7
 ---
 

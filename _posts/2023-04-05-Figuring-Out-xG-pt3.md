@@ -8,7 +8,7 @@ image: >-
   https://pbs.twimg.com/media/F0yqCYhWAAEWh89?format=jpg&name=small
 optimized_image: >-
   https://pbs.twimg.com/media/F0yqCYhWAAEWh89?format=jpg&name=small
-category: [Analytics]
+category: [Data Visualisations]
 tags:
   - Blogging
   - Data Science
