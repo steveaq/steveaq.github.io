@@ -3,17 +3,30 @@
   bullets: true
   captions: true
   images:
-    - src: /images/attacking_bars.png
-      title: attacking_bars. 
-      alt: viz 1.
-    - src: /images/attacking_radar.png
-      title: attacking_radar.
-      alt: viz 2. 
-    - src: /images/GD_vs_xGD.png
-      title: GD_vs_xGD
-      alt: chart.
+    - src: https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=large
+      title: Dummy Title 1
+      alt: Dummy Alt Text 1
+    - src: https://pbs.twimg.com/media/F0ywVahWIAImh3M?format=jpg&name=large
+      title: Dummy Title 2
+      alt: Dummy Alt Text 2
+    - src: https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=large
+      title: Dummy Title 3
+      alt: Dummy Alt Text 3
+    - src: https://pbs.twimg.com/media/F0ysxO8WwAAC_9f?format=png&name=large
+      title: Dummy Title 4
+      alt: Dummy Alt Text 4
+    - src: https://pbs.twimg.com/media/F0ysxSyXwAASLLM?format=png&name=large
+      title: Dummy Title 5
+      alt: Dummy Alt Text 5
+    - src: https://pbs.twimg.com/media/F0yr1JPXwAIY2ht?format=png&name=large
+      title: Dummy Title 6
+      alt: Dummy Alt Text 6
+    - src: https://pbs.twimg.com/media/F0yqCYhWAAEWh89?format=jpg&name=large
+      title: Dummy Title 7
+      alt: Dummy Alt Text 7
   settings:
     height: "'auto'"
+    # maxHeight: 800
     effect: "'fade'"
 
   
