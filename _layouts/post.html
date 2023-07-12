@@ -54,20 +54,41 @@
                                 </a>
                             </li>
                          {% endfor %}
-                         <div class="toc-wrapper">
-                                <div class="toc-heading">
-                                    Table of Contents
-                                </div>
-                                <div class="toc-content">
-                                    {% include toc.html html=content h_min=2 h_max=3%}
-                                </div>
-                            </div>
                     </ul>
                 </aside>
-                 
 
+                <div class="toc-wrapper">
+                    <h2 id="toggle-toc" class="toc-heading">Table of Contents</h2>
+                    <div class="toc-content hidden" id="toc-content">
+                        <ul>
+                            {% include toc.html html=content h_min=2 h_max=3 %}
+                        </ul>
+                    </div>
+                </div>
+
+                <script>
+                window.addEventListener("DOMContentLoaded", function() {
+                    const toggleButton = document.getElementById("toggle-toc");
+                    const tocContent = document.getElementById("toc-content");
+
+                    toggleButton.addEventListener("click", function() {
+                    tocContent.classList.toggle("hidden");
+                    });
+
+                        const tocWrapper = document.querySelector(".toc-wrapper");
+                        if (tocWrapper) {
+                            const offsetTop = tocWrapper.offsetTop;
+                            window.addEventListener("scroll", function() {
+                                if (window.pageYOffset >= offsetTop) {
+                                    tocWrapper.classList.add("fixed");
+                                } else {
+                                    tocWrapper.classList.remove("fixed");
+                                }
+                            });
+                        }
+                    });
+                </script>
             {% endif %}
-
         </section>
 
         <!-- Add time bar only for pages without pagination -->
@@ -114,16 +135,16 @@
             {% assign author_urls = author_urls | append: '"https://www.linkedin.com/in/' | append: author.linkedin_username | append: '",' %}
         {% endif %}
         {% if page.math %}
-        <script>
-            MathJax = {
-                tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-                }
-            };
-        </script>
-        <script type="text/javascript" id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-        </script>
+            <script>
+                MathJax = {
+                    tex: {
+                        inlineMath: [['$', '$'], ['\\(', '\\)']]
+                    }
+                };
+            </script>
+            <script type="text/javascript" id="MathJax-script" async
+                src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+            </script>
         {% endif %}
         <script type="application/ld+json">
         {
