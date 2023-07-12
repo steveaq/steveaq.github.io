@@ -43,6 +43,7 @@
                         {% for post in shuffled_array limit:3 %}
                             <li>
                                 <a href="{{ post.url | prepend: site.baseurl }}">
+                                    <h3>{{ post.title }}</h3>
                                     {% if post.optimized_image %}
                                         <img src="{{ post.optimized_image }}">
                                     {% elsif post.image %}
@@ -50,12 +51,21 @@
                                     {% else %}
                                         <img src="/assets/img/off.jpg">
                                     {% endif %}
-                                    <h3>{{ post.title }}</h3>
                                 </a>
                             </li>
-                        {% endfor %}
+                         {% endfor %}
+                         <div class="toc-wrapper">
+                                <div class="toc-heading">
+                                    Table of Contents
+                                </div>
+                                <div class="toc-content">
+                                    {% include toc.html html=content h_min=2 h_max=3%}
+                                </div>
+                            </div>
                     </ul>
                 </aside>
+                 
+
             {% endif %}
 
         </section>
@@ -149,7 +159,7 @@
                 "name": "{{ site.name }}",
                 "url": "{{ site.url }}{{site.baseurl}}/",
                 "logo": {
-                    "@type": "ImageObject",
+                    "@type": "ImageObject", 
                     "url": "{{ site.url }}{{site.baseurl}}/assets/img/blog-image.png",
                     "width": "600",
                     "height": "315"
