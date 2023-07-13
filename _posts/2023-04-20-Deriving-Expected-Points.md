@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Deriving Expected Points
+title: (WIP) - Deriving Expected Points
 subtitle: Evaluating team performance using expected points metrics
 description: >-
-  This post introduces the concept of expected points and its role in evaluating team performance. Learn how to calculate expected points based on match results, analyze deviations from expected points, and gain a deeper understanding of team efficiency. Uncover the hidden narratives behind team performances!
+  (Work in progress) This post introduces the concept of expected points and its role in evaluating team performance. Learn how to calculate expected points based on match results, analyze deviations from expected points, and gain a deeper understanding of team efficiency. Uncover the hidden narratives behind team performances!
 image: >-
   https://cafetactiques.files.wordpress.com/2023/04/xpts-corr-tableau-.png
 optimized_image: >-

@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Figuring Out xG pt1
+title: (WIP) - Figuring Out xG pt1
 subtitle: Introduction to expected goals (xG) in football
 description: >-
-  This post provides an introduction to expected goals (xG) in football. Part 1 covers the basics of xG, its calculation methods, and its significance in evaluating goal-scoring opportunities. Start exploring the fascinating world of xG and its impact on football analysis!
+  (Work in progress) This post provides an introduction to expected goals (xG) in football. Part 1 covers the basics of xG, its calculation methods, and its significance in evaluating goal-scoring opportunities. Start exploring the fascinating world of xG and its impact on football analysis!
 image: >-
     https://pbs.twimg.com/media/F0yq_pwXgAIzz7R?format=jpg&name=4096x4096
 optimized_image: >-
