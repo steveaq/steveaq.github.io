@@ -8,7 +8,9 @@ description: Some description.
 permalink: /navigation/
 ---
 
-## Key Projects
+<img class="img-rounded" src="https://pbs.twimg.com/profile_images/1678337862624854016/SU2rOMuY_400x400.jpg" alt="Stephen Ahiabah" width="200">
+
+# Key Projects
 
 
 These are some of the code bases that I have built recently. These projects are typically in Python. The level of documentation will vary from project to project.  Recently I have been more rigorous in my documentation for commonly used python functions.
