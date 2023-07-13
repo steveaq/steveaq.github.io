@@ -4,26 +4,26 @@
   captions: true
   images:
     - src: https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=large
-      title: Dummy Title 1
-      alt: Dummy Alt Text 1
+      title: England vs Senegal FWC 22
+      alt: Multi-player passmap
     - src: https://pbs.twimg.com/media/F0ywVahWIAImh3M?format=jpg&name=large
-      title: Dummy Title 2
-      alt: Dummy Alt Text 2
+      title: EPL Perfromance Chart
+      alt: Points Per Game vs xG Difference per 90
     - src: https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=large
-      title: Dummy Title 3
-      alt: Dummy Alt Text 3
+      title: England vs Senegal FWC 22
+      alt: Team Passmap
     - src: https://pbs.twimg.com/media/F0ysxO8WwAAC_9f?format=png&name=large
-      title: Dummy Title 4
-      alt: Dummy Alt Text 4
+      title: England vs Senegal FWC 22
+      alt: Induvidual Touch Map
     - src: https://pbs.twimg.com/media/F0ysxSyXwAASLLM?format=png&name=large
-      title: Dummy Title 5
-      alt: Dummy Alt Text 5
+      title: England vs Senegal FWC 22
+      alt: xG Shot Chart
     - src: https://pbs.twimg.com/media/F0yr1JPXwAIY2ht?format=png&name=large
-      title: Dummy Title 6
-      alt: Dummy Alt Text 6
+      title: EPL Perfromance Chart
+      alt: xG Differential
     - src: https://pbs.twimg.com/media/F0yqCYhWAAEWh89?format=jpg&name=large
-      title: Dummy Title 7
-      alt: Dummy Alt Text 7
+      title: EPL Perfromance Chart
+      alt: xG vs Actual Goals Chart
   settings:
     height: "'auto'"
     # maxHeight: 800
