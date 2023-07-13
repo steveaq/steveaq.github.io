@@ -25,7 +25,7 @@ I have strong technical skills in several areas, including Python, SQL, Tableau,
 
 <div style="display:flex; justify-content:center; margin-top:50px;">
   <div style="width:33%; margin-right:20px;">
-    <h3>Progamming Languages</h3>
+    <h3>Languages</h3>
     <div style="background-color:#EAEAEA; height:25px; border-radius: 10px; overflow:hidden;">
       <div style="background-color:red; height:25px; width:80%; animation: skillbar 2s;"></div>
     </div>
