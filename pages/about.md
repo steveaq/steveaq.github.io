@@ -3,7 +3,7 @@ layout: page
 menu: true
 date: '2020-02-27 01:53:59'
 title: About
-author: stephenaq7
+author: steveaq
 description: Some description.
 permalink: /about/
 ---
@@ -14,16 +14,16 @@ permalink: /about/
 
 Welcome to Pitch IQ, a personal and insightful football analytics platform created by a passionate hobbyist football data scientist. I have a deep love for football and a strong dedication to analyzing the game from a data-driven perspective. Pitch IQ is the culmination of my efforts to share unique insights and provide a fresh perspective on the world of football.
 
-On this platform, I combine my passion for the game with rigorous data analysis. I strive to go beyond traditional statistics and explore concepts and finance that are rarely discussed on the internet. My goal is to offer you in-depth and thought-provoking insights that allow you to appreciate the nuances of football, both on and off the pitch.
+On this platform, I combine my passion for the game with rigorous data analysis. My goal is to offer you in-depth insights that allow you to appreciate the nuances of football, both on and off the pitch.
 
-You will find longer, more academically-oriented posts on the Pitch IQ substack page. Additionally, I have created Cannon IQ, a dedicated substack blog focusing exclusively on our beloved Arsenal. As a die-hard Gunners fan, I delve into the rich history, tactics, player analysis, and financial dynamics specific to Arsenal. Cannon IQ is my way of connecting with fellow Arsenal enthusiasts and providing a unique perspective on our favorite club.
+You will find longer, more academically-oriented posts on the Pitch IQ substack page. Additionally, I have created Cannon IQ, a dedicated substack blog focusing exclusively on our beloved Arsenal. As a die-hard Gunners fan, I delve into the tactics, player analysis, and financial dynamics specific to Arsenal. Cannon IQ is my way of connecting with other Arsenal fans and providing my perspective on my favorite club.
 
 <style>
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20vh; /* Adjust this if necessary */
+    height: 20%; /* Adjust this if necessary */
   }
 
   .image-container {
@@ -57,9 +57,12 @@ You will find longer, more academically-oriented posts on the Pitch IQ substack 
   </div>
 </div>
 
-Join me as we explore the world of football analytics, uncover hidden trends, and share our excitement for the game. I firmly believe that understanding the data behind football can enhance your overall football experience.
 
-Get ready to dive deep into football analytics with a personal touch. Pitch IQ is here to bring you a fresh and insightful take on the beautiful game we all love. Let's embark on this journey together.
+
+
+
+
+Join me as we explore the world of football analytics, uncover trends, and share our excitement for the game. I firmly believe that understanding the data behind football can enhance your overall football experience.
 
 If you have any further questions or require additional assistance, please feel free to reach out.
 

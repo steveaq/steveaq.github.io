@@ -5,9 +5,9 @@ subtitle: 'Motivations and Brief Project outline.'
 description: >-
   A brief rundown of my ideas, what I will be posting on this blog.
 image: >-
-  https://newsimg.bbc.co.uk/media/images/41706000/gif/_41706982_4_4_2_416.gif
+  https://pbs.twimg.com/profile_images/1678337862624854016/SU2rOMuY_400x400.jpg
 optimized_image: >-
-  https://newsimg.bbc.co.uk/media/images/41706000/gif/_41706982_4_4_2_416.gif
+  https://pbs.twimg.com/profile_images/1678337862624854016/SU2rOMuY_400x400.jpg
 category: [Intro Post]
 tags:
   - Blogging

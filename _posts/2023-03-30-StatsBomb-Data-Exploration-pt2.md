@@ -3,540 +3,484 @@ layout: post
 title: StatsBomb Data Exploration pt2
 subtitle: Advanced techniques for analyzing football data from StatsBomb
 description: >-
-  Continuing from Part 1, this post delves into advanced techniques for analyzing football data from StatsBomb. Explore complex queries, statistical modeling, and tactical insights using the rich datasets provided by StatsBomb. Elevate your football data analysis skills with StatsBomb!
+  Continuing from Part 1, this post delves into advanced techniques for analyzing football data from StatsBomb. This looks at more player specific queries, visuals and tactical insights using the datasets provided by StatsBomb. 
 image: >-
-    https://pbs.twimg.com/media/F0yp5Z2WAAMNCqF?format=jpg&name=small
+    https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small
 optimized_image: >-
-    https://pbs.twimg.com/media/F0yp5Z2WAAMNCqF?format=jpg&name=small
+    https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small
 category: [Analytics]
 tags:
   - Blogging
   - Data Science
 author: stephenaq7
+comments: true
 ---
 
+# Exploring StatsBomb Python API and Datasets for Football Analysis and Visuals (part-2)
+
+Code and notebook for this post can be found [here](https://github.com/steveaq/statsbomb_project/blob/main/Statsbomb%20Data%20Exploration%20.ipynb).
 
 
+Following on from [part 1](https://steveaq.github.io/StatsBomb-Data-Exploration-pt1/), we completed the following objectives:  have: 
+
+<input type="checkbox" checked disabled> Develop efficient functions to aggregate data from StatsBomb python API.
+
+<input type="checkbox" checked disabled> Perform data manipulation tasks to transform raw data into clean, structured datasets suitable for analysis.
+
+<input type="checkbox" checked disabled> Create data visualizations using the obtained datasets.
+
+<input type="checkbox" disabled> Evaluate significant metrics that aid in making assertions on players & team performance.
+
+Now we're going to delve into more player-based visualizations, examining individual player performance and exploring metrics that provide insights into player suitability for specific positions. 
+
+By focusing on player analysis, we aim to gain a deeper understanding of player contributions and their impact on team performance. 
+
+## Creating Player Specific Visuals
+
+### Player Touches
+
+The code first copies the `match_events` dataframe to a new dataframe called touches_raw. Then, it selects the columns team, player, and location from the `touches_raw` dataframe and saves it to a new dataframe called touches.
+
+Next, the code filters the touches dataframe to only include rows where the team column is equal to "England". The filtered dataframe is then reset the index.
+
+The code then drops any rows in the `touches_team` dataframe where the location column is equal to "a".
+
+Next, the code converts the location column in the `touches_team` dataframe to a string. Then, it splits the string on the comma delimiter and saves the two resulting columns as x and y.
+
+Finally, the code drops any rows in the `touches_team` dataframe where the location column is equal to "a" to help us process the data effectively as it is string format in int column.
+
+The code then prints the `touches_team` dataframe.
+
+```python
+touches_raw = match_events.copy()
+touches = touches_raw[['team','player','location']]
+touches_team = touches[touches['team']=="England"].reset_index()
+
+touches_team.drop(touches_team[touches_team['location'] == "a"].index, inplace = True)
+touches_team["location"] = touches_team["location"].astype(str)
+touches_team["location"] = touches_team["location"].str[1:]
+touches_team["location"] = touches_team["location"].str[:-1]
+touches_team.drop(touches_team[touches_team['location'] == "a"].index, inplace = True)
+touches_team[["x", "y"]] = touches_team["location"].str.split(",", expand=True).astype(np.float32)
+touches_team
+```
+This is what the resulting dataframe should look like: 
+
+![touches_df](/images/touches_team.png) 
 
 
-In part two of the data scraping walk through, we successfully achieved the following items; 
+This code generates a hexbin touch map for Bukayo Saka using data from the `touches_team` dataframe
+The hexbin touch map is a visualization that shows the location and frequency of a player's touches on the football pitch.
 
-- [x] *Create a set of working functions to aggregate data from FBREF.*
 
-- [x] *Perform a series of data munging tasks to get easy to to use datasets ready for analysis.* 
+The code uses the `VerticalPitch()` module from the mplsoccer library to create the football pitch background, and `hexbin()` method to generate the hexbins for the player's touches.
 
-- [x] *Create a series of Data Visualisations from these cleaned datasets.* 
+The code also adds two logos to the visual - the FIFA World Cup logo and a logo for "Stats by Steve", and includes some text annotations to provide more information about the match and the player's touches.
 
-- [x] *Assess the meaningful metrics we need to start making some predictions on player suitability to positions.*
+Finally, the code saves the visualization as a PNG file in a specified folder using the `savefig()` method.
 
-## Setup
 
 
 ```python
-import requests
-import unicodedata
-import pandas as pd
-from bs4 import BeautifulSoup
-import seaborn as sb
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-import matplotlib.patheffects as pe
+style.use('fivethirtyeight')
+
+
+player_name = 'Bukayo Saka'
+touches_player = touches_team.loc[lambda x: x['player'] == player_name]
+
+pitch = VerticalPitch(line_color='#000009', line_zorder=2, )
+fig, axs = pitch.grid(figheight=10, title_height=0.08, endnote_space=0,
+                      title_space=0,
+                      # Turn off the endnote/title axis. I usually do this after
+                      # I am happy with the chart layout and text placement
+                      axis=False,)
+hexmap = pitch.hexbin(touches_player.x, touches_player.y, ax=axs['pitch'], 
+                      gridsize=(16, 16), cmap="Blues")
+### Add Fifa WC logo
+ax2 = fig.add_axes([0.8, 0.035, 0.14, 1.7])
+ax2.axis('off')
+img = image.imread('/Users/stephenahiabah/code/statsbomb_project/FWC_Logo.png')
+ax2.imshow(img)
+
+
+### Add Stats by Steve logo
+ax3 = fig.add_axes([0, 0.06, 0.16, 0.1])
+ax3.axis('off')
+img = image.imread('/Users/stephenahiabah/code/statsbomb_project/logo_transparent_background.png')
+ax3.imshow(img)
+
+axs['title'].text(0.4, 0.7, f'{player_name} - Hexbin Touch Map ', weight = 'bold', alpha = .75,
+                 ha='center', fontsize=16)
+
+axs['title'].text(0.185, 0.4, f' Match: {team_list[0]} vs {team_list[1]}  ', alpha = .75,
+                  va='center', ha='center', fontsize=12)
+
+axs['title'].text(0.107, 0.05, f' Total Touches: {len(touches_player)}  ', alpha = .75,
+                  va='center', ha='center', fontsize=12)
+
+axs['endnote'].text(1, 0.7, 'Viz by - @stephenaq7', va='center', ha='right', fontsize=10)
+axs['endnote'].text(1, 0.4, 'Data via StatsBomb', va='center', ha='right', fontsize=10)
+plt.savefig(f'Output Visuals/{player_name} - Hexbin Touch Map.png', dpi=300, bbox_inches='tight')
+
+```
+This is what the resulting visual should look like: 
+
+![Induvidual Player Touch Map](https://pbs.twimg.com/media/F0ysxO8WwAAC_9f?format=png&name=small) 
+
+### Player Passes
+
+Now, lets get the induvidual pass diagrams. 
+
+The code below first copies the `match_events` dataframe to a new dataframe called `player_passes_raw`. Then, it selects the columns `team, player, location, pass_end_location, and pass_outcome` from the player_passes_raw dataframe and saves it to a new dataframe called `player_passes_raw`.
+
+Next, we filter the player_passes_raw dataframe to only include rows where the team column is equal to "England".
+
+The code then drops any rows in the `player_passes_raw` dataframe where the location column or `pass_end_location` column is equal to "a". This is done because the location column and `pass_end_location` column contain some invalid values, such as "a".
+
+Next, the code converts the location column and `pass_end_location` column in the `player_passes_raw` dataframe to strings. Then, it splits the strings on the comma delimiter and saves the two resulting columns as x and y for the location column and `end_x` and `end_y` for the `pass_end_location` column.
+
+Finally, the code prints the `player_passes_raw` dataframe
+
+```python
+player_passes_raw = match_events.copy()
+player_passes_raw = player_passes_raw[['team','player','location','pass_end_location',"pass_outcome"]]
+player_passes_raw = player_passes_raw[player_passes_raw['team']=="England"].reset_index()
+
+player_passes_raw.drop(player_passes_raw[player_passes_raw['location'] == "a"].index, inplace = True)
+player_passes_raw.drop(player_passes_raw[player_passes_raw['pass_end_location'] == "a"].index, inplace = True)
+# touches_team = touches_team.loc[lambda x: x['location'] != 'a']
+
+player_passes_raw["location"] = player_passes_raw["location"].astype(str)
+player_passes_raw["location"] = player_passes_raw["location"].str[1:]
+player_passes_raw["location"] = player_passes_raw["location"].str[:-1]
+player_passes_raw.drop(player_passes_raw[player_passes_raw['location'] == "a"].index, inplace = True)
+player_passes_raw[["x", "y"]] = player_passes_raw["location"].str.split(",", expand=True).astype(np.float32)
+
+
+player_passes_raw["pass_end_location"] = player_passes_raw["pass_end_location"].astype(str)
+player_passes_raw["pass_end_location"] = player_passes_raw["pass_end_location"].str[1:]
+player_passes_raw["pass_end_location"] = player_passes_raw["pass_end_location"].str[:-1]
+player_passes_raw.drop(player_passes_raw[player_passes_raw['pass_end_location'] == "a"].index, inplace = True)
+player_passes_raw[["end_x", "end_y"]] = player_passes_raw["pass_end_location"].str.split(",", expand=True).astype(np.float32)
+```
+
+We now need to create the df called `mask_complete` that indicates whether or not a pass was completed. The mask is created by using the pass_outcome column in the `player_passes_raw` dataframe. If the `pass_outcome` column is null, then the pass was completed. Otherwise, the pass was not completed.
+
+```python
+mask_complete = player_passes_raw.pass_outcome.isnull()
+```
+
+Next we need to plot the completed passes and the other passes on the pitch. This is done by using the `pitch.arrows()` method. The `pitch.arrows()` method takes a number of arguments, including the x-coordinates of the passes, the y-coordinates of the passes, the end x-coordinates of the passes, the end y-coordinates of the passes, the width of the arrows, the headwidth of the arrows, the headlength of the arrows, and the color of the arrows.
+
+
+Finally, the code saves the plot as a PNG file. This is done by using the `plt.savefig()` method. The `plt.savefig()` method takes a number of arguments, including the filename of the plot, the dpi of the plot, and the bbox_inches argument, which specifies how much of the plot should be included in the saved file.
+
+
+```python
+style.use('fivethirtyeight')
+
+
+player_name = 'Bukayo Saka'
+
+passes_player = player_passes_raw.loc[lambda x: x['player'] == player_name]
+
+pitch = VerticalPitch(line_color='#000009', line_zorder=2, )
+fig, axs = pitch.grid(figheight=10, title_height=0.08, endnote_space=0,
+                      title_space=0,
+                      # Turn off the endnote/title axis. I usually do this after
+                      # I am happy with the chart layout and text placement
+                      axis=False,)
+# Plot the completed passes
+pitch.arrows(passes_player[mask_complete].x, passes_player[mask_complete].y,
+             passes_player[mask_complete].end_x, passes_player[mask_complete].end_y, width=1,
+             headwidth=5, headlength=5, color='#507af8', ax=axs['pitch'], label='completed passes')
+
+# Plot the other passes
+pitch.arrows(passes_player[~mask_complete].x, passes_player[~mask_complete].y,
+             passes_player[~mask_complete].end_x, passes_player[~mask_complete].end_y, width=1,
+             headwidth=3, headlength=2.5, headaxislength=6,
+             color='#ba4f45', ax=axs['pitch'], label='other passes')
+
+# Set up the legend
+legend = axs['pitch'].legend(handlelength=5, edgecolor='None', fontsize=10, loc='lower center')
+
+### Add Fifa WC logo
+ax2 = fig.add_axes([0.8, 0.035, 0.14, 1.7])
+ax2.axis('off')
+img = image.imread('/Users/stephenahiabah/code/statsbomb_project/FWC_Logo.png')
+ax2.imshow(img)
+
+
+### Add Stats by Steve logo
+ax3 = fig.add_axes([0, 0.06, 0.16, 0.1])
+ax3.axis('off')
+img = image.imread('/Users/stephenahiabah/code/statsbomb_project/logo_transparent_background.png')
+ax3.imshow(img)
+
+axs['title'].text(0.37, 0.7, f'{player_name} - Induvidual Pass Map ', weight = 'bold', alpha = .75,
+                 ha='center', fontsize=14)
+
+axs['title'].text(0.185, 0.4, f' Match: {team_list[0]} vs {team_list[1]}  ', alpha = .75,
+                  va='center', ha='center', fontsize=12)
+
+axs['title'].text(0.185, 0.05, f' Pass Completion%: {(len(passes_player[mask_complete])/len(passes_player))*100}%  ', alpha = .75,
+                  va='center', ha='center', fontsize=12)
+
+axs['endnote'].text(1, 0.7, 'Viz by - @stephenaq7', va='center', ha='right', fontsize=10)
+axs['endnote'].text(1, 0.4, 'Data via StatsBomb', va='center', ha='right', fontsize=10)
+plt.savefig(f'Output Visuals/{player_name} - Hexbin Touch Map.png', dpi=300, bbox_inches='tight')
+
+```
+
+the resulting visual should look like this: 
+
+![Induvidual Player Pass Map](https://pbs.twimg.com/media/F0ysxQSX0AIYYKV?format=png&name=small) 
+
+### Combined Team Pass Map
+
+
+Sure, here is the explanation of the code:
+
+The code first imports the Sbopen library, which is used to access data from the StatsBomb Open API. The match ID is then set to 3869118, which is the ID of the England vs Sengal match we used in part 1.
+
+
+```python
+match = 3869118
+
+parser = Sbopen()
+events, related, freeze, tactics = parser.event(match)
+lineup = parser.lineup(match)
+
+```
+
+The next few lines of code create two dataframes: events and lineup. The events dataframe contains information about all of the events that happened in the match, such as goals, shots, and substitutions. The lineup dataframe contains information about the starting lineups for both teams.
+
+We now merge the events and lineup dataframes to create a new dataframe that contains information about all of the players who played in the match, including when they were subbed on or off. 
+
+We now get the first position for each player and add this to the lineup dataframe. 
+
+
+
+```python
+# dataframe with player_id and when they were subbed off
+time_off = events.loc[(events.type_name == 'Substitution'),
+                      ['player_id', 'minute']]
+time_off.rename({'minute': 'off'}, axis='columns', inplace=True)
+# dataframe with player_id and when they were subbed on
+time_on = events.loc[(events.type_name == 'Substitution'),
+                     ['substitution_replacement_id', 'minute']]
+time_on.rename({'substitution_replacement_id': 'player_id',
+                'minute': 'on'}, axis='columns', inplace=True)
+players_on = time_on.player_id
+# merge on times subbed on/off
+lineup = lineup.merge(time_on, on='player_id', how='left')
+lineup = lineup.merge(time_off, on='player_id', how='left')
+```
+
+We also add a column to the lineup dataframe that contains the position abbreviation. This is done by creating a dictionary that maps the position ID to the corresponding position abbreviation.
+
+The dataframe is then sorted the by the team name, whether or not the player started, the minute at which the player was subbed on, and the position ID.
+
+The code then prints the lineup dataframe.
+
+```python
+# filter the tactics lineup for the starting xi
+starting_ids = events[events.type_name == 'Starting XI'].id
+starting_xi = tactics[tactics.id.isin(starting_ids)]
+starting_players = starting_xi.player_id
+
+# filter the lineup for players that actually played
+mask_played = ((lineup.on.notnull()) | (lineup.off.notnull()) |
+               (lineup.player_id.isin(starting_players)))
+lineup = lineup[mask_played].copy()
+
+# get the first position for each player and add this to the lineup dataframe
+player_positions = (events[['player_id', 'position_id']]
+                    .dropna(how='any', axis='rows')
+                    .drop_duplicates('player_id', keep='first'))
+lineup = lineup.merge(player_positions, how='left', on='player_id')
+
+# add on the position abbreviation
+formation_dict = {1: 'GK', 2: 'RB', 3: 'RCB', 4: 'CB', 5: 'LCB', 6: 'LB', 7: 'RWB',
+                  8: 'LWB', 9: 'RDM', 10: 'CDM', 11: 'LDM', 12: 'RM', 13: 'RCM',
+                  14: 'CM', 15: 'LCM', 16: 'LM', 17: 'RW', 18: 'RAM', 19: 'CAM',
+                  20: 'LAM', 21: 'LW', 22: 'RCF', 23: 'ST', 24: 'LCF', 25: 'SS'}
+lineup['position_abbreviation'] = lineup.position_id.map(formation_dict)
+
+# sort the dataframe so the players are
+# in the order of their position (if started), otherwise in the order they came on
+lineup['start'] = lineup.player_id.isin(starting_players)
+lineup.sort_values(['team_name', 'start', 'on', 'position_id'],
+                   ascending=[True, False, True, True], inplace=True)
+```
+
+We now filter the lineup data to only include players from the team that we are interested in. 
+
+Then, it filters the events data to exclude some set pieces. Next, it creates two new dataframes: one for the team pass map and one for the player pass maps. 
+
+The team pass map includes all of the ball receipts for the team, while the player pass maps only include the passes that were made by each individual player.
+
+```python
+# filter the lineup for England players
+# if you want the other team set team = team2
+team1, team2 = lineup.team_name.unique()  # England (team1), Sengeal (team2)
+team = team1
+lineup_team = lineup[lineup.team_name == team].copy()
+
+# filter the events to exclude some set pieces
+set_pieces = ['Throw-in', 'Free Kick', 'Corner', 'Kick Off', 'Goal Kick']
+# for the team pass map
+pass_receipts = events[(events.team_name == team) & (events.type_name == 'Ball Receipt')].copy()
+# for the player pass maps
+passes_excl_throw = events[(events.team_name == team) & (events.type_name == 'Pass') &
+                           (events.sub_type_name != 'Throw-in')].copy()
+
+# identify how many players played and how many subs were used
+# we will use this in the loop for only plotting pass maps for as
+# many players who played
+num_players = len(lineup_team)
+num_sub = num_players - 11
+```
+
+In addition, we need to add some styling to the pitch and make completed passes in green and in-complete in red.
+
+```python
+# add padding to the top so we can plot the titles, and raise the pitch lines
+pitch = Pitch(pad_top=10, line_zorder=2)
+
+# arrow properties for the sub on/off
+green_arrow = dict(arrowstyle='simple, head_width=0.7',
+                   connectionstyle="arc3,rad=-0.8", fc="green", ec="green")
+red_arrow = dict(arrowstyle='simple, head_width=0.7',
+                 connectionstyle="arc3,rad=-0.8", fc="red", ec="red")
+
+# a fontmanager object for using a google font
+# fm_scada = FontManager('https://raw.githubusercontent.com/googlefonts/scada/main/fonts/ttf/'
+#                        'Scada-Regular.ttf')
+```
+
+The code then plots the 5 * 3 grid of player pass maps. For each player, the code plots the arrows that show the direction of the passes that the player made. The code also plots the text annotations that show the player's name, position, and the number of passes that they made.
+
+
+```python
 import warnings
-import numpy as np
-from math import pi
-import os
-from math import pi
-from urllib.request import urlopen
-from highlight_text import fig_text
-from adjustText import adjust_text
-from soccerplots.radar_chart import Radar
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
+
+import cmasher as cmr
+
+from highlight_text import ax_text
+
+# filtering out some highlight_text warnings - the warnings aren't correct as the
+# text fits inside the axes.
+warnings.simplefilter("ignore", UserWarning)
+
+# plot the 5 * 3 grid
+fig, axs = pitch.grid(nrows=5, ncols=3, figheight=30,
+                      endnote_height=0.03, endnote_space=0,
+                      # Turn off the endnote/title axis. I usually do this after
+                      # I am happy with the chart layout and text placement
+                      axis=False,
+                      title_height=0.08, grid_height=0.84)
+# cycle through the grid axes and plot the player pass maps
+for idx, ax in enumerate(axs['pitch'].flat):
+    # only plot the pass maps up to the total number of players
+    if idx < num_players:
+        # filter the complete/incomplete passes for each player (excudes throw-ins)
+        lineup_player = lineup_team.iloc[idx]
+        player_id = lineup_player.player_id
+        player_pass = passes_excl_throw[passes_excl_throw.player_id == player_id]
+        complete_pass = player_pass[player_pass.outcome_name.isnull()]
+        incomplete_pass = player_pass[player_pass.outcome_name.notnull()]
+
+        # plot the arrows
+        pitch.arrows(complete_pass.x, complete_pass.y,
+                     complete_pass.end_x, complete_pass.end_y,
+                     color='#56ae6c', width=2, headwidth=4, headlength=6, ax=ax)
+        pitch.arrows(incomplete_pass.x, incomplete_pass.y,
+                     incomplete_pass.end_x, incomplete_pass.end_y,
+                     color='#7065bb', width=2, headwidth=4, headlength=6, ax=ax)
+
+
+        total_pass = len(complete_pass) + len(incomplete_pass)
+        annotation_string = (f'{lineup_player.position_abbreviation} | '
+                             f'{lineup_player.player_name} | '
+                             f'<{len(complete_pass)}>/{total_pass} | '
+                             f'{round(100 * len(complete_pass)/total_pass, 1)}%')
+        ax_text(0, -5, annotation_string, ha='left', va='center', fontsize=13,
+                highlight_textprops=[{"color": '#56ae6c'}], ax=ax)
+
+        # add information for subsitutions on/off and arrows
+        if not np.isnan(lineup_team.iloc[idx].off):
+            ax.text(116, -10, str(lineup_team.iloc[idx].off.astype(int)), fontsize=20,
+                    ha='center', va='center')
+            ax.annotate('', (120, -2), (112, -2), arrowprops=red_arrow)
+        if not np.isnan(lineup_team.iloc[idx].on):
+            ax.text(104, -10, str(lineup_team.iloc[idx].on.astype(int)), fontsize=20,
+                    ha='center', va='center')
+            ax.annotate('', (108, -2), (100, -2), arrowprops=green_arrow)
+
+
+
+# remove unused axes (if any)
+for ax in axs['pitch'].flat[11 + num_sub:-1]:
+    ax.remove()
+
+
+
+# title text
+axs['title'].text(0.5, 0.65, f'{team1} Pass Maps vs {team2}', fontsize=40,
+                  va='center', ha='center')
+SUB_TEXT = ('Player Pass Maps: exclude throw-ins only\n'
+            'Team heatmap: includes all attempted pass receipts')
+axs['title'].text(0.5, 0.35, SUB_TEXT, fontsize=20,
+                  va='center', ha='center')
+# plot logos (same height as the title_ax)
+
+### Add Fifa WC logo
+ax2 = fig.add_axes([0.85, 0.025, 0.08, 1.85])
+ax2.axis('off')
+img = image.imread('/Users/stephenahiabah/code/statsbomb_project/FWC_Logo.png')
+ax2.imshow(img)
+
+
+### Add Stats by Steve logo
+ax3 = fig.add_axes([0.03, 0.9, 0.1, 0.1])
+ax3.axis('off')
+img = image.imread('/Users/stephenahiabah/code/statsbomb_project/logo_transparent_background.png')
+ax3.imshow(img)
+
+
+# endnote text
+axs['endnote'].text(1, 0.7, 'Viz by - @stephenaq7 inspired by @DymondFormation', va='center', ha='right', fontsize=15)
+axs['endnote'].text(1, 0.4, 'Data via StatsBomb', va='center', ha='right', fontsize=15)
+
+
+plt.show()  # If you are using a Jupyter notebook you do not need this line
 ```
+The resulting chart should look like this: 
 
+![combine_pass](https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small)
 
-
-```python
-def get_team_urls(x):  
-    url = x
-    data  = requests.get(url).text
-    soup = BeautifulSoup(data)
-    player_urls = []
-    links = BeautifulSoup(data).select('th a')
-    urls = [link['href'] for link in links]
-    urls = list(set(urls))
-    full_urls = []
-    for y in urls:
-        full_url = "https://fbref.com"+y
-        full_urls.append(full_url)
-    team_names = []
-    for team in urls: 
-        team_name_slice = team[20:-6]
-        team_names.append(team_name_slice)
-    list_of_tuples = list(zip(team_names, full_urls))
-    Team_url_database = pd.DataFrame(list_of_tuples, columns = ['team_names', 'urls'])
-    return Team_url_database
-```
-
-
-```python
-def fuzzy_merge(df_1, df_2, key1, key2, threshold=97, limit=1):
-"""
-:param df_1: the left table to join
-:param df_2: the right table to join
-:param key1: key column of the left table
-:param key2: key column of the right table
-:param threshold: how close the matches should be to return a match, based on Levenshtein distance
-:param limit: the amount of matches that will get returned, these are sorted high to low
-:return: dataframe with boths keys and matches
-"""
-s = df_2[key2].tolist()
-
-m = df_1[key1].apply(lambda x: process.extract(x, s, limit=limit))    
-df_1['matches'] = m
-
-m2 = df_1['matches'].apply(lambda x: ', '.join([i[0] for i in x if i[1] >= threshold]))
-df_1['matches'] = m2
-
-return df_1
-
-
-def remove_accents(input_str):
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    only_ascii = nfkd_form.encode('ASCII', 'ignore')
-    only_ascii = str(only_ascii)
-    only_ascii = only_ascii[2:-1]
-    only_ascii = only_ascii.replace('-', ' ')
-    return only_ascii
-
-```
-
-
-
-```python
-team_urls = get_team_urls("https://fbref.com/en/comps/9/Premier-League-Stats")  
-full_urls = list(team_urls.urls.unique())
-```
-
-```python
-def general_url_database(full_urls):    
-    appended_data = []
-    for team_url in full_urls:
-        url = team_url
-        # print(url)
-        player_db = pd.DataFrame()
-        player_urls = []
-        data  = requests.get(url).text
-        links = BeautifulSoup(data).select('th a')
-        urls = [link['href'] for link in links]
-        player_urls.append(urls)
-        player_urls  = [item for sublist in player_urls  for item in sublist]
-        player_urls.sort()
-        player_urls = list(set(player_urls))
-        p_url = list(filter(lambda k: 'players' in k, player_urls))
-        url_final = []
-        for y in p_url:
-            full_url = "https://fbref.com"+y
-            url_final.append(full_url)
-        player_names = []
-        for player in p_url: 
-            player_name_slice = player[21:]
-            player_name_slice = player_name_slice.replace('-', ' ')
-            player_names.append(player_name_slice)
-        # player_names
-        list_of_tuples = list(zip(player_names, url_final))
-        play_url_database = pd.DataFrame(list_of_tuples, columns = ['Player', 'urls'])
-        player_db = pd.concat([play_url_database])
-
-        html = requests.get(url).text
-        data2 = BeautifulSoup(html, 'html5')
-        table = data2.find('table')
-        cols = []
-
-        for header in table.find_all('th'):
-            cols.append(header.string)
-
-        columns = cols[8:37] #gets necessary column headers
-        players = cols[37:-2]
-
-        #display(columns)
-        rows = [] #initliaze list to store all rows of data
-        for rownum, row in enumerate(table.find_all('tr')): #find all rows in table
-            if len(row.find_all('td')) > 0: 
-                rowdata = [] #initiliaze list of row data
-                for i in range(0,len(row.find_all('td'))): #get all column values for row
-                    rowdata.append(row.find_all('td')[i].text)
-                rows.append(rowdata)
-        df = pd.DataFrame(rows, columns=columns)
-
-        df.drop(df.tail(2).index,inplace=True)
-        df["Player"] = players
-        df = df[["Player","Pos","Age", "Starts"]]
-
-        df['Player'] = df.apply(lambda x: remove_accents(x['Player']), axis=1)
-        test_merge = fuzzy_merge(df, player_db, 'Player', 'Player', threshold=90)
-        test_merge = test_merge.rename(columns={'matches': 'Player', 'Player': 'matches'})
-        # test_merge = test_merge.drop(columns=['matches'])
-        final_merge = test_merge.merge(player_db, on='Player', how='left')
-        # list_of_dfs.append(final_merge)
-        appended_data.append(final_merge)
-    appended_data = pd.concat(appended_data)
-    return appended_data 
-```
-
-```python
-def years_converter(variable_value):
-    years = variable_value[:-4]
-    days = variable_value[3:]
-    years_value = pd.to_numeric(years)
-    days_value = pd.to_numeric(days)
-    day_conv = days_value/365
-    final_val = years_value + day_conv
-
-    return final_val
-
-EPL_Player_db['Age'] = EPL_Player_db.apply(lambda x: years_converter(x['Age']), axis=1)
-EPL_Player_db = EPL_Player_db.drop(columns=['matches'])
-```
-
-```python
-def get_360_scouting_report(url):    
-    start = url[0:38]+ "scout/365_euro/"
-    def remove_first_n_char(org_str, n):
-        mod_string = ""
-        for i in range(n, len(org_str)):
-            mod_string = mod_string + org_str[i]
-        return mod_string
-    mod_string = remove_first_n_char(url, 38)
-    final_string = start+mod_string+"-Scouting-Report"    
-    return final_string
-EPL_Player_db['scouting_url'] = EPL_Player_db.apply(lambda x: get_360_scouting_report(x['urls']), axis=1)
-```
-
-```python
-EPL_Player_db.Pos.unique()
-
-array(['GK', 'DF', 'FW,MF', 'FW', 'MF,FW', 'MF', 'MF,DF', 'DF,FW',
-       'DF,MF', 'FW,DF'], dtype=object)
-```
-
-
-```python
-keepers = ['GK']
-defenders = ["DF",'DF,MF']
-wing_backs = ['FW,DF','DF,FW']
-defensive_mids = ['MF,DF']
-midfielders = ['MF']
-attacking_mids = ['MF,FW',"FW,MF"]
-forwards = ['FW']
-def position_grouping(x):
-    if x in keepers:
-        return "GK"
-    elif x in defenders:
-        return "Defender"
-    elif x in wing_backs:
-        return "Wing-Back"
-    elif x in defensive_mids:
-        return "Defensive-Midfielders"
-    elif x in midfielders:
-        return "Central Midfielders"
-    elif x in attacking_mids:
-        return "Attacking Midfielders"
-    elif x in forwards:
-        return "Forwards"
-    else:
-        return "unidentified position"
-
-EPL_Player_db["position_group"] = EPL_Player_db.Pos.apply(lambda x: position_grouping(x))
-```
-
-
-```python
-EPL_Player_db.reset_index(drop=True)
-EPL_Player_db[["Starts"]] = EPL_Player_db[["Starts"]].apply(pd.to_numeric) 
-```
-
-```python
-position = 'Central Midfielders'
-pl_starts = 10
-max_age = 26
-
-subset_of_data = EPL_Player_db.query('position_group == @position & Starts > @pl_starts & Age < @max_age' )
-```
-
-```python
-players_needed = list(subset_of_data.urls.unique())
-```
-
-```python
-def get_player_multi_data(url_list:list):
-    appended_data = []
-    for url in url_list:
-        warnings.filterwarnings("ignore")
-        page =requests.get(url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        name = [element.text for element in soup.find_all("span")]
-        name = name[7]
-        metric_names = []
-        metric_values = []
-        remove_content = ["'", "[", "]", ","]
-        for row in soup.findAll('table')[0].tbody.findAll('tr'):
-            first_column = row.findAll('th')[0].contents
-            metric_names.append(first_column)
-        for row in soup.findAll('table')[0].tbody.findAll('tr'):
-            first_column = row.findAll('td')[0].contents
-            metric_values.append(first_column)
-
-        metric_names = [item for sublist in metric_names for item in sublist]
-        metric_values = [item for sublist in metric_values for item in sublist]
-
-        df_player = pd.DataFrame()
-        df_player['Name'] = name[0]
-        for item in metric_names:
-            df_player[item] = []
-
-        name = name
-        non_penalty_goals = (metric_values[0])
-        npx_g = metric_values[1]
-        shots_total = metric_values[2]
-        assists = metric_values[3]
-        x_a = metric_values[4]
-        npx_g_plus_x_a = metric_values[5] 
-        shot_creating_actions = metric_values[6] 
-        passes_attempted = metric_values[7] 
-        pass_completion_percent = metric_values[8] 
-        progressive_passes = metric_values[9] 
-        progressive_carries = metric_values[10] 
-        dribbles_completed = metric_values[11] 
-        touches_att_pen = metric_values[12]
-        progressive_passes_rec = metric_values[13] 
-        pressures = metric_values[14] 
-        tackles = metric_values[15] 
-        interceptions = metric_values[16] 
-        blocks = metric_values[17]
-        clearances = metric_values[18]
-        aerials_won = metric_values[19]
-        df_player.loc[0] = [name, non_penalty_goals, npx_g, shots_total, assists, x_a, npx_g_plus_x_a, shot_creating_actions, passes_attempted, pass_completion_percent,
-                            progressive_passes, progressive_carries, dribbles_completed, touches_att_pen, progressive_passes_rec, pressures, tackles, interceptions, blocks,
-                            clearances, aerials_won]
-        appended_data.append(df_player)
-    appended_data = pd.concat(appended_data)
-    return appended_data
-
-df = get_player_multi_data(players_needed)
-```
-
-```python
-def metrics_scatter_comparison(df, max_age, position):
-        
-        df[['Progressive Passes', 'Progressive Carries','Passes Attempted']] =  df[['Progressive Passes','Progressive Carries','Passes Attempted']].apply(pd.to_numeric)         
-        df["Progressive_Actions_p90"] = df['Progressive Passes'] + df['Progressive Carries']
-        df["Passes_Attempted"] = df['Passes Attempted']
-
-        line_color = "silver"
-       
-        fig, ax = plt.subplots(figsize=(12, 8)) 
-
-        ax.scatter(df["Progressive_Actions_p90"], df["Passes_Attempted"],alpha=0.8) ##scatter points
-        ax.axvspan(10.0, 14.0, ymin=0.5, ymax=1, alpha=0.1, color='green',label= "In Form")
-
-        texts = [] ##plot player names
-        for row in df.itertuples():
-                texts.append(ax.text(row.Progressive_Actions_p90, row.Passes_Attempted, row.Name, fontsize=8, ha='center', va='center', zorder=10))
-                adjust_text(texts) ## to remove overlaps between labels
-
-        ## update plot
-                ax.set(xlabel="Progressive Actions per 90", ylabel="Passes Attempted per 90", ylim=((df["Passes_Attempted"].min()-2), (df["Passes_Attempted"].max()+2)), xlim=((df["Progressive_Actions_p90"].min()-2), (df["Progressive_Actions_p90"].max()+2))) ## set labels and limits
-
-        ##grids and spines
-        ax.grid(color=line_color, linestyle='--', linewidth=0.8, alpha=0.5)   
-        for spine in ["top", "right"]:
-                ax.spines[spine].set_visible(False)
-                ax.spines[spine].set_color(line_color)
-
-        ax.xaxis.label.set(fontsize=12, fontweight='bold')
-        ax.yaxis.label.set(fontsize=12, fontweight='bold') ## increase the weight of the axis labels
-
-        ax.set_position([0.05, 0.05, 0.82, 0.78]) ## make space for the title on top of the axes
-
-        ## title and subtitle
-        fig.text(x=0.08, y=0.92, s=f"U-{max_age} {position} | Progressive Actions Profile", 
-                ha='left', fontsize=20, fontweight='book', 
-                path_effects=[pe.Stroke(linewidth=3, foreground='0.15'),
-                        pe.Normal()]) 
-        fig.text(x=0.08, y=0.88, s=f"EPL | 2021-22", ha='left', 
-                fontsize=20, fontweight='book', 
-                path_effects=[pe.Stroke(linewidth=3, foreground='0.15'),
-```
-
-```python
-scout_links = list(subset_of_data.scouting_url.unique())
-```
-
-```python
-def generate_advanced_data(scout_links):
-    appended_data_per90 = []
-    appended_data_percent = []
-    for x in scout_links:
-        warnings.filterwarnings("ignore")
-        url = x
-        page =requests.get(url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        name = [element.text for element in soup.find_all("span")]
-        name = name[7]
-        html_content = requests.get(url).text.replace('<!--', '').replace('-->', '')
-        df = pd.read_html(html_content)
-        df[0].columns = df[0].columns.droplevel(0) # drop top header row
-        stats = df[0]
-        advanced_stats = stats.loc[(stats['Statistic'] != "Statistic" ) & (stats['Statistic'] != ' ')]
-        advanced_stats = advanced_stats.dropna(subset=['Statistic',"Per 90", "Percentile"])
-        per_90_df = advanced_stats[['Statistic',"Per 90",]].set_index("Statistic").T
-        per_90_df["Name"] = name
-        percentile_df = advanced_stats[['Statistic',"Percentile",]].set_index("Statistic").T
-        percentile_df["Name"] = name
-        appended_data_per90.append(per_90_df)
-    appended_data_per90 = pd.concat(appended_data_per90)
-    appended_data_per90 = appended_data_per90.reset_index(drop=True)
-    del appended_data_per90.columns.name
-    appended_data_per90 = appended_data_per90[['Name'] + [col for col in appended_data_per90.columns if col != 'Name']]
-    appended_data_per90 = appended_data_per90.loc[:,~appended_data_per90.columns.duplicated()]
-    return appended_data_per90
-```
-
-```python
-attacking = ["Name",'Goals', 'Assists', 'Non-Penalty Goals','Penalty Kicks Attempted', 'xG',
-      'xA', 'npxG+xA', 'Shots Total', 'Shots on target', 'npxG/Sh',
-       'Goals - xG', 'Non-Penalty Goals - npxG']
-passing = ["Name", 'Passes Completed','Passes Attempted', 'Pass Completion %', 'Total Passing Distance',
-       'Progressive Passing Distance', 'Passes Completed (Short)',
-       'Passes Attempted (Short)', 'Pass Completion % (Short)',
-       'Passes Completed (Medium)', 'Passes Attempted (Medium)',
-       'Pass Completion % (Medium)', 'Passes Completed (Long)',
-       'Passes Attempted (Long)', 'Pass Completion % (Long)',
-       'Key Passes', 'Passes into Final Third',
-       'Passes into Penalty Area', 'Crosses into Penalty Area',
-       'Progressive Passes']
-pass_types = ["Name", 'Live-ball passes', 'Dead-ball passes',
-       'Passes from Free Kicks', 'Through Balls', 'Passes Under Pressure',
-       'Switches', 'Crosses', 'Corner Kicks', 'Inswinging Corner Kicks',
-       'Outswinging Corner Kicks', 'Straight Corner Kicks',
-       'Ground passes', 'Low Passes', 'High Passes',
-       'Passes Attempted (Left)', 'Passes Attempted (Right)',
-       'Passes Attempted (Head)', 'Throw-Ins taken',
-       'Passes Attempted (Other)', 'Passes Offside',
-       'Passes Out of Bounds', 'Passes Intercepted', 'Passes Blocked']
-chance_creation = ["Name",'Shot-Creating Actions', 'SCA (PassLive)', 'SCA (PassDead)',
-       'SCA (Drib)', 'SCA (Sh)', 'SCA (Fld)', 'SCA (Def)',
-       'Goal-Creating Actions', 'GCA (PassLive)', 'GCA (PassDead)',
-       'GCA (Drib)', 'GCA (Sh)', 'GCA (Fld)', 'GCA (Def)']
-defending = [ "Name", 'Tackles',
-       'Tackles Won', 'Tackles (Def 3rd)', 'Tackles (Mid 3rd)',
-       'Tackles (Att 3rd)', 'Dribblers Tackled', 'Dribbles Contested', 'Dribbled Past', 'Pressures',
-       'Successful Pressures', 'Successful Pressure %',
-       'Pressures (Def 3rd)', 'Pressures (Mid 3rd)',
-       'Pressures (Att 3rd)', 'Blocks', 'Shots Blocked', 'Shots Saved',
-       'Interceptions', 'Tkl+Int', 'Clearances', 'Errors','Ball Recoveries',
-       'Aerials won', 'Aerials lost']
-possesion = ["Name", 'Touches',
-       'Touches (Def Pen)', 'Touches (Def 3rd)', 'Touches (Mid 3rd)',
-       'Touches (Att 3rd)', 'Touches (Att Pen)', 'Touches (Live-Ball)',
-       'Dribbles Completed', 'Dribbles Attempted', 'Successful Dribble %',
-       'Players Dribbled Past', 'Nutmegs', 'Carries',
-       'Total Carrying Distance', 'Progressive Carrying Distance',
-       'Progressive Carries', 'Carries into Final Third',
-       'Carries into Penalty Area', 'Miscontrols', 'Dispossessed',
-       'Pass Targets', 'Passes Received', 'Passes Received %',
-       'Progressive Passes Rec']
-dicipline = ["Name", 'Yellow Cards', 'Red Cards','Second Yellow Card', 'Fouls Committed','Offsides','Penalty Kicks Conceded', 'Own Goals']
-smarts = ["Name",'Penalty Kicks Won','Fouls Drawn']
-```
-
-```python
-per_90_dataframe = appended_data_per90[attacking]
-per_90_dataframe
-```
-
-
-```python
-names = ["Conor Gallagher","Joe Willock"]
-per_90_dataframe[per_90_dataframe.Name.isin(names)]
-```
-
-```python
-player_names = list(per_90_dataframe.Name.unique())
-per_90_dataframe.reset_index(drop=True)
-per_90_dataframe = per_90_dataframe[per_90_dataframe.Name.isin(names)]
-cols = per_90_dataframe.columns.drop('Name')
-per_90_dataframe[cols] = per_90_dataframe[cols].apply(pd.to_numeric)
-params = list(per_90_dataframe.columns)
-params = params[1:]
-params
-
-ranges = []
-a_values = []
-b_values = []
-
-for x in params:
-    a = min(per_90_dataframe[params][x])
-    a = a - (a* 0.25)
-    
-    b = max(per_90_dataframe[params][x])
-    b = b + (b* 0.25)
-    
-    ranges.append((a,b))
-    
-a_values = per_90_dataframe.iloc[0].values.tolist()
-
-b_values = per_90_dataframe.iloc[1].values.tolist()
-        
-a_values = a_values[1:]
-b_values = b_values[1:]
-
-values = [a_values,b_values]
-
-get_clubs = subset_of_data[subset_of_data.Player.isin(names)]
-link_list = list(get_clubs.urls.unique())
-title_vars = []
-for x in link_list:     
-    warnings.filterwarnings("ignore")
-    html_content = requests.get(x).text.replace('<!--', '').replace('-->', '')
-    df2 = pd.read_html(html_content)
-    df2[5].columns = df2[5].columns.droplevel(0) 
-    stats2 = df2[5]
-    key_vars = stats2[["Season","Age","Squad"]]
-    key_vars = key_vars[key_vars.Season.isin(["2021-2022"])]
-    title_vars.append(key_vars)
-title_vars = pd.concat(title_vars)
-ages = list(title_vars.Age.unique())
-teams = list(title_vars.Squad.unique())
-
-#title 
-
-title = dict(
-    title_name= player_names[0],
-    title_color = 'red',
-    subtitle_name = teams[0],
-    subtitle_color = 'red',
-
-    title_name_2= player_names[1],
-    title_color_2 = 'blue',
-    subtitle_name_2 = teams[1],
-    subtitle_color_2 = 'blue',
-    title_fontsize = 18,
-    subtitle_fontsize=15
-)
-
-endnote = '@stephenaq7\ndata via FBREF / Statsbomb'
-
-radar = Radar()
-
-fig,ax = radar.plot_radar(ranges=ranges,params=params,values=values,
-                         radar_color=['red','blue'],
-                         alphas=[.75,.6],title=title,endnote=endnote,
-                         compare=True)
-```
 
 ## Conclusion
+
+In conclusion, the provided code demonstrates the process of aggregating and manipulating data from the StatsBomb Python API, specifically player data.
+
+With respect to our intial objectives, we still retain these milestones: 
+
+<input type="checkbox" checked disabled> Develop efficient functions to aggregate data from StatsBomb python API.
+
+<input type="checkbox" checked disabled> Perform data manipulation tasks to transform raw data into clean, structured datasets suitable for analysis.
+
+<input type="checkbox" checked disabled> Create data visualizations using the obtained datasets.
+
+<input type="checkbox" disabled> Evaluate significant metrics that aid in making assertions on players & team performance.
+
+Moving forward, in Part 3 of our analysis, we will delve into more more complex visualisations and analysis that will allow us to make assertions on players & team performance with regards to any given match from the API. 
+
+Thanks for reading
+
+Steve
+
 
 
 

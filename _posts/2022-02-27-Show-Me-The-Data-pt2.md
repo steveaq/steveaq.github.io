@@ -6,9 +6,9 @@ subtitle: 'Overview of the data sources currently available for all levels'
 description: >-
   1st Part of a 2 part post going through where we can find good quality & free data for analysis.
 image: >-
-  https://researchoutreach.org/wp-content/uploads/2020/01/SciSports-Main-Image.jpg
+  https://pbs.twimg.com/media/F0qp1pXWcAAmJ37?format=png&name=small
 optimized_image: >-
-  https://researchoutreach.org/wp-content/uploads/2020/01/SciSports-Main-Image.jpg
+  https://pbs.twimg.com/media/F0qp1pXWcAAmJ37?format=png&name=small
 category: [Intro Post]
 tags:
   - Blogging
