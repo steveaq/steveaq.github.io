@@ -78,6 +78,8 @@ I have strong technical skills in several areas, including Python, SQL, Tableau,
 
 In this blog I’ll write about some things I learnt along the way, starting from zero, to what I’m working on today.
 
+You can find my full [project portfolio here](https://stevetaq.github.io)
+
 Feel free to reach out to me on [twitter](https://twitter.com/stephenaq7)!
 
 Steve
