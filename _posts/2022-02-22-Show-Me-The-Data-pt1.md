@@ -13,8 +13,8 @@ category: [Intro Post]
 tags:
   - Blogging
   - Getting started
-author: stephenaq7
-paginate: true
+author: steveaq
+comments: true
 ---
 
 ##### *“Without data you're just another person with an opinion.”*

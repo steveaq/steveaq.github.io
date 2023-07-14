@@ -31,7 +31,7 @@ Overall, the notebook is a comprehensive example of web scraping and data explor
 
 Visit any of the buttons below to go through my step-by-step tutorials throughout this process
 
-![placeholder](https://pbs.twimg.com/media/FTiJzEsWUAIJ9Hp?format=jpg&name=small)
+![placeholder](https://pbs.twimg.com/media/F06Px-BWIAIpZxu?format=png&name=small)
 
 
 <div style="text-align:center;">

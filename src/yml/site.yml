@@ -18,13 +18,15 @@ menu:
     url: /viz-gallery
   - title: Projects
     url: /navigation
+  - title: Categories
+    url: /tags
   - title: Contact
     url: /contact
   # - title: Feed
   #   url: /feed.xml
 email: stephen.ahiabah@hotmail.com
 # See: https://disqus.com/
-disqus_username: disqus_username
+disqus_username: https://steveaq.github.io/
 # Contact Form Setting
 # See: https://formspree.io/
-formspree_form_id: formspree_form_id
+formspree_form_id: mqkonaoa

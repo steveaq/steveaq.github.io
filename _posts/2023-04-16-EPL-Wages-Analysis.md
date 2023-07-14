@@ -13,7 +13,8 @@ tags:
   - Blogging
   - Data Science
   - Matplotlib
-author: stephenaq7
+author: steveaq
+comments: true
 ---
 
 

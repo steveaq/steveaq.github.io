@@ -12,8 +12,8 @@ category: [Intro Post]
 tags:
   - Blogging
   - Getting started
-author: stephenaq7
-paginate: true
+author: steveaq
+comments: true
 ---
 
 Football for me is an expression of a craft that is one of the only true meritocracies in society. Given that world view, I have always had a deep appreciation of the players who made the sport look effortless. 

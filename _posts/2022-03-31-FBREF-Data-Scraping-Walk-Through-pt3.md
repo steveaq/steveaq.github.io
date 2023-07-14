@@ -12,8 +12,8 @@ category: [Player & Team Analysis]
 tags:
   - Blogging
   - Data Viz
-author: stephenaq7
-paginate: true
+author: steveaq
+comments: true
 ---
 
 In part two of the data scraping walk through, we successfully achieved the following items; 

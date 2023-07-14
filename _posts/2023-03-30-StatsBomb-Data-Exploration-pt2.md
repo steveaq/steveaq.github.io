@@ -12,7 +12,7 @@ category: [Analytics]
 tags:
   - Blogging
   - Data Science
-author: stephenaq7
+author: steveaq
 comments: true
 ---
 

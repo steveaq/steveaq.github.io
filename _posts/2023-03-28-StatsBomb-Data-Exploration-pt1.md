@@ -88,9 +88,9 @@ First, we retrieve the matches from the World Cup using the `sb.matches()` funct
 df = sb.matches(competition_id=43, season_id=106)
 df.to_csv('CSVs/WC_Matches.csv', index=False)
 ```
-Next, we identify a specific match using its match ID. In this case, the match ID is 3869118. We pass this ID to the `sb.events()` function from statsbombpy to retrieve the events data for that particular match. The events data is stored in a DataFrame called match_events.
+Next, we identify a specific match using its match ID. In this case, the match ID is 3869118. We pass this ID to the `sb.events()` function from statsbombpy to retrieve the events data for that particular match. The events data is stored in a DataFrame called `match_events`.
 
-Finally, we extract the unique team names from the team column of match_events and store them in a list called team_list. These team names represent the teams involved in the match.
+Finally, we extract the unique team names from the team column of `match_events` and store them in a list called `team_list` . These team names represent the teams involved in the match.
 
 Overall, this code fetches match data from the 2022 FIFA World Cup, saves it to a CSV file, and extracts the team names for further analysis or visualization purposes.
 
@@ -104,13 +104,13 @@ team_list =list(match_events.team.unique())
 
 #### Dataframe Manipulation
 
-In this code block, we are processing the match_events DataFrame to extract pass-related data for the first half of the match.
+In this code block, we are processing the `match_events` DataFrame to extract pass-related data for the first half of the match.
 
-- We first create a new DataFrame called first_half by filtering match_events to include only rows where the 'period' column is equal to 1, representing the first half of the match.
+- We first create a new DataFrame called `first_half` by filtering `match_events` to include only rows where the 'period' column is equal to 1, representing the first half of the match.
   
-- Similarly, we create a DataFrame called second_half by filtering match_events to include only rows where the 'period' column is equal to 2, representing the second half of the match.
+- Similarly, we create a DataFrame called `second_half` by filtering `match_events` to include only rows where the 'period' column is equal to 2, representing the second half of the match.
 
-- Next, we filter the first_half DataFrame further to include only rows where the 'type' column is equal to 'Pass', resulting in a DataFrame called pass_raw.
+- Next, we filter the `first_half` DataFrame further to include only rows where the 'type' column is equal to 'Pass', resulting in a DataFrame called `pass_raw`.
 
 - Finally, we select specific columns `('timestamp', 'player', 'pass_recipient')` from pass_raw and store the result in the pass_number_raw DataFrame.
 
@@ -122,7 +122,7 @@ pass_raw = first_half[match_events.type== 'Pass']
 
 pass_number_raw = pass_raw[['timestamp', 'player', 'pass_recipient']]
 ```
-pass_number_raw DataFrame, representing the pairing of players involved in each pass.
+`pass_number_raw` DataFrame, representing the pairing of players involved in each pass.
 
 We create a new column called 'pair' in the pass_number_raw DataFrame by concatenating the 'player' and 'pass_recipient' columns using the '+' operator.
 
@@ -134,9 +134,9 @@ The resulting 'pair' column contains the combined names of the player and pass r
 pass_number_raw['pair'] = pass_number_raw.player + pass_number_raw.pass_recipient
 ```
 
-In this code block, we are calculating the number of passes between player pairs using the pass_number_raw DataFrame.
+In this code block, we are calculating the number of passes between player pairs using the `pass_number_raw` DataFrame.
 
-We group the pass_number_raw DataFrame by the 'pair' column, which represents the player pairs, using the `groupby()` function.
+We group the `pass_number_raw` DataFrame by the 'pair' column, which represents the player pairs, using the `groupby()` function.
 
 We then apply the `count()` function to count the number of occurrences for each unique player pair.
 The resulting DataFrame is stored in the pass_count variable, including the 'pair' column and a new column 'timestamp' that contains the count of passes.
@@ -330,7 +330,7 @@ First, it converts the "location" column to a string type. Then, it removes the 
 
 Next, it splits the cleaned "location" strings by the comma separator and expands them into separate columns "x" and "y". 
 
-Finally, it converts the values in these columns to floating-point numbers using the NumPy library's astype`(np.float32)` function. The resulting dataframe `shot_raw` now contains the cleaned "x" and "y" coordinates of the shot locations.
+Finally, it converts the values in these columns to floating-point numbers using the NumPy library's `astype(np.float32)` function. The resulting dataframe `shot_raw` now contains the cleaned "x" and "y" coordinates of the shot locations.
 
 Here is a view of the columns in the resulting `shot_raw` df: 
 
@@ -338,7 +338,7 @@ Here is a view of the columns in the resulting `shot_raw` df:
 
 First, we imports two libraries: Seaborn and Mplsoccer. Then, there are two functions defined in the code. The first function is called `generateTeamxGDataFrame()` and it takes one argument, which is the name of a team. The function generates a dataframe containing data on the team's shots during the match, including information like the time the shot was taken, the position on the field, and the expected goal (xG) value of each shot.
 
-The second function is called `generateCombinedShotMap()` and takes two arguments, which are the names of the two teams in the match. This function uses the generateTeamxGDataFrame function to generate dataframes for each team's shots. Then, it uses the Mplsoccer library to create a visualization of the shots on the soccer field, with different colors and symbols representing goals and non-goals for each team. The code also adds some text to label the visualization, including the total number of shots and the total xG value for each team.
+The second function is called `generateCombinedShotMap()` and takes two arguments, which are the names of the two teams in the match. This function uses the `generateTeamxGDataFrame()` function to generate dataframes for each team's shots. Then, it uses the `Mplsoccer library` to create a visualization of the shots on the soccer field, with different colors and symbols representing goals and non-goals for each team. The code also adds some text to label the visualization, including the total number of shots and the total xG value for each team.
 
 Finally, the `generateCombinedShotMap()` function is called with the team names 'England' and 'Senegal'. It looks like the code is generating a visualization of the shots and goals from the match to help analyze how the game was played.
 

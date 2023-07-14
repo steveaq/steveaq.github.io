@@ -15,7 +15,8 @@ tags:
   - Data Science
   - Cluster Analysis 
   - Models
-author: stephenaq7
+author: steveaq
+comments: true
 ---
 
 

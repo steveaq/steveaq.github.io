@@ -14,7 +14,8 @@ tags:
   - Data Science
   - Modelling 
   - Linear Regression
-author: stephenaq7
+author: steveaq
+comments: true
 ---
 
 In part two of the data scraping walk through, we successfully achieved the following items; 

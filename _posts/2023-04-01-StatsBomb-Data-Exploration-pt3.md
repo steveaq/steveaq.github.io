@@ -12,7 +12,8 @@ category: [Analytics]
 tags:
   - Blogging
   - Data Science
-author: stephenaq7
+author: steveaq
+comments: true
 ---
 
 # Exploring StatsBomb Python API and Datasets for Football Analysis and Visuals (part-3)
@@ -500,7 +501,7 @@ plt.show()
 
 ```
 
-An this is the resulting chart:
+And this is the resulting chart:
 
 ![obvchar1](https://pbs.twimg.com/media/F0yrIYkWcAUk13m?format=jpg&name=large)
 
