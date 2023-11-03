@@ -8,7 +8,6 @@ description: Some description.
 permalink: /navigation/
 ---
 
-<img class="img-rounded" src="https://pbs.twimg.com/profile_images/1678337862624854016/SU2rOMuY_400x400.jpg" alt="Stephen Ahiabah" width="200">
 
 # Key Projects
 
@@ -31,7 +30,7 @@ Overall, the notebook is a comprehensive example of web scraping and data explor
 
 Visit any of the buttons below to go through my step-by-step tutorials throughout this process
 
-![placeholder](https://pbs.twimg.com/media/F06Px-BWIAIpZxu?format=png&name=small)
+![placeholder](/images/xhaka.png)
 
 
 <div style="text-align:center;">
@@ -54,7 +53,7 @@ The code starts by importing necessary packages like statsbombpy, pandas, numpy,
 
 These tutotials should give you a good idea about how to efficiently sift through match data from statsbomb and build insights on top. 
 
-![placeholder](https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=900x900 "Large example image")
+![placeholder](/images/multiplayer_pass.png)
 
 
 <div style="text-align:center;">
@@ -83,7 +82,7 @@ By employing data visualization techniques, these posts provide a personal persp
 
 Through this section of the website, readers can gain a deeper understanding of how data visualization enhances our comprehension of football xG metrics, and how these insights can be applied in practical contexts.
 
-![placeholder](https://pbs.twimg.com/media/F0yr1JPXwAIY2ht?format=png&name=900x900 "Large example image")
+![placeholder](/images/10032022_overperformers.png)
 
 
 <div style="text-align:center;">

@@ -6,9 +6,9 @@ subtitle: 'Overview of the data sources currently available for all levels'
 description: >-
   1st Part of a 2 part post going through where we can find good quality & free data for analysis.
 image: >-
-  https://pbs.twimg.com/media/F0qp1pXWcAAmJ37?format=png&name=small
+  images/datalist.png
 optimized_image: >-
-  https://pbs.twimg.com/media/F0qp1pXWcAAmJ37?format=png&name=small
+  images/datalist.png
 category: [Intro Post]
 tags:
   - Blogging

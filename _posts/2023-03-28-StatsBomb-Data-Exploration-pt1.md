@@ -5,9 +5,9 @@ subtitle: Introduction to exploring football data with StatsBomb
 description: >-
   This post provides an introduction to exploring football data with StatsBomb. Part 1 covers the fundamentals of accessing and analyzing football datasets from StatsBomb, offering insights into player performance & team tactics.
 image: >-
-  https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=900x900
+  images/Shot_Map.png
 optimized_image: >-
-  https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=900x900
+  images/Shot_Map.png
 category: [Analytics]
 tags:
   - Blogging

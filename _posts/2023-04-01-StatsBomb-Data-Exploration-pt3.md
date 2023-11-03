@@ -5,9 +5,9 @@ subtitle: Extracting valuable insights from StatsBomb football data
 description: >-
   In the final part of the StatsBomb data exploration series, this post focuses on extracting valuable insights from StatsBomb football data. Learn how to uncover trends, perform statistical analysis, and generate meaningful visualizations using the comprehensive football datasets provided by StatsBomb.
 image: >-
-    https://pbs.twimg.com/media/F0yp5Z2WAAMNCqF?format=jpg&name=small
+    images/race_chart.png
 optimized_image: >-
-    https://pbs.twimg.com/media/F0yp5Z2WAAMNCqF?format=jpg&name=small
+    images/race_chart.png
 category: [Analytics]
 tags:
   - Blogging

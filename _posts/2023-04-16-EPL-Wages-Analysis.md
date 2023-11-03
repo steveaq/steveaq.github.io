@@ -5,9 +5,9 @@ subtitle: Analyzing player wages in the English Premier League
 description: >-
   (Work in progress) This post provides a comprehensive analysis of player wages in the English Premier League (EPL). Explore the distribution of wages, identify trends among top earners, and examine the relationship between wages and on-pitch performance. Gain insights into the financial landscape of the EPL!
 image: >-
-    https://pbs.twimg.com/media/F0ypyn1WwAAXmvs?format=jpg&name=small
+    images/Arsenal_RvsW.png
 optimized_image: >-
-    https://pbs.twimg.com/media/F0ypyn1WwAAXmvs?format=jpg&name=small
+    images/Arsenal_RvsW.png
 category: [Financial Analysis]
 tags:
   - Blogging

@@ -8,7 +8,6 @@ description: Some description.
 permalink: /about/
 ---
 
-<img class="img-rounded" src="https://pbs.twimg.com/profile_images/1678337862624854016/SU2rOMuY_400x400.jpg" alt="Stephen Ahiabah" width="200">
 
 # About
 
@@ -42,7 +41,7 @@ You will find longer, more academically-oriented posts on the Pitch IQ substack 
 <div class="container">
   <div class="image-container">
     <a href="link_to_image1">
-      <img class="img-rounded" src="https://pbs.twimg.com/media/F0qn8nqXsAAOWAy?format=png&name=small" alt="Stephen Ahiabah">
+      <img class="img-rounded" src="https://pbs.twimg.com/media/F-A64wLXAAAf6Ub?format=png&name=360x360" alt="Stephen Ahiabah">
     </a>
     <br>
     <a href="https://pitchiq800.substack.com/p/cannon-iq">Cannon IQ Substack</a>
@@ -50,7 +49,7 @@ You will find longer, more academically-oriented posts on the Pitch IQ substack 
 
   <div class="image-container">
     <a href="link_to_image2">
-      <img class="img-rounded" src="https://pbs.twimg.com/media/F0qp1pXWcAAmJ37?format=png&name=small" alt="Stephen Ahiabah">
+      <img class="img-rounded" src="https://pbs.twimg.com/media/F-A6rcGXEAA3bSj?format=png&name=small" alt="Stephen Ahiabah">
     </a>
     <br>
     <a href="https://pitchiq800.substack.com/">Pitch IQ Medium</a>

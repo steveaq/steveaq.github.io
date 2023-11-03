@@ -5,9 +5,9 @@ subtitle: Advanced techniques for analyzing football data from StatsBomb
 description: >-
   Continuing from Part 1, this post delves into advanced techniques for analyzing football data from StatsBomb. This looks at more player specific queries, visuals and tactical insights using the datasets provided by StatsBomb. 
 image: >-
-    https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small
+    images/Bukayo Saka - Hexbin Touch Map.png
 optimized_image: >-
-    https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small
+    images/Bukayo Saka - Hexbin Touch Map.png
 category: [Analytics]
 tags:
   - Blogging

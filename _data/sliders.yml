@@ -3,25 +3,25 @@
   bullets: true
   captions: true
   images:
-    - src: https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=large
+    - src: images/multiplayer_pass.png
       title: England vs Senegal FWC 22
       alt: Multi-player passmap
-    - src: https://pbs.twimg.com/media/F0ywVahWIAImh3M?format=jpg&name=large
+    - src: images/ppg vs xg_diff.png
       title: EPL Perfromance Chart
       alt: Points Per Game vs xG Difference per 90
-    - src: https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=large
+    - src: images/Pass_Map.png
       title: England vs Senegal FWC 22
       alt: Team Passmap
-    - src: https://pbs.twimg.com/media/F0ysxO8WwAAC_9f?format=png&name=large
+    - src: images/Touch_Map.png
       title: England vs Senegal FWC 22
       alt: Induvidual Touch Map
-    - src: https://pbs.twimg.com/media/F0ysxSyXwAASLLM?format=png&name=large
+    - src: images/Shot_Map.png
       title: England vs Senegal FWC 22
       alt: xG Shot Chart
-    - src: https://pbs.twimg.com/media/F0yr1JPXwAIY2ht?format=png&name=large
+    - src: images/xg_tree.png
       title: EPL Perfromance Chart
       alt: xG Differential
-    - src: https://pbs.twimg.com/media/F0yqCYhWAAEWh89?format=jpg&name=large
+    - src: images/10032022_overperformers.png
       title: EPL Perfromance Chart
       alt: xG vs Actual Goals Chart
   settings:
