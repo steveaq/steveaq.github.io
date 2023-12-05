@@ -5,9 +5,9 @@ subtitle: Exploring player similarity analysis in football
 description: >-
   (Work in progress) This post delves into the concept of player similarity analysis in football. Discover various player similarity models and techniques, explore their applications in talent scouting, team building, and performance evaluation. Unlock the power of player similarity analysis for insightful football analytics.
 image: >-
-    https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2Rpc3RhbmNlLWZvcm11bGEuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0=
+    https://pbs.twimg.com/media/GAlVKnPXAAEe9Tv?format=jpg&name=large
 optimized_image: >-
-  https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2Rpc3RhbmNlLWZvcm11bGEuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0=
+    https://pbs.twimg.com/media/GAlVKnPXAAEe9Tv?format=jpg&name=large
 
 category: [Data Science]
 tags:

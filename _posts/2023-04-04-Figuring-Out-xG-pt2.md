@@ -5,9 +5,9 @@ subtitle: Advanced analysis of expected goals (xG) in football
 description: >-
   (Work in progress) Building on Part 1, this post delves deeper into the analysis of expected goals (xG) in football. Discover advanced techniques for evaluating and interpreting xG metrics, explore their applications in player performance analysis and team strategies, and gain a deeper understanding of xG in football.
 image: >-
-    images/ppg_vs_xg.png
+    https://pbs.twimg.com/media/GAlX5HDXoAAXYWO?format=jpg&name=small
 optimized_image: >-
-    images/ppg_vs_xg.png
+    https://pbs.twimg.com/media/GAlX5HDXoAAXYWO?format=jpg&name=small
 category: [Data Visualisations]
 tags:
   - Blogging

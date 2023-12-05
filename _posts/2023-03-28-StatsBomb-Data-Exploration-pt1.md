@@ -303,7 +303,7 @@ plt.show()
 
 ```
 
-![Team Pass Map](https://pbs.twimg.com/media/F0ysxORXwAAdLvA?format=png&name=900x900)
+![Team Pass Map](/images/Pass_Map.png)
 
 Overall, the code creates a passing network visualization for a football match, showing the passing patterns of a team during a certain half of the match. The visualization is complete with annotations and logos to make it look professional.
 
@@ -425,7 +425,7 @@ Now we call the function by passing the team names to get the shot map.
 generateCombinedShotMap('England','Senegal')
 ```
 
-![Team Shot Map](https://pbs.twimg.com/media/F0ysxSyXwAASLLM?format=png&name=small)
+![Team Shot Map](https://pbs.twimg.com/media/GAlVfBwXYAAWPXU?format=jpg&name=large)
 
 ### Conclusion
 

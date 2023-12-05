@@ -5,9 +5,9 @@ subtitle: 'Motivations and Brief Project outline.'
 description: >-
   A brief rundown of my ideas, what I will be posting on this blog.
 image: >-
-  images/PITCH IQ PRIMARY.png
+  https://pbs.twimg.com/media/F-A6rcGXEAA3bSj?format=png&name=small
 optimized_image: >-
-  images/PITCH IQ PRIMARY.png
+  https://pbs.twimg.com/media/F-A6rcGXEAA3bSj?format=png&name=small
 category: [Intro Post]
 tags:
   - Blogging
