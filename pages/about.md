@@ -15,7 +15,7 @@ Welcome to Pitch IQ, a personal and insightful football analytics platform creat
 
 On this platform, I combine my passion for the game with rigorous data analysis. My goal is to offer you in-depth insights that allow you to appreciate the nuances of football, both on and off the pitch.
 
-You will find longer, more academically-oriented posts on the Pitch IQ substack page. Additionally, I have created Cannon IQ, a dedicated substack blog focusing exclusively on our beloved Arsenal. As a die-hard Gunners fan, I delve into the tactics, player analysis, and financial dynamics specific to Arsenal. Cannon IQ is my way of connecting with other Arsenal fans and providing my perspective on my favorite club.
+You will find longer, more academically-oriented posts on the Pitch IQ substack page. Additionally, I have created Cannon IQ, a dedicated substack/medium blog focusing exclusively on  Arsenal. As a die-hard Gunner, I delve into the tactics, player analysis, and financial dynamics specific to Arsenal. Cannon IQ is my way of connecting with other Arsenal fans and providing my perspective on my club.
 
 <style>
   .container {
@@ -38,14 +38,6 @@ You will find longer, more academically-oriented posts on the Pitch IQ substack 
   }
 </style>
 
-<div class="container">
-  <div class="image-container">
-    <a href="link_to_image1">
-      <img class="img-rounded" src="https://pbs.twimg.com/media/F-A64wLXAAAf6Ub?format=png&name=360x360" alt="Stephen Ahiabah">
-    </a>
-    <br>
-    <a href="https://pitchiq800.substack.com/p/cannon-iq">Cannon IQ Substack</a>
-  </div>
 
   <div class="image-container">
     <a href="link_to_image2">
@@ -54,15 +46,8 @@ You will find longer, more academically-oriented posts on the Pitch IQ substack 
     <br>
     <a href="https://pitchiq800.substack.com/">Pitch IQ Medium</a>
   </div>
-</div>
 
-
-
-
-
-
-Join me as we explore the world of football analytics, uncover trends, and share our excitement for the game. I firmly believe that understanding the data behind football can enhance your overall football experience.
-
+I firmly believe that understanding the data behind football can enhance your overall football experience.
 If you have any further questions or require additional assistance, please feel free to reach out.
 
 Steve 
