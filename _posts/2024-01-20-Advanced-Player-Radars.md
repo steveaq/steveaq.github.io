@@ -1,18 +1,19 @@
 ---
 layout: post
-title: EPL Wages Analysis
-subtitle: Analyzing player wages in the English Premier League
+title: (WIP) - Advanced Player Analysis
+subtitle: Exploring player similarity analysis in football
 description: >-
-  This post provides a comprehensive analysis of player wages in the English Premier League (EPL). Explore the distribution of wages, identify trends among top earners, and examine the relationship between wages and on-pitch performance. Gain insights into the financial landscape of the EPL!
+  (Work in progress) This post delves into the concept of player similarity analysis in football. Discover various player similarity models and techniques, explore their applications in talent scouting, team building, and performance evaluation. Unlock the power of player similarity analysis for insightful football analytics.
 image: >-
-    https://pbs.twimg.com/media/GAlVkWdWsAEFaq4?format=jpg&name=large
+    https://pbs.twimg.com/media/GE3cjK3WkAAaA-l?format=png&name=small
 optimized_image: >-
-    https://pbs.twimg.com/media/GAlVkWdWsAEFaq4?format=jpg&name=large
-category: [Financial Analysis]
+    https://pbs.twimg.com/media/GE3cjK3WkAAaA-l?format=png&name=small
+
+category: [Data Science]
 tags:
   - Blogging
   - Data Science
-  - Matplotlib
+  - Models
 author: steveaq
 comments: true
 ---

@@ -1,18 +1,19 @@
 ---
 layout: post
-title: EPL Wages Analysis
-subtitle: Analyzing player wages in the English Premier League
+title: FBREF Data Scraping Walk Through pt4
+subtitle: Data analysis and visualization using scraped FBREF data
 description: >-
-  This post provides a comprehensive analysis of player wages in the English Premier League (EPL). Explore the distribution of wages, identify trends among top earners, and examine the relationship between wages and on-pitch performance. Gain insights into the financial landscape of the EPL!
+  A 2024 Update and additional part of the FBREF data scraping series, this post focuses on data analysis and visualization using the scraped FBREF data. Learn how to extract insights, perform statistical analysis, and create visualizations with the scraped football data with more advanced techniques.
 image: >-
-    https://pbs.twimg.com/media/GAlVkWdWsAEFaq4?format=jpg&name=large
+    https://pbs.twimg.com/media/GE3cjLMXIAAj45N?format=jpg&name=4096x4096
 optimized_image: >-
-    https://pbs.twimg.com/media/GAlVkWdWsAEFaq4?format=jpg&name=large
-category: [Financial Analysis]
+    https://pbs.twimg.com/media/GE3cjLMXIAAj45N?format=jpg&name=4096x4096
+
+category: [Data Science]
 tags:
   - Blogging
   - Data Science
-  - Matplotlib
+  - Models
 author: steveaq
 comments: true
 ---
