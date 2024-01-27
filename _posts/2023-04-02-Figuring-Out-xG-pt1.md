@@ -263,7 +263,7 @@ def add_logo_on_ax(ax, team_id, bw = False):
 
 The following code generates a visual representation of the expected goals `(xG) differential` for football teams in the Premier League using our xG Diff table. It uses Matplotlib for plotting and relies on the PIL (Python Imaging Library) module for image processing. Let's break down the code into its main components:
 
-1: Matplotlib Setup:
+1: **Matplotlib Setup**:
 
 The code begins by importing necessary modules, including `PIL` for image processing and Matplotlib for plotting. It sets up a Matplotlib figure with a specified size and resolution, creating an `axes (ax)` for later plotting.
 
@@ -283,7 +283,7 @@ ax = plt.subplot()
 # ... (setting spines, grid, ticks, etc.)
 ```
 
-2: Data Preparation:
+2: **Data Preparation**:
 
 This section of the code prepares the axes by setting limits, ticks, and labels. It calculates the symmetrical limits on the x-axis based on the minimum and maximum values of the `'xg_diff'` column in the data. A 10% margin is added, and tick parameters are adjusted for the x-axis.
 
@@ -302,7 +302,7 @@ ax.set_ylim(-1, data.shape[0])
 ```
 
 
-3: Bar Chart:
+3: **Bar Chart**:
 
 The code generates a horizontal bar chart using ax.barh to visualize the `xG differentials` for each team. The chart is customized with hatching, edge color, and a black line indicating the zero `xG differential`. There's also additional customization for bar colors based on the `xG differential`.
 
@@ -315,7 +315,7 @@ ax.plot([0, 0], [ax.get_ylim()[0], ax.get_ylim()[1]], color='black', lw=0.75, zo
 
 ```
 
-4: Annotations and Logos:
+4: **Annotations and Logos**:
 
 This part of the code handles annotations for each team's xG differential and includes team logos. It iterates through the data, creating annotations with path effects and determining the position and offset for each team's logo. The `add_logo_on_ax` function is used to add team logos to the plot.
 
@@ -331,7 +331,7 @@ for index, x in enumerate(data['xg_diff']):
 
 ```
 
-5: Figure Title and Arrows:
+5: **Figure Title and Arrows**:
 
 Annotations and arrows are added to the plot to highlight overperforming and underperforming teams. Arrows are drawn and text annotations indicating `xG overperformers and underperformers` are placed at specific positions on the plot.
 
@@ -356,7 +356,7 @@ mid_point_positive = (position_negative + ax.get_ylim()[1])/2
 mid_point_negative = (position_negative + ax.get_ylim()[0])/2
 ```
 
-6: Additional Figures:
+6: **Additional Figures**:
 
 Two additional figures (logos) are added to the main plot. The Premier League 2 logo is positioned on the left side of the plot, and the "PitchIQ" logo is positioned on the right side.
 
@@ -647,7 +647,7 @@ def ax_logo(team_id, ax):
 The following code generates a customized scatter plot with logos, annotations, and stylized elements to visualize the relationship between `PPG` and `xG Difference per 90`. The plot is saved as an image file for further use or sharing. Let's break down the code into its main components:
 
 
-1: Setting Plot Style and Data:
+1: **Setting Plot Style and Data**:
 
 
 ```python
@@ -663,7 +663,7 @@ The plot is styled using the 'fivethirtyeight' style.
 Data for x-axis `(ppg_form)` and y-axis `(xg_diff_per90)` is extracted from the DataFrame.
 Figure and axes objects are created for plotting.
 
-2: Axes Transformation:
+2: **Axes Transformation**:
 
 ```python
 DC_to_FC = ax.transData.transform
@@ -673,7 +673,7 @@ DC_to_NFC = lambda x: FC_to_NFC(DC_to_FC(x))
 ```
 Transformation functions are defined to convert data coordinates to normalized figure coordinates.
 
-3: Plotting Scatter Points with Logos:
+3: **Plotting Scatter Points with Logos**:
 
 ```python
 ax_size = 0.05
@@ -692,7 +692,7 @@ for x, y in zip(x_loc, y_loc):
 Scatter points are plotted on the axes using the transformed coordinates.
 Logos (retrieved by the `ax_logo function`) are added to each point
 
-4: Axes Styling:
+4: **Axes Styling**:
 
 ```python
 # Change ticks
@@ -722,7 +722,7 @@ ax.yaxis.set_ticks_position('left')
 Axes limits are set based on the data.
 Grid lines and spine positions are adjusted to create a cleaner appearance.
 
-5: Adding Average Lines and Shaded Regions:
+5: **Adding Average Lines and Shaded Regions**:
 
 ```python
 plt.hlines(df['xg_diff_per90'].mean(), 0, 3, color='#c2c1c0')
@@ -735,14 +735,14 @@ Horizontal and vertical average lines are added to the plot.
 Shaded regions are created to highlight specific areas.
 
 
-6: Adding Text Annotations:
+6: **Adding Text Annotations**:
 
 ```python
 # ... (figure and axis text annotations)
 ```
 Text annotations are added to the figure, providing a title, description, and axis labels.
 
-7: Adding Logos:
+7: **Adding Logos**:
 
 ```python
 ax2 = fig.add_axes([0.01, 0.075, 0.07, 1.75])
