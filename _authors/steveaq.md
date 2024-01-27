@@ -17,7 +17,7 @@ linkedin_username: stephen-ahiabah-quarshie-3a9886a6
 
 Hi, my name is Stephen Ahiabah-Quarshie 
 
-I am currently a Quantitive Risk Analyst @ Nawest Group. Over the course of the last few years, I've found my passion in the world of ML and sports analytics has massively grown, so I decided to start this blog to learn more about these topics in public. From coding to tactics and also, applications of ML in football.
+I am currently a Quantitive Risk Analyst @ NatWest Group. Over the course of the last few years, I've found my passion in the world of ML and sports analytics has massively grown, so I decided to start this blog to learn more about these topics in public. From coding to tactics and also, applications of ML in football.
 
 A little on my skills - 
 
@@ -68,12 +68,15 @@ I have strong technical skills in several areas, including Python, SQL, Tableau,
     <p style="font-size:12px; margin-top:5px;">Tableau - 70%</p>
     
     <div style="background-color:#EAEAEA; height:25px; border-radius: 10px; overflow:hidden;">
-      <div style="background-color:red; height:25px; width:60%; animation: skillbar 2s;"></div>
+      <div style="background-color:red; height:25px; width:70%; animation: skillbar 2s;"></div>
     </div>
 
     <p style="font-size:12px; margin-top:5px;">Git - 70%</p>
     </div>
 </div>
+
+
+
 
 
 In this blog I’ll write about some things I learnt along the way, starting from zero, to what I’m working on today.
