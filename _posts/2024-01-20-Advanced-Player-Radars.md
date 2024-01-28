@@ -9,7 +9,7 @@ image: >-
 optimized_image: >-
     https://pbs.twimg.com/media/GE3cjK3WkAAaA-l?format=png&name=small
 
-category: [Data Science]
+category: [Data Visualisations]
 tags:
   - Blogging
   - Data Science

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (WIP) - Player Roles Clustering
+title: (WIP) - K-Means Player Cluster Analysis
 subtitle: Analyzing and categorizing football player roles through clustering
 description: >-
   (Work in progress) In this post, we explore player role analysis and clustering techniques in football. Discover how to categorize players based on their playing styles, positions, and attributes using clustering algorithms. Unveil the underlying patterns and gain insights into the different player roles in football.
