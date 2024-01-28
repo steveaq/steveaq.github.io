@@ -5,9 +5,9 @@ subtitle: Data analysis and visualization using scraped FBREF data
 description: >-
   In the final part of the FBREF data scraping series, this post focuses on data analysis and visualization using the scraped FBREF data. Learn how to extract insights, perform statistical analysis, and create visualizations with the scraped football data.
 image: >-
-    images/Screenshot 2022-06-14 at 13.38.02.png
+    https://pbs.twimg.com/media/GE8Ot0bWMAAvNZj?format=png&name=small
 optimized_image: >-
-    images/Screenshot 2022-06-14 at 13.38.02.png
+    https://pbs.twimg.com/media/GE8Ot0bWMAAvNZj?format=png&name=small
 category: [Player & Team Analysis]
 tags:
   - Blogging
@@ -59,7 +59,7 @@ Team Stats;
 
 There is rough pattern with these URLs, so it’s possible to write some functions to programmatically search through a database of URLs to acquire player level data in an efficient way. By using the webscraper, we can collect the URL links of sub-pages from the parent pages. 
 
-Using this basis, we can build a database of both Team and Player URLs, given the correct parent-page is accessed. Once we have the player & team URLs, we can add features like; Name, Age, Position, and playing-time. These fields will help us query the database to easily get a hold of the information we need, without having to open a webpage and copy the links every time. At the end of this exercise, key outputs we are trying to assemble iare effectiely 2 databases/tables. One with players and the other with teams complete with basic imformation and their relevant hyper-link in FBREF. This can be saved down and used whenever we want to quickly generate visualisations etc. 
+Using this basis, we can build a database of both Team and Player URLs, given the correct parent-page is accessed. Once we have the player & team URLs, we can add features like; Name, Age, Position, and playing-time. These fields will help us query the database to easily get a hold of the information we need, without having to open a webpage and copy the links every time. At the end of this exercise, key outputs we are trying to assemble are effectively 2 databases/tables. One with players and the other with teams complete with basic information and their relevant hyper-link in FBREF. This can be saved down and used whenever we want to quickly generate visualisations etc. 
 
 
 ## Setup
@@ -90,9 +90,9 @@ from fuzzywuzzy import process
 ```
 ### Extra Packages to install
 
-Before we start, there are few installations we need to do to ensure our functions work as seemlessly as possible. The links to these pakages can be found below. 
+Before we start, there are few installations we need to do to ensure our functions work as seemlessly as possible. The links to these packages can be found below. 
 
-- URLLIB 3 is a dependency we need in order to help us efficently collect the URLs from the FBREF parent pages 
+- URLLIB 3 is a dependency we need in order to help us efficiently collect the URLs from the FBREF parent pages 
 
     ```python
     pip install urllib3
@@ -106,7 +106,7 @@ Before we start, there are few installations we need to do to ensure our functio
     ```
     [fuzzywuzzy](https://pypi.org/project/fuzzywuzzy/)
 
-- Unicodedata2 package will convert non ascii characters in player & teams names to ascii characters so when we perform our searchs in the player database we need not worry about special or accented characters. 
+- Unicodedata2 package will convert non ascii characters in player & teams names to ascii characters so when we perform our searches in the player database we need not worry about special or accented characters. 
 
     ```python
     pip install unicodedata2
@@ -158,10 +158,10 @@ Let's now see if we can do the same for players in the same league
 ### Important Functions
 
 As I mentioned before, there are a myriad of pitfalls and issues when I tried to make this and the biggest on was getting the player names to match the URLs. 
-The EPL being the cultural melting pot that it currently exists as today has several players with non ASCII characters in their names. TLDR, loads of players are foriegn and have non english standard alphanumeric characters in their names. The following 2 function help us get around that.
+The EPL being the cultural melting pot that it currently exists as today has several players with non ASCII characters in their names. TLDR, loads of players are foreign and have non english standard alphanumeric characters in their names. The following 2 function help us get around that.
 
- Remove accents, converts all the characters of a player name into english standard characters. As these non english characters dont always relay back to the characters we expect ie; 
-we expect Martin Ødegaard &rarr; Martin Odegaard, however we get Martin Ødegaard &rarr; Martin Oedegaard. We need to use the fuzzy merge fucntion that acts as a more accurate 'closest' match much like using an approximate match on VLOOKUP in MS Excel to ensure we are joining the correct URL to the correct player and further down the line when we query the database we don't need to worry about *totally* correct spelling or special characters. 
+ Remove accents, converts all the characters of a player name into english standard characters. As these non english characters don't always relay back to the characters we expect ie; 
+we expect Martin Ødegaard &rarr; Martin Odegaard, however we get Martin Ødegaard &rarr; Martin Oedegaard. We need to use the fuzzy merge function that acts as a more accurate 'closest' match much like using an approximate match on VLOOKUP in MS Excel to ensure we are joining the correct URL to the correct player and further down the line when we query the database we don't need to worry about *totally* correct spelling or special characters. 
 
 
 ```python

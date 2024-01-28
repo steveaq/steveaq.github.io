@@ -24,11 +24,11 @@ Growing up, one of the players I did my best to try and emulate on the school pi
 
 One of the things that really drew me to this player was his change of position. At face value, this is normally taken as an isolated case of an extremely talented footballer who had many strings in his bow, however when you peel the curtain back, many household names have achieved similar feats when changing position. It got me thinking, how many more players could have had significantly more impactful careers but were wasted in a position that did not align to their strengths, how much money could clubs have saved in years gone by by moving a player around, instead of completing an expensive yet very risky transfer. Here are a few household names that started out in other positions that may surprise you:
 
-- *Bastian Schweinsteiger* – It's very hard to believe he started out as a tricky left-winger, but earned a decorated career as all action central midefielder.
+- *Bastian Schweinsteiger* – It's very hard to believe he started out as a tricky left-winger, but earned a decorated career as all action central midfielder.
 
 - *Gianluca Zambrotta* – Back in 1999, Juventus believed they were signing Italy’s most promising right-winger, converted into full-back. 
 
-- *Robin van Persie* – The then promising Dutch youngster originally to playing as winger, was brought by Arsene Wenger to become natural heir to the No10 Postion, however he turned out to be one of the best center forwards the premier league has ever seen.
+- *Robin van Persie* – The then promising Dutch youngster originally to playing as winger, was brought by Arsene Wenger to become natural heir to the No10 Position, however he turned out to be one of the best center forwards the premier league has ever seen.
 
 - *Sergio Ramos* – Real Madrid bought the then 19-year-old Ramos as a full-back is now regarded as one of the best central defenders of all time.
 
