@@ -727,7 +727,7 @@ create_comparison_pizza('Teun Koopmeiners', 'Granit Xhaka')
 ### Conclusion
 
 In conclusion, this post serves as a valuable addition to a series of tutorials aimed at empowering users to craft dynamic and replicable functions for generating insightful data visualizations, especially tailored for social media or personal enjoyment.
-In the next iteration I'll be going over radar charts. I hope you found this useful 
+In the next iteration I'll be going over radar charts. I hope you found this useful. 
 
 Thanks for reading 
 
