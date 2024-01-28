@@ -3,7 +3,7 @@ layout: page
 menu: True
 date: '2022-02-27 01:53:59'
 title: Viz Gallery
-author: stephenaq7
+author: steveaq
 description: Some description.
 permalink: /viz-gallery/
 image_sliders:
@@ -38,7 +38,7 @@ These largely comprise of projects written in python, using the matplotlib libra
 
 #### Links to featured visuals
 
-If you want to have a go a at re-creating them yourself please follow the link in the title of each chart, you will be directed to the revelant github repo where the visual was built.
+If you want to have a go at re-creating them yourself please follow the link in the title of each chart, you will be directed to the relevant github repo where the visual was built.
 
 
 <style>

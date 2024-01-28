@@ -1,6 +1,6 @@
 ---
 layout: post
-title: FBREF Data Scraping Walk Through pt4
+title: FBREF Data Scraping - 2024 Update
 subtitle: Data analysis and visualization using scraped FBREF data
 description: >-
   A 2024 Update and additional part of the FBREF data scraping series, this post focuses on data analysis and visualization using the scraped FBREF data. Learn how to extract insights, perform statistical analysis, and create visualizations with the scraped football data with more advanced techniques.

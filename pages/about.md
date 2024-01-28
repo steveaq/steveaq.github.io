@@ -11,11 +11,14 @@ permalink: /about/
 
 # About
 
-Welcome to Pitch IQ, a personal and insightful football analytics platform created by a passionate hobbyist football data scientist. I have a deep love for football and a strong dedication to analyzing the game from a data-driven perspective. Pitch IQ is the culmination of my efforts to share unique insights and provide a fresh perspective on the world of football.
+Welcome to Pitch IQ, a personal football analytics blog and platform created by a hobbyist football data scientist. 
+
+I have a deep love for football and a strong dedication to analyzing the game from a data-driven perspective. Pitch IQ is the culmination of my efforts to share unique insights and provide a fresh perspective on the world of football.
 
 On this platform, I combine my passion for the game with rigorous data analysis. My goal is to offer you in-depth insights that allow you to appreciate the nuances of football, both on and off the pitch.
 
-You will find longer, more academically-oriented posts on the Pitch IQ substack page. Additionally, I have created Cannon IQ, a dedicated substack/medium blog focusing exclusively on  Arsenal. As a die-hard Gunner, I delve into the tactics, player analysis, and financial dynamics specific to Arsenal. Cannon IQ is my way of connecting with other Arsenal fans and providing my perspective on my club.
+You will find longer, more academically-oriented posts on the Pitch IQ medium page. Additionally, I have created Cannon IQ, a dedicated medium mini-blog focusing exclusively on  Arsenal. As a die-hard Gunner, I explore the tactics, player analysis, and financial dynamics specific to Arsenal.
+Cannon IQ is my way of connecting with other Arsenal fans and providing my perspective on my club.
 
 <style>
   .container {
