@@ -18,7 +18,7 @@ author: steveaq
 comments: true
 ---
 
-In this post is part of a series of *how tos* for creating dynamic & repeatable functions that are able to produce informative data visualisations for social media or just generally for fun. 
+This post is part of a series of *how tos* for creating dynamic & repeatable functions that are able to produce informative data visualisations for social media or just generally for fun. 
 
 Armed with both the Beautiful Soup & mplsoccer python modules I will outline how I do so for my twitter and bluesky posts. 
 
