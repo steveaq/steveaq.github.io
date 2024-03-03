@@ -54,7 +54,7 @@ from math import pi
 
 In my last post, I picked Napoli as the team to analyse, but since we're looking at players now, I'm going to keep it #Brexit, and have a look at the young up and coming, English attacking midfield players currently in the EPL.
 
-To narrow it down I've gone with U23 players, so in no particluar order:  
+To narrow it down I've gone with U23 players, so in no particular order:  
 - [Bukayo Saka](https://fbref.com/en/players/bc7dc64d/Bukayo-Saka)
 - [Phil Foden](https://fbref.com/en/players/ed1e53f3/Phil-Foden)
 - [Emile Smith-Rowe](https://fbref.com/en/players/9674002f/Mason-Mount)
@@ -70,7 +70,7 @@ To narrow it down I've gone with U23 players, so in no particluar order:
 *For the full code visit my [repo](https://github.com/steveaq/Webs-Scraping-for-Fooball-Data-).* 
 
  The first function requires the URL of a player profile to be passed in order to return a pandas dataframe with the high level per/90 stats available on this page. The beautiful soup package will find the tables we need in the source code of the html.
- The table we want from this sub-page is stuctured slightly differently to the one we have scraped previously. So we need to construct our dataframe in a more programatic way.
+ The table we want from this sub-page is structured slightly differently to the one we have scraped previously. So we need to construct our dataframe in a more programmatic way.
  
 
 ```python
@@ -128,7 +128,7 @@ def get_player_data(x):
 
 ### Comparing Player Metrics
 
-The above functions works on any page with this template so effectly any teams stats page will work with this..hopefully. 
+The above functions works on any page with this template so effectively any teams stats page will work with this..hopefully. 
 I'm probably one of the most insufferable Arsenal fans you'll ever meet so in typical fashion I've gone with, Bukayo Saka, who in my opinion is going to outdo Henry's legacy. 
 
 ```python
@@ -151,7 +151,7 @@ get_player_multi_data(url_list)
 
 This is in much better shape now, there is still some data cleaning to do however, after we have sorted that, we can start creating some visuals to make it it easier to compare the players. 
 
-As you may have noticed from the output table, we have *a lot* of features in our dataframe. Luckily we can group some of these into catergories. In order to keep thing simple, I went with using - 'Attacking', 'Playmaking', & 'Defensive' as the catergories. The features selected for each one have been chose using the same grouping in FBREF. 
+As you may have noticed from the output table, we have *a lot* of features in our dataframe. Luckily we can group some of these into categories. In order to keep thing simple, I went with using - 'Attacking', 'Playmaking', & 'Defensive' as the categories. The features selected for each one have been chose using the same grouping in FBREF. 
 
 ```python
 def generate_player_comparison(url_list, view):

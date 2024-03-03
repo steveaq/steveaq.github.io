@@ -28,12 +28,12 @@ In part two of the data scraping walk through, we successfully achieved the foll
 
 I also added a new action to the objective of this task to: 
 
-- [ ] *Build a method to programaticaly access player & team level data with minimal input*
+- [ ] *Build a method to programmatically access player & team level data with minimal input*
 
 In my period of research, I found sifting through the data extremely difficult. With FBREF, the webpage has been built with the User Experience of the viewers of the website in mind.
 I found 2 major issues when trying to build a way to easily access the data available of on the site.
 
-1. There isn't an obvious logic to contructing the URLs of players and teams
+1. There isn't an obvious logic to constructing the URLs of players and teams
 
 For Example:
 URLs for teams in the same league look like this:

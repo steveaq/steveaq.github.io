@@ -5,9 +5,9 @@ subtitle: Data analysis and visualization using scraped FBREF data
 description: >-
   A 2024 Update and additional part of the FBREF data scraping series, this post focuses on data analysis and visualization using the scraped FBREF data. Learn how to extract insights, perform statistical analysis, and create visualizations with the scraped football data with more advanced techniques.
 image: >-
-    https://pbs.twimg.com/media/GE3cjLMXIAAj45N?format=jpg&name=4096x4096
+    https://pbs.twimg.com/media/GHvkzCdXMAEPK7j?format=jpg&name=4096x4096
 optimized_image: >-
-    https://pbs.twimg.com/media/GE3cjLMXIAAj45N?format=jpg&name=4096x4096
+    https://pbs.twimg.com/media/GHvkzCdXMAEPK7j?format=jpg&name=4096x4096
 
 category: [Data Visualisations]
 tags:
@@ -18,8 +18,11 @@ author: steveaq
 comments: true
 ---
 
+## Introduction
 
-In part two of the data scraping walk through, we successfully achieved the following items; 
+This post is an additional tutorial from my [FBREF Data scaping series]()
+
+The posts previously written in 2023 largely focused on the following objectives: 
 
 - [x] *Create a set of working functions to aggregate data from FBREF.*
 
@@ -29,195 +32,82 @@ In part two of the data scraping walk through, we successfully achieved the foll
 
 - [x] *Assess the meaningful metrics we need to start making some predictions on player suitability to positions.*
 
+- [x] *Build a method to programmatically access player & team level data with minimal input*
+
+I previously created an automated method of programmatically fetching player data by creating a phonebook type interface to fetch player data ino order to compare statistics.
+
+In this new 2024 update will focus more on using FBREF's newly added generlaised stat pages that already comprise of aggregated player data from the european top 5 leagues, rendering the previously data and time intensive approach I had created before as unnecessary. 
+
+I now exclusively use the methods I'll share with you in this post to fetch player in far easier manner, that I hope will help you in your football analytics endeavors.
+
+
+## Background
+
+As mentioned in the intro above, FBREF now has sub pages comprising of data for all players in the Top 5 European Leagues all in 1 table. 
+
+An example of which is shown in the figure below: 
+
+![big_data_base](https://pbs.twimg.com/media/GHsUWSHXAAAeQeD?format=png&name=large)
+
+However, the catch is the types of data are split in to further sub-tables that are group by the 'type' of statistics, these type are: 
+
+![pages_data_base](https://pbs.twimg.com/media/GHsUWR7WoAABJFH?format=jpg&name=medium)
+
+In this post I will scrape all of these tables and combine them into 1 master table which we can save down and use for further analysis or visualisation.
+
 ## Setup
 
+Here are some of the key modules that are required in order to run this script.
+This Python script imports libraries for web scraping, data analysis, visualization, and machine learning. It configures the visualization environment, sets display options, and imports image processing modules. 
 
 ```python
+import os
 import requests
-import unicodedata
 import pandas as pd
 from bs4 import BeautifulSoup
 import seaborn as sb
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-import matplotlib.patheffects as pe
 import warnings
 import numpy as np
 from math import pi
-import os
-from math import pi
 from urllib.request import urlopen
+import matplotlib.patheffects as pe
 from highlight_text import fig_text
 from adjustText import adjust_text
-from soccerplots.radar_chart import Radar
+from tabulate import tabulate
+import matplotlib.style as style
+import unicodedata
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
-```
+import matplotlib.ticker as ticker
+import matplotlib.patheffects as path_effects
+import matplotlib.font_manager as fm
+import matplotlib.colors as mcolors
+from matplotlib import cm
+from highlight_text import fig_text
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
 
+from sklearn import preprocessing
 
-```python
-def get_team_urls(x):  
-    url = x
-    data  = requests.get(url).text
-    soup = BeautifulSoup(data)
-    player_urls = []
-    links = BeautifulSoup(data).select('th a')
-    urls = [link['href'] for link in links]
-    urls = list(set(urls))
-    full_urls = []
-    for y in urls:
-        full_url = "https://fbref.com"+y
-        full_urls.append(full_url)
-    team_names = []
-    for team in urls: 
-        team_name_slice = team[20:-6]
-        team_names.append(team_name_slice)
-    list_of_tuples = list(zip(team_names, full_urls))
-    Team_url_database = pd.DataFrame(list_of_tuples, columns = ['team_names', 'urls'])
-    return Team_url_database
-```
+style.use('fivethirtyeight')
 
-
-```python
-def fuzzy_merge(df_1, df_2, key1, key2, threshold=97, limit=1):
-    """
-    :param df_1: the left table to join
-    :param df_2: the right table to join
-    :param key1: key column of the left table
-    :param key2: key column of the right table
-    :param threshold: how close the matches should be to return a match, based on Levenshtein distance
-    :param limit: the amount of matches that will get returned, these are sorted high to low
-    :return: dataframe with boths keys and matches
-    """
-    s = df_2[key2].tolist()
-    
-    m = df_1[key1].apply(lambda x: process.extract(x, s, limit=limit))    
-    df_1['matches'] = m
-    
-    m2 = df_1['matches'].apply(lambda x: ', '.join([i[0] for i in x if i[1] >= threshold]))
-    df_1['matches'] = m2
-    
-    return df_1
-
-
-def remove_accents(input_str):
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    only_ascii = nfkd_form.encode('ASCII', 'ignore')
-    only_ascii = str(only_ascii)
-    only_ascii = only_ascii[2:-1]
-    only_ascii = only_ascii.replace('-', ' ')
-    return only_ascii
+from PIL import Image
+import urllib
+import os
+import math
+from PIL import Image
+import matplotlib.image as image
 
 ```
+### Data Preparation & Constructing Functions 
 
-```python
-team_urls = get_team_urls("https://fbref.com/en/comps/9/Premier-League-Stats")  
-full_urls = list(team_urls.urls.unique())
-```
+The code below defines a function called `position_grouping` that takes a player's position (`x`) as input. It categorizes players into different position groups based on their positions, such as goalkeepers (GK), defenders, wing-backs, defensive midfielders, central midfielders, attacking midfielders, and forwards.
 
-```python
-def general_url_database(full_urls):    
-    appended_data = []
-    for team_url in full_urls:
-        url = team_url
-        # print(url)
-        player_db = pd.DataFrame()
-        player_urls = []
-        data  = requests.get(url).text
-        links = BeautifulSoup(data).select('th a')
-        urls = [link['href'] for link in links]
-        player_urls.append(urls)
-        player_urls  = [item for sublist in player_urls  for item in sublist]
-        player_urls.sort()
-        player_urls = list(set(player_urls))
-        p_url = list(filter(lambda k: 'players' in k, player_urls))
-        url_final = []
-        for y in p_url:
-            full_url = "https://fbref.com"+y
-            url_final.append(full_url)
-        player_names = []
-        for player in p_url: 
-            player_name_slice = player[21:]
-            player_name_slice = player_name_slice.replace('-', ' ')
-            player_names.append(player_name_slice)
-        # player_names
-        list_of_tuples = list(zip(player_names, url_final))
-        play_url_database = pd.DataFrame(list_of_tuples, columns = ['Player', 'urls'])
-        player_db = pd.concat([play_url_database])
-
-        html = requests.get(url).text
-        data2 = BeautifulSoup(html, 'html5')
-        table = data2.find('table')
-        cols = []
-
-        for header in table.find_all('th'):
-            cols.append(header.string)
-
-        columns = cols[8:37] #gets necessary column headers
-        players = cols[37:-2]
-
-        #display(columns)
-        rows = [] #initliaze list to store all rows of data
-        for rownum, row in enumerate(table.find_all('tr')): #find all rows in table
-            if len(row.find_all('td')) > 0: 
-                rowdata = [] #initiliaze list of row data
-                for i in range(0,len(row.find_all('td'))): #get all column values for row
-                    rowdata.append(row.find_all('td')[i].text)
-                rows.append(rowdata)
-        df = pd.DataFrame(rows, columns=columns)
-
-        df.drop(df.tail(2).index,inplace=True)
-        df["Player"] = players
-        df = df[["Player","Pos","Age", "Starts"]]
-
-        df['Player'] = df.apply(lambda x: remove_accents(x['Player']), axis=1)
-        test_merge = fuzzy_merge(df, player_db, 'Player', 'Player', threshold=90)
-        test_merge = test_merge.rename(columns={'matches': 'Player', 'Player': 'matches'})
-        # test_merge = test_merge.drop(columns=['matches'])
-        final_merge = test_merge.merge(player_db, on='Player', how='left')
-        # list_of_dfs.append(final_merge)
-        appended_data.append(final_merge)
-    appended_data = pd.concat(appended_data)
-    return appended_data 
-```
-
-```python
-def years_converter(variable_value):
-    years = variable_value[:-4]
-    days = variable_value[3:]
-    years_value = pd.to_numeric(years)
-    days_value = pd.to_numeric(days)
-    day_conv = days_value/365
-    final_val = years_value + day_conv
-
-    return final_val
-
-EPL_Player_db['Age'] = EPL_Player_db.apply(lambda x: years_converter(x['Age']), axis=1)
-EPL_Player_db = EPL_Player_db.drop(columns=['matches'])
-```
-
-```python
-def get_360_scouting_report(url):    
-    start = url[0:38]+ "scout/365_euro/"
-    def remove_first_n_char(org_str, n):
-        mod_string = ""
-        for i in range(n, len(org_str)):
-            mod_string = mod_string + org_str[i]
-        return mod_string
-    mod_string = remove_first_n_char(url, 38)
-    final_string = start+mod_string+"-Scouting-Report"    
-    return final_string
-EPL_Player_db['scouting_url'] = EPL_Player_db.apply(lambda x: get_360_scouting_report(x['urls']), axis=1)
-```
-
-```python
-EPL_Player_db.Pos.unique()
-
-array(['GK', 'DF', 'FW,MF', 'FW', 'MF,FW', 'MF', 'MF,DF', 'DF,FW',
-       'DF,MF', 'FW,DF'], dtype=object)
-```
-
+The function uses conditional statements (`if-elif-else`) to determine the appropriate position group for a given input position. If the input matches any predefined positions for a group, it returns the corresponding group name. If the position doesn't match any predefined groups, it returns "unidentified position." The purpose is to classify football players into broader position categories for easier analysis or grouping.
 
 ```python
 keepers = ['GK']
@@ -227,6 +117,7 @@ defensive_mids = ['MF,DF']
 midfielders = ['MF']
 attacking_mids = ['MF,FW',"FW,MF"]
 forwards = ['FW']
+
 def position_grouping(x):
     if x in keepers:
         return "GK"
@@ -244,303 +135,937 @@ def position_grouping(x):
         return "Forwards"
     else:
         return "unidentified position"
-
-EPL_Player_db["position_group"] = EPL_Player_db.Pos.apply(lambda x: position_grouping(x))
 ```
+
+The next code block is basis upon which we will use to build our database creator function. I will use the pass metrics pages as the example - 
+
+This code starts by scraping passing statistics from a specified URL using the requests library and parsing the HTML content with BeautifulSoup.
+
+The HTML content is then cleaned to remove comments and stored as a string.
+
+The cleaned HTML content is read into a pandas DataFrame using `pd.read_html()`.
+The script modifies the DataFrame to handle multi-level column headers and assigns appropriate prefixes to distinguish passing metrics (Total, Short, Medium, Long).
+
+Finally, it filters out rows where the 'Player' column is not populated, likely removing headers and irrelevant information, to prepare the DataFrame for further analysis.
 
 
 ```python
-EPL_Player_db.reset_index(drop=True)
-EPL_Player_db[["Starts"]] = EPL_Player_db[["Starts"]].apply(pd.to_numeric) 
+    # Passing columns 
+pass_ = 'https://fbref.com/en/comps/9/passing/Premier-League-Stats'
+page =requests.get(pass_)
+soup = BeautifulSoup(page.content, 'html.parser')
+html_content = requests.get(pass_).text.replace('<!--', '').replace('-->', '')
+pass_df = pd.read_html(html_content)
+pass_df[-1].columns = pass_df[-1].columns.droplevel(0)
+pass_stats = pass_df[-1]
+pass_prefixes = {1: 'Total - ', 2: 'Short - ', 3: 'Medium - ', 4: 'Long - '}
+pass_column_occurrences = {'Cmp': 0, 'Att': 0, 'Cmp%': 0}
+pass_new_column_names = []
+for col_name in pass_stats.columns:
+    if col_name in pass_column_occurrences:
+        pass_column_occurrences[col_name] += 1
+        prefix = pass_prefixes[pass_column_occurrences[col_name]]
+        pass_new_column_names.append(prefix + col_name)
+    else:
+        pass_new_column_names.append(col_name)
+pass_stats.columns = pass_new_column_names
+pass_stats = pass_stats[pass_stats['Player'] != 'Player']
 ```
 
-```python
-position = 'Central Midfielders'
-pl_starts = 10
-max_age = 26
+This Python function `create_full_stats_db()` retrieves various football statistics from different URLs, cleans and processes the data, and merges them into a single DataFrame for comprehensive analysis:
 
-subset_of_data = EPL_Player_db.query('position_group == @position & Starts > @pl_starts & Age < @max_age' )
-```
+1: **Passing Statistics**: Retrieves passing data from a URL, processes it to handle multi-level column headers, and renames columns with appropriate prefixes.
 
-```python
-players_needed = list(subset_of_data.urls.unique())
-```
+2: **Shooting Statistics**: Fetches shooting data, cleans it by dropping irrelevant rows, and stores it.
 
-```python
-def get_player_multi_data(url_list:list):
-    appended_data = []
-    for url in url_list:
-        warnings.filterwarnings("ignore")
-        page =requests.get(url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        name = [element.text for element in soup.find_all("span")]
-        name = name[7]
-        metric_names = []
-        metric_values = []
-        remove_content = ["'", "[", "]", ","]
-        for row in soup.findAll('table')[0].tbody.findAll('tr'):
-            first_column = row.findAll('th')[0].contents
-            metric_names.append(first_column)
-        for row in soup.findAll('table')[0].tbody.findAll('tr'):
-            first_column = row.findAll('td')[0].contents
-            metric_values.append(first_column)
+3: **Passing Type Statistics**: Gathers passing type data, cleans column headers, and stores it.
 
-        metric_names = [item for sublist in metric_names for item in sublist]
-        metric_values = [item for sublist in metric_values for item in sublist]
+4: **Goal Creation & Assists Statistics (GCA)**: Fetches GCA data, processes column headers, and stores it.
 
-        df_player = pd.DataFrame()
-        df_player['Name'] = name[0]
-        for item in metric_names:
-            df_player[item] = []
+4: **Defensive Statistics**: Retrieves defensive data, renames columns, and stores it.
 
-        name = name
-        non_penalty_goals = (metric_values[0])
-        npx_g = metric_values[1]
-        shots_total = metric_values[2]
-        assists = metric_values[3]
-        x_a = metric_values[4]
-        npx_g_plus_x_a = metric_values[5] 
-        shot_creating_actions = metric_values[6] 
-        passes_attempted = metric_values[7] 
-        pass_completion_percent = metric_values[8] 
-        progressive_passes = metric_values[9] 
-        progressive_carries = metric_values[10] 
-        dribbles_completed = metric_values[11] 
-        touches_att_pen = metric_values[12]
-        progressive_passes_rec = metric_values[13] 
-        pressures = metric_values[14] 
-        tackles = metric_values[15] 
-        interceptions = metric_values[16] 
-        blocks = metric_values[17]
-        clearances = metric_values[18]
-        aerials_won = metric_values[19]
-        df_player.loc[0] = [name, non_penalty_goals, npx_g, shots_total, assists, x_a, npx_g_plus_x_a, shot_creating_actions, passes_attempted, pass_completion_percent,
-                            progressive_passes, progressive_carries, dribbles_completed, touches_att_pen, progressive_passes_rec, pressures, tackles, interceptions, blocks,
-                            clearances, aerials_won]
-        appended_data.append(df_player)
-    appended_data = pd.concat(appended_data)
-    return appended_data
+5: **Possession Statistics**: Gathers possession-related data, renames columns, and stores it.
 
-df = get_player_multi_data(players_needed)
-```
+6: **Miscellaneous Statistics**: Retrieves miscellaneous data, cleans it, and stores it.
+
+7: **Merging DataFrames**: Merges all the data frames on common player attributes, such as name, nationality, position, squad, age, and playing time.
+
+8: **Data Cleaning**: Handles missing values, converts non-numeric columns to numeric where possible, and adds a column for position grouping using the previously defined `position_grouping` function.
+
+9: **Returns**: Returns the merged and cleaned DataFrame containing all the football statistics for further analysis.
+
+Here is the full function below: 
 
 ```python
-def metrics_scatter_comparison(df, max_age, position):
-        
-        df[['Progressive Passes', 'Progressive Carries','Passes Attempted']] =  df[['Progressive Passes','Progressive Carries','Passes Attempted']].apply(pd.to_numeric)         
-        df["Progressive_Actions_p90"] = df['Progressive Passes'] + df['Progressive Carries']
-        df["Passes_Attempted"] = df['Passes Attempted']
+def create_full_stats_db():
+    # Passing columns 
+    pass_ = 'https://fbref.com/en/comps/9/passing/Premier-League-Stats'
+    page =requests.get(pass_)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    html_content = requests.get(pass_).text.replace('<!--', '').replace('-->', '')
+    pass_df = pd.read_html(html_content)
+    pass_df[-1].columns = pass_df[-1].columns.droplevel(0)
+    pass_stats = pass_df[-1]
+    pass_prefixes = {1: 'Total - ', 2: 'Short - ', 3: 'Medium - ', 4: 'Long - '}
+    pass_column_occurrences = {'Cmp': 0, 'Att': 0, 'Cmp%': 0}
+    pass_new_column_names = []
+    for col_name in pass_stats.columns:
+        if col_name in pass_column_occurrences:
+            pass_column_occurrences[col_name] += 1
+            prefix = pass_prefixes[pass_column_occurrences[col_name]]
+            pass_new_column_names.append(prefix + col_name)
+        else:
+            pass_new_column_names.append(col_name)
+    pass_stats.columns = pass_new_column_names
+    pass_stats = pass_stats[pass_stats['Player'] != 'Player']
 
-        line_color = "silver"
-       
-        fig, ax = plt.subplots(figsize=(12, 8)) 
-
-        ax.scatter(df["Progressive_Actions_p90"], df["Passes_Attempted"],alpha=0.8) ##scatter points
-        ax.axvspan(10.0, 14.0, ymin=0.5, ymax=1, alpha=0.1, color='green',label= "In Form")
-
-        texts = [] ##plot player names
-        for row in df.itertuples():
-                texts.append(ax.text(row.Progressive_Actions_p90, row.Passes_Attempted, row.Name, fontsize=8, ha='center', va='center', zorder=10))
-                adjust_text(texts) ## to remove overlaps between labels
-
-        ## update plot
-                ax.set(xlabel="Progressive Actions per 90", ylabel="Passes Attempted per 90", ylim=((df["Passes_Attempted"].min()-2), (df["Passes_Attempted"].max()+2)), xlim=((df["Progressive_Actions_p90"].min()-2), (df["Progressive_Actions_p90"].max()+2))) ## set labels and limits
-
-        ##grids and spines
-        ax.grid(color=line_color, linestyle='--', linewidth=0.8, alpha=0.5)   
-        for spine in ["top", "right"]:
-                ax.spines[spine].set_visible(False)
-                ax.spines[spine].set_color(line_color)
-
-        ax.xaxis.label.set(fontsize=12, fontweight='bold')
-        ax.yaxis.label.set(fontsize=12, fontweight='bold') ## increase the weight of the axis labels
-
-        ax.set_position([0.05, 0.05, 0.82, 0.78]) ## make space for the title on top of the axes
-
-        ## title and subtitle
-        fig.text(x=0.08, y=0.92, s=f"U-{max_age} {position} | Progressive Actions Profile", 
-                ha='left', fontsize=20, fontweight='book', 
-                path_effects=[pe.Stroke(linewidth=3, foreground='0.15'),
-                        pe.Normal()]) 
-        fig.text(x=0.08, y=0.88, s=f"EPL | 2021-22", ha='left', 
-                fontsize=20, fontweight='book', 
-                path_effects=[pe.Stroke(linewidth=3, foreground='0.15'),
-```
-
-```python
-scout_links = list(subset_of_data.scouting_url.unique())
-```
-
-```python
-def generate_advanced_data(scout_links):
-    appended_data_per90 = []
-    appended_data_percent = []
-    for x in scout_links:
-        warnings.filterwarnings("ignore")
-        url = x
-        page =requests.get(url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        name = [element.text for element in soup.find_all("span")]
-        name = name[7]
-        html_content = requests.get(url).text.replace('<!--', '').replace('-->', '')
-        df = pd.read_html(html_content)
-        df[0].columns = df[0].columns.droplevel(0) # drop top header row
-        stats = df[0]
-        advanced_stats = stats.loc[(stats['Statistic'] != "Statistic" ) & (stats['Statistic'] != ' ')]
-        advanced_stats = advanced_stats.dropna(subset=['Statistic',"Per 90", "Percentile"])
-        per_90_df = advanced_stats[['Statistic',"Per 90",]].set_index("Statistic").T
-        per_90_df["Name"] = name
-        percentile_df = advanced_stats[['Statistic',"Percentile",]].set_index("Statistic").T
-        percentile_df["Name"] = name
-        appended_data_per90.append(per_90_df)
-    appended_data_per90 = pd.concat(appended_data_per90)
-    appended_data_per90 = appended_data_per90.reset_index(drop=True)
-    del appended_data_per90.columns.name
-    appended_data_per90 = appended_data_per90[['Name'] + [col for col in appended_data_per90.columns if col != 'Name']]
-    appended_data_per90 = appended_data_per90.loc[:,~appended_data_per90.columns.duplicated()]
-    return appended_data_per90
-```
-
-```python
-attacking = ["Name",'Goals', 'Assists', 'Non-Penalty Goals','Penalty Kicks Attempted', 'xG',
-      'xA', 'npxG+xA', 'Shots Total', 'Shots on target', 'npxG/Sh',
-       'Goals - xG', 'Non-Penalty Goals - npxG']
-passing = ["Name", 'Passes Completed','Passes Attempted', 'Pass Completion %', 'Total Passing Distance',
-       'Progressive Passing Distance', 'Passes Completed (Short)',
-       'Passes Attempted (Short)', 'Pass Completion % (Short)',
-       'Passes Completed (Medium)', 'Passes Attempted (Medium)',
-       'Pass Completion % (Medium)', 'Passes Completed (Long)',
-       'Passes Attempted (Long)', 'Pass Completion % (Long)',
-       'Key Passes', 'Passes into Final Third',
-       'Passes into Penalty Area', 'Crosses into Penalty Area',
-       'Progressive Passes']
-pass_types = ["Name", 'Live-ball passes', 'Dead-ball passes',
-       'Passes from Free Kicks', 'Through Balls', 'Passes Under Pressure',
-       'Switches', 'Crosses', 'Corner Kicks', 'Inswinging Corner Kicks',
-       'Outswinging Corner Kicks', 'Straight Corner Kicks',
-       'Ground passes', 'Low Passes', 'High Passes',
-       'Passes Attempted (Left)', 'Passes Attempted (Right)',
-       'Passes Attempted (Head)', 'Throw-Ins taken',
-       'Passes Attempted (Other)', 'Passes Offside',
-       'Passes Out of Bounds', 'Passes Intercepted', 'Passes Blocked']
-chance_creation = ["Name",'Shot-Creating Actions', 'SCA (PassLive)', 'SCA (PassDead)',
-       'SCA (Drib)', 'SCA (Sh)', 'SCA (Fld)', 'SCA (Def)',
-       'Goal-Creating Actions', 'GCA (PassLive)', 'GCA (PassDead)',
-       'GCA (Drib)', 'GCA (Sh)', 'GCA (Fld)', 'GCA (Def)']
-defending = [ "Name", 'Tackles',
-       'Tackles Won', 'Tackles (Def 3rd)', 'Tackles (Mid 3rd)',
-       'Tackles (Att 3rd)', 'Dribblers Tackled', 'Dribbles Contested', 'Dribbled Past', 'Pressures',
-       'Successful Pressures', 'Successful Pressure %',
-       'Pressures (Def 3rd)', 'Pressures (Mid 3rd)',
-       'Pressures (Att 3rd)', 'Blocks', 'Shots Blocked', 'Shots Saved',
-       'Interceptions', 'Tkl+Int', 'Clearances', 'Errors','Ball Recoveries',
-       'Aerials won', 'Aerials lost']
-possesion = ["Name", 'Touches',
-       'Touches (Def Pen)', 'Touches (Def 3rd)', 'Touches (Mid 3rd)',
-       'Touches (Att 3rd)', 'Touches (Att Pen)', 'Touches (Live-Ball)',
-       'Dribbles Completed', 'Dribbles Attempted', 'Successful Dribble %',
-       'Players Dribbled Past', 'Nutmegs', 'Carries',
-       'Total Carrying Distance', 'Progressive Carrying Distance',
-       'Progressive Carries', 'Carries into Final Third',
-       'Carries into Penalty Area', 'Miscontrols', 'Dispossessed',
-       'Pass Targets', 'Passes Received', 'Passes Received %',
-       'Progressive Passes Rec']
-dicipline = ["Name", 'Yellow Cards', 'Red Cards','Second Yellow Card', 'Fouls Committed','Offsides','Penalty Kicks Conceded', 'Own Goals']
-smarts = ["Name",'Penalty Kicks Won','Fouls Drawn']
-```
-
-```python
-per_90_dataframe = appended_data_per90[attacking]
-per_90_dataframe
-```
+    # Shooting columns 
+    shot_ = 'https://fbref.com/en/comps/9/shooting/Premier-League-Stats'
+    page =requests.get(shot_)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    html_content = requests.get(shot_).text.replace('<!--', '').replace('-->', '')
+    shot_df = pd.read_html(html_content)
+    shot_df[-1].columns = shot_df[-1].columns.droplevel(0) # drop top header row
+    shot_stats = shot_df[-1]
+    shot_stats = shot_stats[shot_stats['Player'] != 'Player']    
 
 
-```python
-names = ["Conor Gallagher","Joe Willock"]
-per_90_dataframe[per_90_dataframe.Name.isin(names)]
-```
 
-```python
-player_names = list(per_90_dataframe.Name.unique())
-per_90_dataframe.reset_index(drop=True)
-per_90_dataframe = per_90_dataframe[per_90_dataframe.Name.isin(names)]
-cols = per_90_dataframe.columns.drop('Name')
-per_90_dataframe[cols] = per_90_dataframe[cols].apply(pd.to_numeric)
-params = list(per_90_dataframe.columns)
-params = params[1:]
-params
+    # Pass Type columns 
+    pass_type = 'https://fbref.com/en/comps/9/passing_types/Premier-League-Stats'
+    page =requests.get(pass_type)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    html_content = requests.get(pass_type).text.replace('<!--', '').replace('-->', '')
+    pass_type_df = pd.read_html(html_content)
+    pass_type_df[-1].columns = pass_type_df[-1].columns.droplevel(0) # drop top header row
+    pass_type_stats = pass_type_df[-1]
+    pass_type_stats = pass_type_stats[pass_type_stats['Player'] != 'Player']
 
-ranges = []
-a_values = []
-b_values = []
 
-for x in params:
-    a = min(per_90_dataframe[params][x])
-    a = a - (a* 0.25)
+    # GCA columns 
+    gca_ = 'https://fbref.com/en/comps/9/gca/Premier-League-Stats'
+    page =requests.get(gca_)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    html_content = requests.get(gca_).text.replace('<!--', '').replace('-->', '')
+    gca_df = pd.read_html(html_content)
+    gca_df[-1].columns = gca_df[-1].columns.droplevel(0)
+    gca_stats = gca_df[-1]
+    gca_prefixes = {1: 'SCA - ', 2: 'GCA - '}
+    gca_column_occurrences = {'PassLive': 0, 'PassDead': 0, 'TO%': 0, 'Sh': 0, 'Fld': 0, 'Def': 0}
+    gca_new_column_names = []
+    for col_name in gca_stats.columns:
+        if col_name in gca_column_occurrences:
+            gca_column_occurrences[col_name] += 1
+            prefix = gca_prefixes[gca_column_occurrences[col_name]]
+            gca_new_column_names.append(prefix + col_name)
+        else:
+            gca_new_column_names.append(col_name)
+    gca_stats.columns = gca_new_column_names
+    gca_stats = gca_stats[gca_stats['Player'] != 'Player']
     
-    b = max(per_90_dataframe[params][x])
-    b = b + (b* 0.25)
+
+    # Defense columns 
+    defence_ = 'https://fbref.com/en/comps/9/defense/Premier-League-Stats'
+    page =requests.get(defence_)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    html_content = requests.get(defence_).text.replace('<!--', '').replace('-->', '')
+    defence_df = pd.read_html(html_content)
+    defence_df[-1].columns = defence_df[-1].columns.droplevel(0) # drop top header row
+    defence_stats = defence_df[-1]
+    rename_columns = {
+    'Def 3rd': 'Tackles - Def 3rd',
+    'Mid 3rd': 'Tackles - Mid 3rd',
+    'Att 3rd': 'Tackles - Att 3rd',
+    'Blocks': 'Total Blocks',
+    'Sh': 'Shots Blocked',
+    'Pass': 'Passes Blocked'}
+    defence_stats.rename(columns = rename_columns, inplace=True)
+    defence_prefixes = {1: 'Total - ', 2: 'Dribblers- '}
+    defence_column_occurrences = {'Tkl': 0}
+    new_column_names = []
+    for col_name in defence_stats.columns:
+        if col_name in defence_column_occurrences:
+            defence_column_occurrences[col_name] += 1
+            prefix = defence_prefixes[defence_column_occurrences[col_name]]
+            new_column_names.append(prefix + col_name)
+        else:
+            new_column_names.append(col_name)
+    defence_stats.columns = new_column_names
+    defence_stats = defence_stats[defence_stats['Player'] != 'Player']
+
+
+    # possession columns 
+    poss_ = 'https://fbref.com/en/comps/9/possession/Premier-League-Stats'
+    page =requests.get(poss_)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    html_content = requests.get(poss_).text.replace('<!--', '').replace('-->', '')
+    poss_df = pd.read_html(html_content)
+    poss_df[-1].columns = poss_df[-1].columns.droplevel(0) # drop top header row
+    poss_stats = poss_df[-1]
+    rename_columns = {
+    'TotDist': 'Carries - TotDist',
+    'PrgDist': 'Carries - PrgDist',
+    'PrgC': 'Carries - PrgC',
+    '1/3': 'Carries - 1/3',
+    'CPA': 'Carries - CPA',
+    'Mis': 'Carries - Mis',
+    'Dis': 'Carries - Dis',
+    'Att': 'Take Ons - Attempted'  }
+    poss_stats.rename(columns=rename_columns, inplace=True)
+    poss_stats = poss_stats[poss_stats['Player'] != 'Player']
+
+
+    # misc columns 
+    misc_ = 'https://fbref.com/en/comps/9/misc/Premier-League-Stats'
+    page =requests.get(misc_)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    html_content = requests.get(misc_).text.replace('<!--', '').replace('-->', '')
+    misc_df = pd.read_html(html_content)
+    misc_df[-1].columns = misc_df[-1].columns.droplevel(0) # drop top header row
+    misc_stats = misc_df[-1]
+    misc_stats = misc_stats[misc_stats['Player'] != 'Player']
+
+    index_df = misc_stats[['Player', 'Nation', 'Pos', 'Squad', 'Age', 'Born', '90s']]
+
+    data_frames = [poss_stats, misc_stats, pass_stats ,defence_stats, shot_stats, gca_stats, pass_type_stats]
+    for df in data_frames:
+        if df is not None:  # Checking if the DataFrame exists
+            df.drop(columns=['Matches', 'Rk'], inplace=True, errors='ignore')
+            df.dropna(axis=0, how='any', inplace=True)
+
+            index_df = pd.merge(index_df, df, on=['Player', 'Nation', 'Pos', 'Squad', 'Age', 'Born', '90s'], how='left')
+    index_df["position_group"] = index_df.Pos.apply(lambda x: position_grouping(x))  
+
+    index_df.fillna(0, inplace=True)
+
+    non_numeric_cols = ['Player', 'Nation', 'Pos', 'Squad', 'Age', 'position_group']
     
-    ranges.append((a,b))
+    def clean_non_convertible_values(value):
+        try:
+            return pd.to_numeric(value)
+        except (ValueError, TypeError):
+            return np.nan
+
+    # Iterate through each column, converting non-numeric columns to numeric
+    for col in index_df.columns:
+        if col not in non_numeric_cols:
+            index_df[col] = index_df[col].apply(clean_non_convertible_values)
+
     
-a_values = per_90_dataframe.iloc[0].values.tolist()
+    return index_df
+```
 
-b_values = per_90_dataframe.iloc[1].values.tolist()
-        
-a_values = a_values[1:]
-b_values = b_values[1:]
+Now that we have our function, we can now store all of the relevant pages as variables and pass them into out function arguments of the function. The variables can be stored as follows: 
 
-values = [a_values,b_values]
+```python
+fbref_passing = 'https://fbref.com/en/comps/Big5/passing/players/Big-5-European-Leagues-Stats'
+fbref_shooting = 'https://fbref.com/en/comps/Big5/shooting/players/Big-5-European-Leagues-Stats'
+fbref_pass_type = 'https://fbref.com/en/comps/Big5/passing_types/players/Big-5-European-Leagues-Stats'
+fbref_defence = 'https://fbref.com/en/comps/Big5/defense/players/Big-5-European-Leagues-Stats'
+fbref_gca = 'https://fbref.com/en/comps/Big5/gca/players/Big-5-European-Leagues-Stats'
+fbref_poss = 'https://fbref.com/en/comps/Big5/possession/players/Big-5-European-Leagues-Stats'
+fbref_misc = 'https://fbref.com/en/comps/Big5/misc/players/Big-5-European-Leagues-Stats'
+```
 
-get_clubs = subset_of_data[subset_of_data.Player.isin(names)]
-link_list = list(get_clubs.urls.unique())
-title_vars = []
-for x in link_list:     
-    warnings.filterwarnings("ignore")
-    html_content = requests.get(x).text.replace('<!--', '').replace('-->', '')
-    df2 = pd.read_html(html_content)
-    df2[5].columns = df2[5].columns.droplevel(0) 
-    stats2 = df2[5]
-    key_vars = stats2[["Season","Age","Squad"]]
-    key_vars = key_vars[key_vars.Season.isin(["2021-2022"])]
-    title_vars.append(key_vars)
-title_vars = pd.concat(title_vars)
-ages = list(title_vars.Age.unique())
-teams = list(title_vars.Squad.unique())
 
-#title 
+```python
+stats = create_full_stats_db(fbref_passing,fbref_shooting,fbref_pass_type,fbref_defence,fbref_gca,fbref_poss,fbref_misc)
+```
 
-title = dict(
-    title_name= player_names[0],
-    title_color = 'red',
-    subtitle_name = teams[0],
-    subtitle_color = 'red',
+We have now created a relatively simple function that is able to retrieve all key player data from FBREF in under 11 seconds, meaning that this data can easily be refreshed with minimal effort. 
 
-    title_name_2= player_names[1],
-    title_color_2 = 'blue',
-    subtitle_name_2 = teams[1],
-    subtitle_color_2 = 'blue',
-    title_fontsize = 18,
-    subtitle_fontsize=15
+
+### Comparing Player Passing Stats 
+
+The code effectively pre-processes and selects data relevant for further analysis, focusing on key passing and assist statistics per 90 minutes, and identifies the top players based on their expected goal contributions.
+Here are the following operations:
+
+1. **Selection of Columns**: Selects specific columns ('Player', 'position_group', 'KP', 'PPA', 'PrgDist', 'Total - Cmp%', '90s', 'A-xAG', 'xA', 'xAG') from the DataFrame `stats` and assigns the resulting DataFrame to `Player_stats`.
+
+2. **Filtering Rows**: Filters out rows where the 'Player' column is populated with 'Player', presumably removing header rows.
+
+3. **Drop Missing Values**: Drops rows where the 'KP' column has missing values (NaN).
+
+4. **Calculations**:
+   - Calculates 'Key Passes per 90' by dividing 'KP' (Key Passes) by '90s' (Minutes played divided by 90).
+   - Calculates 'PPA_p90' (Passes into Penalty Area per 90) by dividing 'PPA' (Passes into Penalty Area) by '90s'.
+   - Calculates 'Expected Assists per 90' by dividing 'xA' (Expected Assists) by '90s'.
+
+5. **Filtering by Playing Time**: Filters out players who have played less than 4.5 full matches (90 minutes each).
+
+6. **Top Players**: Selects the top 10 players with the highest 'xAG' (Expected Goals Assisted) values and stores their names in the list 'players'.
+
+
+```python
+Player_stats = stats[['Player','position_group', 'KP','PPA', 'PrgDist', 'Total - Cmp%', '90s','A-xAG','xA', 'xAG']]
+Player_stats = Player_stats[Player_stats['Player'] != 'Player']
+Player_stats.dropna(subset=['KP'], inplace=True)
+Player_stats['Key Passes per 90'] = Player_stats['KP']/Player_stats['90s']
+Player_stats['PPA_p90'] = Player_stats['PPA']/Player_stats['90s']
+Player_stats['Expected Assists per 90'] = Player_stats['xA']/Player_stats['90s']
+Player_stats = Player_stats[Player_stats['90s'] >= 4.5]
+top_7 = Player_stats.nlargest(10, 'xAG')
+players = top_7['Player'].tolist()
+```
+
+These variables are to be used in conjunction with a `Player_stats` dataframe:
+
+1. **x_var**: This variable represents the x-axis variable for the plot. It is set to `Key Passes per 90`.
+
+2. **y_var**: This variable represents the y-axis variable for the plot. It is set to `Expected Assists per 90`.
+
+3. **Title**: This variable holds a string representing the title for the visualization or analysis. It's formatted with line breaks and angle brackets for emphasis and readability.
+
+
+```python
+x_var = 'Key Passes per 90'
+y_var = 'Expected Assists per 90'
+Title = "Who are the Premier League's most\n<Effective> Creators?"
+```
+
+This next function `create_scatter_plot()` generates a scatter plot comparing two variables (`x_var` and `y_var`) from the `Player_stats` dataframe . Here's a breakdown of what it does:
+
+1. **Splitting Data**: It splits the `Player_stats` DataFrame into two DataFrames:
+   - `df_main`: Contains players who are not in the list `players`.
+   - `df_highlight`: Contains players who are in the list `players`.
+
+2. **Plotting the Chart**:
+   - Sets up the figure and axis for the plot.
+   - Plots the main data points (players not in `players`) as scatter points in blue (#264653).
+   - Plots the highlighted data points (players in `players`) as scatter points in red (#F64740) with black edges.
+   - Adds median lines for both x and y variables in gray.
+   - Adds a light gray grid.
+
+3. **Annotations**:
+   - Annotates each highlighted player's data point with their last name (splitting on space) at a specific offset.
+   - Adds a stroke effect to the text for better visibility.
+
+4. **Axis Labels and Tick Sizes**: Sets axis labels and tick sizes.
+
+5. **League Icon**: Adds the Premier League icon as an image in the top left corner.
+
+6. **Title and Description**: Adds a title and description to the plot.
+
+7. **PitchIQ Logo**: Adds a logo at the bottom right corner of the plot.
+
+Overall, this function creates a visually appealing scatter plot comparing two variables for a selected set of football players, with special emphasis on certain highlighted players
+
+Here is step by step guide of what each code block is trying to perform:
+
+1: **Splitting Data**:
+
+```python
+df_main = Player_stats[~Player_stats["Player"].isin(players)].reset_index(drop = True)
+df_highlight = Player_stats[Player_stats["Player"].isin(players)].reset_index(drop = True)
+```
+   - Splits the `Player_stats` DataFrame into two DataFrames:
+     - `df_main`: Contains players who are not in the list `players`.
+     - `df_highlight`: Contains players who are in the list `players`.
+
+2: **Plotting the Chart**:
+
+```python
+fig = plt.figure(figsize = (8,8), dpi = 300)
+ax = plt.subplot()
+```
+   - Sets up the figure and axis for the plot.
+
+3: **Styling the Plot**:
+
+```python
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+```
+   - Removes the top and right spines of the plot.
+
+4: **Scatter Plots**:
+
+```python
+ax.scatter(
+    df_main[x_var],
+    df_main[y_var],  
+    s = 40, 
+    alpha = 0.75, 
+    color = "#264653",
+    zorder = 3
+)
+```
+   - Plots the main data points (players not in `players`) as scatter points in blue (#264653).
+
+```python
+ax.scatter(
+    df_highlight[x_var], 
+    df_highlight[y_var], 
+    s = 40, 
+    alpha = 0.95, 
+    color = "#F64740",
+    zorder = 3,
+    ec = "#000000",
+)
+```
+
+   - Plots the highlighted data points (players in `players`) as scatter points in red (#F64740) with black edges.
+
+5: **Median Lines**:
+
+```python
+ax.plot(
+    [Player_stats[x_var].median(), Player_stats[x_var].median()],
+    [ax.get_ylim()[0], ax.get_ylim()[1]], 
+    ls = ":",
+    color = "gray",
+    zorder = 2
+)
+```
+   - Adds a median line for the x-variable in gray.
+
+```python
+ax.plot(
+    [ax.get_xlim()[0], ax.get_xlim()[1]],
+    [Player_stats[y_var].median(), Player_stats[y_var].median()], 
+    ls = ":",
+    color = "gray",
+    zorder = 2
+)
+```
+   - Adds a median line for the y-variable in gray.
+
+6: **Grid**:
+
+```python
+ax.grid(True, ls = ":", color = "lightgray")
+```
+   - Adds a light gray grid.
+
+7: **Annotations**:
+   - Iterates through each highlighted player's data point, annotating their last name next to the point.
+   - Applies a stroke effect to the text for better visibility.
+
+8: **Axis Labels and Tick Sizes**:
+
+```python
+ax.set_xlabel(x_var,fontsize=10)
+ax.set_ylabel(y_var,fontsize=10)
+ax.tick_params(axis='both', which='major', labelsize=8)
+```
+   - Sets axis labels and tick sizes.
+
+9: **League Icon**:
+
+```python
+league_icon = Image.open("/Users/stephenahiabah/Desktop/GitHub/Webs-scarping-for-Fooball-Data-/Images/premier-league-2-logo.png")
+league_ax = fig.add_axes([0.002, 0.89, 0.20, 0.15], zorder=1)
+league_ax.imshow(league_icon)
+league_ax.axis("off")
+```
+   - Adds the Premier League icon as an image in the top left corner.
+
+10: **Title and Description**:
+
+```python
+fig_text(
+    x = 0.60, y = 0.97, 
+    s = Title,
+    highlight_textprops=[{"color":"#228B22", "style":"italic"}],
+    va = "bottom", ha = "right",
+    fontsize = 12, color = "black", font = "Karla", weight = "bold"
 )
 
-endnote = '@stephenaq7\ndata via FBREF / Statsbomb'
+fig_text(
+    x = 0.60, y = .90, 
+    s = f"{x_var} vs {y_var} | Season 2023/2024\nPlayers with more than 450 minutes are considered.\nViz by @stephenaq7.",
+    va = "bottom", ha = "right",
+    fontsize = 7, color = "#4E616C", font = "Karla"
+)
+```
+   - Adds a title and description to the plot.
 
-radar = Radar()
+11: **Stats by PitchIQ Logo**:
 
-fig,ax = radar.plot_radar(ranges=ranges,params=params,values=values,
-                         radar_color=['red','blue'],
-                         alphas=[.75,.6],title=title,endnote=endnote,
-                         compare=True)
+```python
+ax3 = fig.add_axes([0.80, 0.08, 0.13, 1.75])
+ax3.axis('off')
+img = image.imread('/Users/stephenahiabah/Desktop/GitHub/Webs-scarping-for-Fooball-Data-/outputs/piqmain.png')
+ax3.imshow(img)
+```
+   - Adds a logo at the bottom right corner of the plot.
+
+Here is the code in full below; 
+
+```python
+def create_scatter_plot(players,Player_stats,x_var,y_var,Title):    
+    df_main = Player_stats[~Player_stats["Player"].isin(players)].reset_index(drop = True)
+    df_highlight = Player_stats[Player_stats["Player"].isin(players)].reset_index(drop = True)
+
+    # %%
+
+    # -- Plot the chart
+
+    fig = plt.figure(figsize = (8,8), dpi = 300)
+    ax = plt.subplot()
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    ax.scatter(
+        df_main[x_var],
+        df_main[y_var],  
+        s = 40, 
+        alpha = 0.75, 
+        color = "#264653",
+        zorder = 3
+    )
+
+    ax.scatter(
+        df_highlight[x_var], 
+        df_highlight[y_var], 
+        s = 40, 
+        alpha = 0.95, 
+        color = "#F64740",
+        zorder = 3,
+        ec = "#000000",
+    )
+
+    ax.plot(
+        [Player_stats[x_var].median(), Player_stats[x_var].median()],
+        [ax.get_ylim()[0], ax.get_ylim()[1]], 
+        ls = ":",
+        color = "gray",
+        zorder = 2
+    )
+
+    ax.plot(
+        [ax.get_xlim()[0], ax.get_xlim()[1]],
+        [Player_stats[y_var].median(), Player_stats[y_var].median()], 
+        ls = ":",
+        color = "gray",
+        zorder = 2
+    )
+
+    ax.grid(True, ls = ":", color = "lightgray")
+
+    for index, name in enumerate(df_highlight["Player"]):
+        X = df_highlight[x_var].iloc[index]
+        Y = df_highlight[y_var].iloc[index]
+        if name in [" Joelinton", " Richarlison", "Alexandre Lacazette"]:
+            y_pos = 9
+        else:
+            y_pos = -9
+        if name in ["Scott McTominay"]:
+            x_pos = 20
+        else:
+            x_pos = 0
+        text_ = ax.annotate(
+            xy = (X, Y),
+            text = name.split(" ")[1],
+            ha = "right",
+            va = "bottom",
+            xytext = (x_pos, y_pos),
+            textcoords = "offset points",
+            fontsize=6, 
+        )
+
+        text_.set_path_effects(
+                    [path_effects.Stroke(linewidth=2.5, foreground="white"), 
+                    path_effects.Normal()]
+                )
+
+
+    ax.set_xlabel(x_var,fontsize=10)
+    ax.set_ylabel(y_var,fontsize=10)
+
+    league_icon = Image.open("/Users/stephenahiabah/Desktop/GitHub/Webs-scarping-for-Fooball-Data-/Images/premier-league-2-logo.png")
+    league_ax = fig.add_axes([0.002, 0.89, 0.20, 0.15], zorder=1)
+    league_ax.imshow(league_icon)
+    league_ax.axis("off")
+
+    ax.tick_params(axis='both', which='major', labelsize=8)
+
+    fig_text(
+        x = 0.60, y = 0.97, 
+        s = Title,
+        highlight_textprops=[{"color":"#228B22", "style":"italic"}],
+        va = "bottom", ha = "right",
+        fontsize = 12, color = "black", font = "Karla", weight = "bold"
+    )
+
+    fig_text(
+        x = 0.60, y = .90, 
+        s = f"{x_var} vs {y_var} | Season 2023/2024\nPlayers with more than 450 minutes are considered.\nViz by @stephenaq7.",
+        va = "bottom", ha = "right",
+        fontsize = 7, color = "#4E616C", font = "Karla"
+    )
+
+    ### Add Stats by Steve logo
+    ax3 = fig.add_axes([0.80, 0.08, 0.13, 1.75])
+    ax3.axis('off')
+    img = image.imread('/Users/stephenahiabah/Desktop/GitHub/Webs-scarping-for-Fooball-Data-/outputs/piqmain.png')
+    ax3.imshow(img)
+
 ```
 
-## Conclusion
+![data_creators](https://pbs.twimg.com/media/GHvWSuwWAAAr1nD?format=jpg&name=4096x4096)
+
+### Comparing Player Shooting Stats 
+
+We'll now perfrom the same type of aggregations with player shooting statistics to create a similar scatter plot. 
+
+```python
+Player_stats = stats[['Player','position_group', 'SoT/90', 'xG','90s',
+ 'npxG',
+ 'npxG/Sh',
+ 'G-xG',
+ 'np:G-xG']]
+Player_stats['Shots on Target per 90'] = Player_stats['SoT/90']
+Player_stats['Non-Penalty xG per 90'] = Player_stats['npxG']/Player_stats['90s']
+Player_stats = Player_stats[Player_stats['90s'] >= 4.5]
+top_7 = Player_stats.nlargest(10, 'xG')
+players = top_7['Player'].tolist()
+
+x_var = 'Shots on Target per 90'
+y_var = 'Non-Penalty xG per 90'
+Title = "Who are the Premier League's top\n<Shooters> ?"
+```
+
+The resulting plot should look like the following: 
 
 
+```python
+create_scatter_plot(players,Player_stats,x_var,y_var,Title)
+```
+![data_shooters](https://pbs.twimg.com/media/GHvWSuxWUAIRCPM?format=jpg&name=4096x4096)
+
+### Creating Purpose Built Metrics Scores with sk.learn
+
+In all my previous posts I have large focused on creting detailed visualisations and webscaping data. As a statitician by trade, I'll now be foucssing on more data science/ statistics applications when using data from FBREF. I have recently been building a playing rating model/ similarity model. This next part of the tutorial will focus on how I building a rudimentary version of my player scoring model. 
+
+Let me breakdown the reasons why its powerful to create metrics derived from the raw data scraped from FBREF: 
+
+ 
+- Creating your own scores using data from FBREF can be immensely useful for several reasons. Firstly, FBREF provides a vast array of detailed statistics on player performance, covering various aspects of the game such as passing accuracy, defensive actions, creativity, and shooting efficiency. 
 
 
+- By aggregating and analyzing these statistics, you can develop customized scoring metrics tailored to specific performance attributes or player roles, allowing for more nuanced and insightful evaluations. Additionally, creating your own scores enables you to focus on metrics that are most relevant to your analysis or decision-making process, rather than relying solely on standardized metrics provided by external sources. 
 
 
+- This approach can offer a deeper understanding of player contributions, strengths, and weaknesses, facilitating more informed decisions in areas such as player recruitment, team selection, tactical adjustments, and performance evaluation. Moreover, developing custom scoring systems allows for flexibility and adaptation to evolving strategies, player roles, and performance trends, enhancing the relevance and applicability of the analysis in various contexts within football management and analytics.
 
 
+#### Selecting Features: 
 
+The provided code below defines two lists: `non_numeric_cols` and `key_stats`. 
+
+1. `non_numeric_cols`: This list contains the names of columns in a dataset that are considered non-numeric or categorical. These columns likely contain textual or categorical information about the players, such as their names, nationality, position, squad, age, and position group. These columns are typically not used for numerical calculations or statistical analysis but are often important for identifying and categorizing players.
+
+2. `key_stats`: This list contains the names of columns in a dataset that represent key performance metrics or statistics related to football player performance. These metrics include statistics such as playing time (90s), passing accuracy (Total - Cmp%), key passes (KP), tackles (Tkl), blocks (Total Blocks), expected goals (xG), shots on target (SoT), and others. These metrics are typically numerical and are essential for analyzing and evaluating player performance on the field. They provide insights into various aspects of a player's contributions to the team and are commonly used in football analytics and performance evaluation.
+
+
+```python
+non_numeric_cols = ['Player', 'Nation', 'Pos', 'Squad', 'Age', 'position_group']
+key_stats = ['90s','Total - Cmp%','KP', 'TB','Sw','PPA', 'PrgP','Tkl%','Total Blocks', 'Tkl+Int','Clr', 'Carries - PrgDist','SCA90','GCA90','CrsPA','xA', 'Rec','PrgR','xG', 'Sh','SoT']
+
+```
+
+In this example we'll be looking at defenders seeing as we've already covered strikers and creative midfielders in previous examples
+
+The provided code below performs several operations on a DataFrame named `stats`:
+
+1. `stats.dropna(axis=0, how='any', inplace=True)`: This line drops rows with any missing values (NaN) across all columns in the DataFrame, ensuring that the DataFrame contains only complete data.
+
+2. `defender_stats = stats[stats['position_group'] == 'Defender']`: This line filters the DataFrame to include only rows where the value in the 'position_group' column is equal to 'Defender', creating a new DataFrame named `defender_stats`.
+
+3. `defender_stats = defender_stats[non_numeric_cols + key_stats]`: This line selects specific columns from the `defender_stats` DataFrame, including both non-numeric columns (listed in `non_numeric_cols`) and key statistics columns (listed in `key_stats`). It creates a new DataFrame containing only these selected columns.
+
+4. `defender_stats = defender_stats[defender_stats['90s'] > 5]`: This line further filters the `defender_stats` DataFrame to include only rows where the value in the '90s' column (representing playing time) is greater than 5, indicating that the player has played more than 5 complete matches. This filter likely aims to focus the analysis on defenders who have significant playing time on the field.
+
+
+#### Dataframe Manipulation: 
+
+```python
+stats.dropna(axis=0, how='any', inplace=True)
+defender_stats = stats[stats['position_group'] == 'Defender']
+defender_stats = defender_stats[non_numeric_cols + key_stats]
+defender_stats = defender_stats[defender_stats['90s'] > 5]
+```
+
+This next code block comprises of a function that essentially performs a per-90-minute normalization for numeric columns in the DataFrame, excluding certain columns and handling division by zero cases.
+
+Here's a breakdown of the code `per_90fi`:
+
+1: **Fill NaN Values**:
+   - Replaces all NaN values in the DataFrame with 0.
+
+   ```python
+   dataframe = dataframe.fillna(0)
+   ```
+
+2: **Identify Numeric Columns**:
+   - Finds all columns in the DataFrame that contain numeric data.
+
+   ```python
+   numeric_columns = [col for col in dataframe.columns if np.issubdtype(dataframe[col].dtype, np.number)]
+   ```
+
+3: **Exclude Columns**:
+   - Specifies columns to exclude from normalization, such as player names, nationality, position, squad, age, birth year, position group, and the column '90s' (presumably representing minutes played).
+
+   ```python
+   exclude_columns = ['Player', 'Nation', 'Pos', 'Squad', 'Age', 'Born', 'position_group','90s']
+   ```
+
+4: **Identify Columns to Divide**:
+   - Identifies numeric columns to divide by the '90s' column.
+   - Excludes columns containing '90' or '%' in their names.
+
+   ```python
+   columns_to_divide = [col for col in numeric_columns if col not in exclude_columns 
+                         and '90' not in col and '%' not in col and '90s' not in col]
+   ```
+
+5: **Create a Mask**:
+   - Creates a boolean mask to avoid division by zero or blank values for the '90s' column.
+
+   ```python
+   mask = (dataframe['90s'] != 0)
+   ```
+
+6: **Normalize Data**:
+   - Divides each identified column by the '90s' column, handling division by zero or blank values.
+
+   ```python
+   for col in columns_to_divide:
+       dataframe.loc[mask, col] /= dataframe.loc[mask, '90s']
+   ```
+
+7: **Return DataFrame**:
+   - Returns the modified DataFrame after normalization.
+
+Here is the full code below: 
+
+```python
+def per_90fi(dataframe):
+    # Replace empty strings ('') with NaN
+    # dataframe = dataframe.replace('', np.nan)
+    
+    # Fill NaN values with 0
+    dataframe = dataframe.fillna(0)
+    
+    # Convert numeric columns to numeric type
+    numeric_columns = [col for col in dataframe.columns if np.issubdtype(dataframe[col].dtype, np.number)]
+    numeric_columns = [value for value in numeric_columns if value != "90s"]
+    
+    # Exclude specified columns from the normalization
+    exclude_columns = ['Player', 'Nation', 'Pos', 'Squad', 'Age', 'Born', 'position_group','90s']
+    
+    # Identify numeric columns to divide by '90s' and exclude columns with '%' and '90' in their names
+    columns_to_divide = [col for col in numeric_columns if col not in exclude_columns 
+                         and '90' not in col and '%' not in col and '90s' not in col]
+    
+    # Create a mask to avoid division by zero or blank values
+    mask = (dataframe['90s'] != 0) 
+    
+    # Divide each identified column by the '90s' column, handling division by zero or blank values
+
+    for col in columns_to_divide:
+        dataframe.loc[mask, col] /= dataframe.loc[mask, '90s']
+
+    return dataframe
+
+# Assuming 'your_dataframe' contains your dataset
+# Call the function to perform the normalization
+defender_stats = per_90fi(defender_stats)
+```
+
+The code begins by importing necessary libraries and defining lists for different types of metrics. It then utilizes MinMaxScaler to normalize the core statistics, calculates mean scores for passing, defending, creation, and shooting metrics for each player, adds offsets to ensure uniqueness, and clips the scores to a range of 0 to 10. After adjusting player ratings to a desired range, it applies these functions to the data, generating comprehensive scoring metrics for each player. Finally, it merges the original dataset with the computed scores, providing a consolidated dataset for further analysis and comparison.
+
+Here's a step-by-step explanation of the provided code:
+
+1: **Import Libraries**:
+   - Import necessary libraries including Pandas for data manipulation and `MinMaxScaler` from `sklearn.preprocessing` for feature scaling.
+
+   ```python
+   import pandas as pd
+   from sklearn.preprocessing import MinMaxScaler
+   ```
+
+2: **Define Metrics Lists**:
+   - Define lists for different types of metrics including core statistics, passing metrics, defending metrics, creation metrics, and shooting metrics.
+
+   ```python
+   core_stats = ['90s', 'Total - Cmp%', 'KP', 'TB', 'Sw', 'PPA', 'PrgP', 'Tkl%', 'Total Blocks', 'Tkl+Int', 'Clr', 'Carries - PrgDist', 'SCA90', 'GCA90', 'CrsPA', 'xA', 'Rec', 'PrgR', 'xG', 'Sh', 'SoT']
+   passing_metrics = ['Total - Cmp%', 'KP', 'TB', 'Sw', 'PPA', 'PrgP']
+   defending_metrics = ['Tkl%', 'Total Blocks', 'Tkl+Int', 'Clr']
+   creation_metrics = ['Carries - PrgDist', 'SCA90', 'GCA90', 'CrsPA', 'xA', 'Rec', 'PrgR']
+   shooting_metrics = ['xG', 'Sh', 'SoT']
+   ```
+
+3: **Create a MinMaxScaler Instance**:
+   - Instantiate a MinMaxScaler object to scale the data.
+
+   ```python
+   scaler = MinMaxScaler()
+   ```
+
+4: **Normalize the Metrics**:
+   - Make a copy of the DataFrame.
+   - Normalize the values of core statistics using Min-Max scaling.
+
+   ```python
+   stats_normalized = df.copy()
+   stats_normalized[core_stats] = scaler.fit_transform(stats_normalized[core_stats])
+   ```
+
+5: **Calculate Scores for Each Metric Grouping**:
+   - Calculate the mean of passing, defending, creation, and shooting metrics for each player.
+   - Scale the mean scores to a range of 0-10.
+
+   ```python
+   stats_normalized['Passing_Score'] = stats_normalized[passing_metrics].mean(axis=1) * 10
+   stats_normalized['Defending_Score'] = stats_normalized[defending_metrics].mean(axis=1) * 10
+   stats_normalized['Creation_Score'] = stats_normalized[creation_metrics].mean(axis=1) * 10
+   stats_normalized['Shooting_Score'] = stats_normalized[shooting_metrics].mean(axis=1) * 10
+   ```
+
+6: **Add an Offset and Clip Scores**:
+   - Add a small offset to ensure unique scores.
+   - Clip scores to ensure they are within the 0-10 range.
+
+   ```python
+   stats_normalized['Passing_Score'] += stats_normalized.index * 0.001
+   stats_normalized['Defending_Score'] += stats_normalized.index * 0.001
+   stats_normalized['Creation_Score'] += stats_normalized.index * 0.001
+   stats_normalized['Shooting_Score'] += stats_normalized.index * 0.001
+   stats_normalized[['Passing_Score', 'Defending_Score', 'Creation_Score', 'Shooting_Score']] = stats_normalized[['Passing_Score', 'Defending_Score', 'Creation_Score', 'Shooting_Score']].clip(lower=0, upper=10)
+   ```
+
+7: **Adjust Player Rating Range**:
+   - Extract the 'total player rating' columns.
+   - Normalize the ratings to be within the desired range (5 to 9.5) for each column.
+
+   ```python
+   for col in player_ratings.columns:
+       normalized_ratings = min_rating + (max_rating - min_rating) * ((player_ratings[col] - player_ratings[col].min()) / (player_ratings[col].max() - player_ratings[col].min()))
+       dataframe[col] = normalized_ratings
+   ```
+
+8: **Apply the Functions to the Data**:
+   - Apply the `create_metrics_scores` function to generate scores for each player based on different metric groupings.
+   - Apply the `adjust_player_rating_range` function to adjust the player rating range.
+
+   ```python
+   pitch_iq_scoring = create_metrics_scores(defender_stats)
+   pitch_iq_scoring = adjust_player_rating_range(pitch_iq_scoring)
+   ```
+
+9: **Merge DataFrames**:
+   - Merge the original `defender_stats` DataFrame with the newly generated scores.
+   
+   ```python
+   defender_stats = pd.merge(defender_stats, pitch_iq_scoring, on='Player', how='left')
+   ```
+
+This code preprocesses and transforms the data to generate scores for each player based on different metric groupings and adjusts the player rating range accordingly.
+
+#### Statistical Modelling
+
+```python
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+
+def create_metrics_scores(df):
+    # Define the key_stats grouped by the metrics
+    core_stats = ['90s','Total - Cmp%','KP', 'TB','Sw','PPA', 'PrgP','Tkl%','Total Blocks', 'Tkl+Int','Clr', 'Carries - PrgDist','SCA90','GCA90','CrsPA','xA', 'Rec','PrgR','xG', 'Sh','SoT']
+    passing_metrics = ['Total - Cmp%', 'KP', 'TB', 'Sw', 'PPA', 'PrgP']
+    defending_metrics = ['Tkl%', 'Total Blocks', 'Tkl+Int', 'Clr']
+    creation_metrics = ['Carries - PrgDist', 'SCA90', 'GCA90', 'CrsPA', 'xA', 'Rec', 'PrgR']
+    shooting_metrics = ['xG', 'Sh', 'SoT']
+
+    # Create a MinMaxScaler instance
+    scaler = MinMaxScaler()
+
+    # Normalize the metrics
+    stats_normalized = df.copy()  # Create a copy of the DataFrame
+    stats_normalized[core_stats] = scaler.fit_transform(stats_normalized[core_stats])
+
+    # Calculate scores for each metric grouping and scale to 0-10
+    stats_normalized['Passing_Score'] = stats_normalized[passing_metrics].mean(axis=1) * 10
+    stats_normalized['Defending_Score'] = stats_normalized[defending_metrics].mean(axis=1) * 10
+    stats_normalized['Creation_Score'] = stats_normalized[creation_metrics].mean(axis=1) * 10
+    stats_normalized['Shooting_Score'] = stats_normalized[shooting_metrics].mean(axis=1) * 10
+
+    # Add a small offset to ensure unique scores
+    stats_normalized['Passing_Score'] += stats_normalized.index * 0.001
+    stats_normalized['Defending_Score'] += stats_normalized.index * 0.001
+    stats_normalized['Creation_Score'] += stats_normalized.index * 0.001
+    stats_normalized['Shooting_Score'] += stats_normalized.index * 0.001
+
+    # Clip scores to ensure they are within the 0-10 range
+    stats_normalized[['Passing_Score', 'Defending_Score', 'Creation_Score', 'Shooting_Score']] = stats_normalized[['Passing_Score', 'Defending_Score', 'Creation_Score', 'Shooting_Score']].clip(lower=0, upper=10)
+    return stats_normalized
+
+def adjust_player_rating_range(dataframe):
+    # Get the 'total player rating' column
+    player_ratings = dataframe[['Passing_Score', 'Defending_Score', 'Creation_Score', 'Shooting_Score']]
+    
+    # Define the desired range for the ratings
+    min_rating = 4.5
+    max_rating = 9.5
+    
+    # Normalize the ratings to be within the desired range (5 to 9.5) for each column
+    for col in player_ratings.columns:
+        normalized_ratings = min_rating + (max_rating - min_rating) * ((player_ratings[col] - player_ratings[col].min()) / (player_ratings[col].max() - player_ratings[col].min()))
+        dataframe[col] = normalized_ratings
+    
+    return dataframe
+
+
+pitch_iq_scoring = create_metrics_scores(defender_stats)
+pitch_iq_scoring = adjust_player_rating_range(pitch_iq_scoring)
+pitch_iq_scoring = pitch_iq_scoring[['Player','Passing_Score', 'Defending_Score', 'Creation_Score', 'Shooting_Score']]
+defender_stats = pd.merge(defender_stats, pitch_iq_scoring, on='Player', how='left')
+
+```
+
+The provided code extracts specific player statistics related to passing, defending, creation, and shooting scores from the 'defender_stats' DataFrame, sorting them based on defending scores in descending order. 
+
+```python
+Player_stats = defender_stats[['Player',
+ 'Nation',
+ 'Pos',
+ 'Squad',
+ 'Age',
+'Passing_Score',
+ 'Defending_Score',
+ 'Creation_Score',
+ 'Shooting_Score']].sort_values(by='Defending_Score', ascending=False)
+```
+Then, we select the top 10 players with the highest passing scores and extracts their names into a list. Following this, it defines the variables 'x_var' and 'y_var' to represent passing and defending scores, respectively. Finally, it sets the title for the scatter plot visualization to inquire about the top ball-playing defenders in the Premier League, emphasizing the significance of their passing abilities.
+
+
+#### Data Visualisation
+
+```python
+top_7 = Player_stats.nlargest(10, 'Passing_Score')
+players = top_7['Player'].tolist()
+x_var = 'Passing_Score'	
+y_var = 'Defending_Score'
+Title = "Who are the Premier League's top\n<Ball Playing> Defenders?"
+```
+
+The code `create_scatter_plot(players, Player_stats, x_var, y_var, Title)` likely calls a function named `create_scatter_plot`, passing the variables `players`, `Player_stats`, `x_var`, `y_var`, and `Title` as arguments. This function is probably designed to generate a scatter plot visualization based on the provided data and specifications. The `players` variable likely contains a list of player names, `Player_stats` contains statistical data about these players, and `x_var` and `y_var` represent the variables to be plotted on the x and y axes, respectively. The `Title` variable specifies the title of the scatter plot. The function is expected to utilize these inputs to create and display the scatter plot visualization.
+
+```python
+create_scatter_plot(players,Player_stats,x_var,y_var,Title)
+```
+
+The resulting plot we get looks like this: 
+
+![data_ball_playing_defenders](https://pbs.twimg.com/media/GHvkzCdXMAEPK7j?format=jpg&name=4096x4096)
+
+### Conclusion
+
+In conclusion, this post serves as a valuable addition to a series of tutorials aimed at empowering users to craft dynamic and replicable functions for generating insightful data visualizations,and breif introduction into using python libraries such as sk.learn to start getting to grips with simple statistical manipulations.
+
+Thanks for reading 
+
+Steve

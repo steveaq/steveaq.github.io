@@ -40,7 +40,7 @@ However, it's important to note that the scraped data may not be 100% accurate, 
 
 ## Setup
 
-This project is extremely data intesive and requires the installation of many python packages to both analyse and visualise the data we're going to extract. Here is a full breakdown of some of the modules we will be using in this tutorial. 
+This project is extremely data intensive and requires the installation of many python packages to both analyse and visualise the data we're going to extract. Here is a full breakdown of some of the modules we will be using in this tutorial. 
 
 
 In this tutorial script, we incorporate several key Python modules to delve into football-related data analysis and visualization. The `MobFot` library an open source module accessing [FotMob's API](https://www.fotmob.com/) is employed for accessing performance related information, while the `MPLSoccer` module facilitates the creation of insightful football pitch visualizations. Utilizing Matplotlib, we enhance our general plotting capabilities. The inclusion of `FuzzyWuzzy` suggests a focus on string matching, likely aiding in the recognition of team names or other textual entities. For efficient data manipulation and analysis, we leverage the powerful data processing capabilities of `Pandas` and employ `BeautifulSoup` for web scraping. The script also taps into `Seaborn` for statistical visualization, promising elegant and informative plots. The use of image-related libraries such as `PIL` and `urllib` hints at the integration of club logos or player images, adding a visually appealing dimension to the analytical outputs.
@@ -94,7 +94,7 @@ Now that all our packages are installed, we can start looking at the data. The c
 
 FBREF has a structure of pages and sub-pages that we can access and store key information and save it for further analysis. 
 
-We will begin by building a method to pull all the basic data from the [Premier League Stats pages](https://fbref.com/en/comps/9/Premier-League-Stats) and build out programatically.
+We will begin by building a method to pull all the basic data from the [Premier League Stats pages](https://fbref.com/en/comps/9/Premier-League-Stats) and build out programmatically.
 
 
 The following code defines a Python function named `get_team_urls(x)`. This function takes a URL (`x`) as input and performs a series of web scraping operations to extract information about football teams, particularly their names and corresponding URLs. The code begins by sending a request to the provided URL, retrieving the HTML content, and parsing it using BeautifulSoup.

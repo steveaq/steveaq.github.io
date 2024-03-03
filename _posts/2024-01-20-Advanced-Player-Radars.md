@@ -22,7 +22,7 @@ This post is part of a series of *how tos* for creating dynamic & repeatable fun
 
 Armed with both the Beautiful Soup & mplsoccer python modules I will outline how I do so for my twitter and bluesky posts. 
 
-For this instance we'll be focusing on creating induvidual and comparison pizza plots using percentile rank statistics from FBREF.
+For this instance we'll be focusing on creating individual and comparison pizza plots using percentile rank statistics from FBREF.
 
 
 ## Setup
@@ -62,7 +62,7 @@ style.use('fivethirtyeight')
 ### Data Preparation & Constructing Functions 
 
 
-In order to ensure we are able to retrieve the plots we want with ease at a later stage its important that we build out a few function to make things easier down the line. The data we're going scrape has a lot of inconsistencies with data-types, data-formats and even fonts & characters. The functions below handle many of they most tricky issues regarding data processes.
+In order to ensure we are able to retrieve the plots we want with ease at a later stage its important that we build out a few function to make things easier down the line. The data we're going scrape has a lot of inconsistencies with data-types, data-formats and even fonts & characters. The functions below handle many of the most tricky issues regarding data processes.
 
 ```python
 def fuzzy_merge(df_1, df_2, key1, key2, threshold=97, limit=1):

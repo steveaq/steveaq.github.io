@@ -29,8 +29,8 @@ This project is written in Python and my webscraper of choice is BeautifulSoup. 
 
 
 For the data source, I've gone with FBREF, very popular with the football hipsters and kids on football twitter that comment 'ykb' under posts they agree with. 
-The underlying data for FBREF is provided by StatsBomb, so A* for reliabilty and accuracy.
-There is vast amount of this data available at league, team, player and match level, complete with deatiled metrics such as pass types and even body parts used for passes. The issue is being able to programtically sift through the webpages to get there. 
+The underlying data for FBREF is provided by StatsBomb, so A* for reliability and accuracy.
+There is vast amount of this data available at league, team, player and match level, complete with detailed metrics such as pass types and even body parts used for passes. The issue is being able to programtically sift through the webpages to get there. 
 
 The end goal of this is to:
 
@@ -88,7 +88,7 @@ from adjustText import adjust_text
 
 ## Data 
 
-Let's load the data. For the sake of ease lets start with a squad page. I've gone with this as this page seems to have the most data in a table that is easy for the scrapper to access and retrieve the infomation from. I'm watching far more Serie A these days so the team I've gone with is Napoli. The fbref page used can be found [here](https://fbref.com/en/squads/d48ad4ff/Napoli-Stats).  
+Let's load the data. For the sake of ease lets start with a squad page. I've gone with this as this page seems to have the most data in a table that is easy for the scrapper to access and retrieve the information from. I'm watching far more Serie A these days so the team I've gone with is Napoli. The fbref page used can be found [here](https://fbref.com/en/squads/d48ad4ff/Napoli-Stats).  
 
 ![Napoli_Team](/images/Napoli_Team.png)
 
@@ -134,7 +134,7 @@ def generate_squadlist(url):
 
 ### Get list of players in squad
 
-The above functions works on any page with this template so effectly any teams stats page will work with this function. 
+The above functions works on any page with this template so effectively any teams stats page will work with this function. 
 
 I want to be able to get the team name and store it for later. As it happens the URLs for FBREF follow a similar pattern so we can slice the list to get the name and save it in the team name variable.
 
@@ -152,9 +152,9 @@ Now lets have a look a the output
 
 ### Creating visualisations from based on web-scraped dataset
 
-Okay so we've got a table with some good data. There 29 features availble including all of the match related stats in per 90 format. We even have ages and squad time. [Abhishek Sharma](https://sharmaabhishekk.github.io/projects/) provided some inspiration with his [notebook](https://sharmaabhishekk.github.io/mpl-footy/main/2021/08/09/squad-age-profile.html), where he creates a beautiful age-squad profile map. 
+Okay so we've got a table with some good data. There 29 features available including all of the match related stats in per 90 format. We even have ages and squad time. [Abhishek Sharma](https://sharmaabhishekk.github.io/projects/) provided some inspiration with his [notebook](https://sharmaabhishekk.github.io/mpl-footy/main/2021/08/09/squad-age-profile.html), where he creates a beautiful age-squad profile map. 
 
-This particular visualisation really helps illustrate the age distrubtions of a squad. Charts such as these could be used to supplement analysis regarding; player performance, squad importance and possibly even tranfer planning. 
+This particular visualisation really helps illustrate the age distributions of a squad. Charts such as these could be used to supplement analysis regarding; player performance, squad importance and possibly even transfer planning. 
 
 Lets do something similar but use the dataset we have loaded in and put it in to a function to have a look at Napoli's squad age vs share of minutes played profile. 
 
@@ -217,12 +217,12 @@ The range was determined using WhoScored.com performance ratings of players in t
 ![Napoli_Age_Squad_Chart](/images/Napoli_Age_Squad_Chart.png)
 
 
-As we can see, there's a troubling distribution here. Napoli have a high proprtion of players just about to exit their peak or past their peak with a siginifant share of league minutes. From just an eye ball I can see regular starters like Koulibaly, Di Lorenzo are very much on the 'wrong side of 30'. However we cant just take this data in isolation as there are obvious limitations a few are:
+As we can see, there's a troubling distribution here. Napoli have a high proportion of players just about to exit their peak or past their peak with a significant share of league minutes. From just an eye ball I can see regular starters like Koulibaly, Di Lorenzo are very much on the 'wrong side of 30'. However we cant just take this data in isolation as there are obvious limitations a few are:
 
 - We need to get the age profile of the league for a true comparison
-- We are not including longetivity as a variable. Wherein some players simply just last longer at the elite level than others
+- We are not including longevity as a variable. Wherein some players simply just last longer at the elite level than others
 - Not all peaks are equal, goalkeepers & defenders have much later peaks than forward players 
-- This doesnt account for injury records to clearly explain the factors effecting share of minutes.
+- This doesn't account for injury records to clearly explain the factors effecting share of minutes.
 
 
 So all in all, a good start. We have managed to scrape data from FBREF, cleaned up the data we have gathered and then done some interesting data visualisations on top of this.
@@ -232,7 +232,7 @@ As mentioned previously, this data source has extensive minisites and other sub-
 
 ### Scraping fixture data
 
-Naturally when assesing a team we need performance data and the best place can look is the in FBRefs team specific fixture page Lets see if we can take some fixture data from another table in the website.
+Naturally when assessing a team we need performance data and the best place can look is the in FBRefs team specific fixture page Lets see if we can take some fixture data from another table in the website.
 
 ![Napoli_Fixtures](/images/Napoli_Fixture.png)
 
