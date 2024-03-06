@@ -34,9 +34,9 @@ The posts previously written in 2023 largely focused on the following objectives
 
 - [x] *Build a method to programmatically access player & team level data with minimal input*
 
-I previously created an automated method of programmatically fetching player data by creating a phonebook type interface to fetch player data ino order to compare statistics.
+I previously created an automated method of programmatically fetching player data by creating a phonebook type interface to retrieve player data in order to compare statistics.
 
-In this new 2024 update will focus more on using FBREF's newly added generlaised stat pages that already comprise of aggregated player data from the european top 5 leagues, rendering the previously data and time intensive approach I had created before as unnecessary. 
+In this new 2024 update, I will focus more on using FBREF's newly added generlaised stat pages that already comprise of aggregated player data from the european top 5 leagues, rendering the previously data and time intensive approach I had created before as unnecessary. 
 
 I now exclusively use the methods I'll share with you in this post to fetch player in far easier manner, that I hope will help you in your football analytics endeavors.
 

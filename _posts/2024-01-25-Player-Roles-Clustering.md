@@ -640,6 +640,39 @@ pitch_iq_scores = pd.merge(key_stats_df, pitch_iq_scoring, on='Player', how='lef
 
 ### 2-D KMeans Analysis 
 
+Here we'll use PCA as a way to reduce our dimensions.
+Let’s scale it down to 2 dimensions so we can see the data in a 2D plot with the K-means results.
+
+Principal Component Analysis (PCA) serves as a pivotal preprocessing step for various data analysis tasks, one of which is the K-means clustering algorithm. In the realm of 2D K-means analysis, where the objective is to partition a dataset into distinct clusters in a two-dimensional space, PCA emerges as an indispensable tool for dimensionality reduction and data visualization. 
+
+By condensing the information from the original feature space into a lower-dimensional representation while preserving the essential variance, PCA not only facilitates more efficient computation but also enhances the interpretability of clustering results. 
+
+This combination of PCA and 2D K-means holds immense value in uncovering underlying structures, patterns, and relationships within datasets, thus aiding in insightful data exploration and decision-making.
+
+
+The code below performs K-means clustering analysis on a dataset using a subset of columns ('KMeans_cols') from 'key_stats_df'. 
+
+Here's a breakdown of each step:
+
+1: **Column Selection**: 'KMeans_cols' specifies the columns to be used in the analysis. These columns likely represent various statistics or features related to players in a sports context.
+
+2: **Data Preparation**:
+   - 'df' is created by selecting only the columns specified in 'KMeans_cols'.
+   - 'player_names' is a list containing the names of the players.
+   - 'df' is then modified to remove the 'Player' column, as it's not used in the subsequent analysis.
+
+3: **Normalization**:
+   - The data in 'df' is normalized using Min-Max scaling to ensure that all features are on the same scale. This step is crucial for PCA, as it requires standardized data to calculate principal components accurately.
+   - 'preprocessing.MinMaxScaler()' is used for normalization.
+   - 'x_scaled' contains the normalized data.
+
+4: **Principal Component Analysis (PCA)**:
+   - PCA is applied to reduce the dimensionality of the dataset while preserving the most important information.
+   - 'PCA(n_components = 2)' specifies that the transformed data should be reduced to 2 dimensions.
+   - 'pca.fit_transform(X_norm)' performs PCA on the normalized data and returns the transformed data, which is then stored in 'reduced'.
+   - 'reduced' is a DataFrame containing the principal components of the original dataset.
+
+After executing this code, 'reduced' will contain the transformed data with reduced dimensionality, suitable for further analysis such as clustering using K-means algorithm in 2D space. Each row in 'reduced' corresponds to a player, with their statistical features transformed into two principal components. These components represent combinations of the original features that capture the most significant variance in the data.
  
 ```python
 KMeans_cols = ['Player','Total - Cmp%','KP', 'TB','Sw','PPA', 'PrgP','Tkl%','Blocks_x', 'Tkl+Int','Clr', 'Carries - PrgDist','SCA90','GCA90','CrsPA','xA', 'Rec','PrgR','xG', 'Sh','SoT']
@@ -659,7 +692,18 @@ reduced = pd.DataFrame(pca.fit_transform(X_norm))
 
 ```
 
+After executing this code, 'reduced' will contain the transformed data with reduced dimensionality, suitable for further analysis such as clustering using K-means algorithm in 2D space. Each row in 'reduced' corresponds to a player, with their statistical features transformed into two principal components. These components represent combinations of the original features that capture the most significant variance in the data. 
+
+Here's a constrained view of the output:
+
 ![kmeans_reduced](https://pbs.twimg.com/media/GHxmeRoWQAADNUF?format=png&name=small)
+
+
+Now that we've utilized PCA to reduce the dimensions of our dataset, we can generate a 2D plot to visualize the relationships among our players. However, it's important to note that this plot merely represents similarities between players, as the principal components (PC1 and PC2) derived from PCA aren't directly interpretable by technical or scouting teams.
+
+With our 2D similarity metric in hand, we can proceed to apply the K-means algorithm to cluster players based on their similarities. However, before doing so, we need to determine the optimal number of clusters (K) for our analysis. To achieve this, we employ a method called the Elbow method, which is implemented below. This involves training multiple K-means models with varying numbers of clusters (from 1 to 11), and calculating the Within-Cluster Sum of Squares (WCSS) for each model.
+
+WCSS quantifies the sum of squared distances between each data point and its respective cluster centroid. This metric serves as a measure of the compactness of the clusters.
 
 ```python
 wcss = [] 
@@ -684,7 +728,58 @@ reduced.columns = ['x', 'y', 'cluster', 'name']
 reduced.head()
 ```
 
+
+According to the elbow method, we determine that K=6, identified as the point where the rate of decrease in WCSS slows down significantly on our graph.
+
+Now, let's proceed to train a K-means model for K=6 and observe its performance.
+
+After training and using the trained model, each player in the dataset now has a number from 0 to 5 that represents their set. Let’s put this information in our reduced dataset and then plot it with the results of K-means.
+
 ![kmeans_algo](https://pbs.twimg.com/media/GHxmZLsWQAAFXz8?format=png&name=900x900)
+
+
+In order to quickly reproduce this model against another dataset if need be for later use, I've wrapped the code above into an easy to use function. 
+
+The code effectively preprocesses the data, performs dimensionality reduction using PCA, determines the optimal number of clusters using the elbow method, and applies K-means clustering to group players into clusters based on their statistics. Finally, it returns a DataFrame containing the reduced data with cluster labels and player names. 
+
+Here is brief summary of the steps: 
+
+1: **Column Selection**:
+   - Define a list of columns called `KMeans_cols` that includes player names and various statistics related to them.
+   - Extract only the specified columns from the input DataFrame `df`.
+
+2: **Data Preparation**:
+   - Extract player names from the DataFrame and convert them to a list.
+   - Drop the 'Player' column from the DataFrame, as it is not needed for clustering.
+
+3: **Normalization**:
+   - Scale the numerical features using Min-Max scaling to ensure that all features are on the same scale.
+   - Apply PCA to reduce the dimensionality of the scaled data to 2 components.
+
+4: **Elbow Method for Optimal K**:
+   - Loop through different numbers of clusters (from 1 to 10) and compute the Within-Cluster Sum of Squares (WCSS) for each iteration.
+   - WCSS is a measure of the compactness of the clusters.
+   - Store the WCSS values in a list.
+
+5: **Training K-means with Optimal K**:
+   - Instantiate a K-means model with the optimal number of clusters (K=6), as determined by the elbow method.
+   - Fit the K-means model to the reduced data obtained from PCA.
+
+6: **Assigning Labels to Clusters**:
+   - Predict cluster labels for each data point based on the trained K-means model.
+   - Convert the cluster labels to a list.
+
+7: **Adding Cluster Information to DataFrame**:
+   - Add the cluster labels as a new column to the reduced DataFrame.
+   - Also, add player names as a new column to the DataFrame.
+   - Rename the columns for clarity.
+
+8: **Return Results**:
+   - Return the modified DataFrame containing the reduced data with cluster labels and player names.
+
+9: **Execute the Function**:
+   - Call the `create_kmeans_df` function with the original DataFrame `key_stats_df` to obtain the DataFrame with clustering results.
+   - Assign the result to a new DataFrame `kmeans_df`.
 
 ```python
 def create_kmeans_df(df): 
@@ -726,6 +821,33 @@ kmeans_df = create_kmeans_df(key_stats_df)
 
 ```
 
+The code below creates a comprehensive visualization of the K-means clustering results, including player positions, cluster assignments, and additional branding elements such as logos and titles.
+Here's a breakdown of the code:
+
+1. **Scatter Plot Creation**:
+   - Generate a scatter plot using Seaborn's `lmplot` function.
+   - The plot is based on the x and y coordinates provided in the DataFrame `df`.
+   - Data points are colored based on their cluster labels.
+
+2. **Adding Player Names to Plot**:
+   - Add player names as annotations to the scatter plot.
+   - Each annotation is positioned at the corresponding x and y coordinates.
+
+3. **Adding Title and Logos**:
+   - Set up the main figure and axes for additional elements.
+   - Add a title indicating the type of clustering and the position.
+   - Include logos for visual enhancement and branding.
+   - Set up axes and turn off ticks for the logos.
+
+4. **Adjusting Plot Properties**:
+   - Set the limits and labels for the x and y axes.
+   - Adjust tick parameters and font sizes for better readability.
+
+5. **Display Plot**:
+   - Ensure proper layout and spacing.
+   - Show the plot with all the added elements.
+
+
 ```python
 def create_clustering_chart(df,position):
     # Create the scatter plot using lmplot
@@ -765,11 +887,15 @@ def create_clustering_chart(df,position):
     plt.show()
     
 create_clustering_chart(kmeans_df,position)
+
 ```
+In this plot, each color represents a cluster.
 
 ![kmeans_full_chart](https://pbs.twimg.com/media/GHxmZLuXgAAFB98?format=jpg&name=medium)
 
+Let's now inspect what players have been grouped together in each cluster
 
+The following code below will print out the respective dataframe for each cluster:
 
 ```python
 for i in range(0,6):
@@ -779,19 +905,30 @@ for i in range(0,6):
 
 ```
 
-Cluster 1            |  Cluster 2
+Using my elite ball knowledge :tm: I've attempted to ascribe a categorical classing/grouping to each cluster:
+
+
+Average Centre Backs          |  Average Traditional Full Backs
 :-------------------------:|:-------------------------:
 ![cluster_1](https://pbs.twimg.com/media/GHxpZ7oWIAAqh7y?format=png&name=large)  |  ![cluster_2](https://pbs.twimg.com/media/GHxpZ7oWsAA4NOx?format=png&name=900x900)
 
-Cluster 3               |  Cluster 4   
+Above-Average Defensive Full Backs              |  Above-Average Attacking Full Backs    
 :-------------------------:|:-------------------------:
 ![cluster_3](https://pbs.twimg.com/media/GHxpZ7jXcAAoZPG?format=png&name=large)  |  ![cluster_4](https://pbs.twimg.com/media/GHxpZ7qXgAE6u9W?format=png&name=900x900)
 
-Cluster 5             |  
+Above-Average Centre Backs            |  
 :-------------------------:|:-------------------------:
 ![cluster_5](https://pbs.twimg.com/media/GHxmZLlXQAA55ci?format=png&name=medium)  |  
 
+
+In summary, the model seems to be have done a good job in being able to group players together. In my personal opinion, I dont agree  with some of the names in the *Average Centre Backs* and *Above-Average Defensive Full Backs* cluster but i think its more a question of refining the data that I have applied the PCA algorithm with.
+
+I will spend some more time finding the most appropriate features with a more refined approach to feature selection with a more detailed exploratory data analysis methodology against the web-scraped FBREF data set.
+
 ### 3-D KMeans Analysis 
+
+Next, we will create the DataFrame `key_stats_df_3d` and similarly apply a Principal Component Analysis (PCA) to reduce the dimensions to three. This approach enables us to visualize our players in a three-dimensional space, facilitating the identification of relationships through a comprehensive 3D analysis.
+
 
 ```python
 from sklearn import preprocessing
@@ -836,26 +973,41 @@ plt.plot(range(1, 15), wcss)
 plt.xlabel('Number of Clusters (K)')
 plt.ylabel('WCSS')
 ```
+![wcss_2](https://pbs.twimg.com/media/GIA82bmW8AAOuEV?format=png&name=small) 
+
+According to the elbow method, we determine that K=9, identified as the point where the rate of decrease in WCSS slows down significantly on our graph.
+
+Now, let's proceed to train a K-means model for K=9 and observe its performance.
+
+After training and using the trained model, each player in the dataset now has a number from 0 to 8 that represents their set. Let’s put this information in our reduced dataset and then plot it with the results of K-means.
+
+In this plot, each color represents a cluster.
+
+![plot_3](https://pbs.twimg.com/media/GIA82ajXYAAkOl8?format=png&name=small) 
+
+Let's now inspect what players have been grouped together in each cluster
 
 Cluster 1            |  Cluster 2
 :-------------------------:|:-------------------------:
-![cluster_1](https://pbs.twimg.com/media/GHxpZ7oWIAAqh7y?format=png&name=large)  |  ![cluster_2](https://pbs.twimg.com/media/GHxpZ7oWsAA4NOx?format=png&name=900x900)
+![cluster_1](https://pbs.twimg.com/media/GIA88EWW8AEJTv5?format=png&name=medium)  |  ![cluster_2](https://pbs.twimg.com/media/GIA88E8XAAAA-cZ?format=png&name=medium)
 
 Cluster 3               |  Cluster 4   
 :-------------------------:|:-------------------------:
-![cluster_3](https://pbs.twimg.com/media/GHxpZ7jXcAAoZPG?format=png&name=large)  |  ![cluster_4](https://pbs.twimg.com/media/GHxpZ7qXgAE6u9W?format=png&name=900x900)
+![cluster_3](https://pbs.twimg.com/media/GIA88F0WsAASvyC?format=png&name=900x900)  |  ![cluster_4](https://pbs.twimg.com/media/GIA88GpXUAA8I6_?format=png&name=medium)
 
 Cluster 5             |  Cluster 6
 :-------------------------:|:-------------------------:
-![cluster_5](https://pbs.twimg.com/media/GHxmZLlXQAA55ci?format=png&name=medium)  |  ![cluster_6](https://pbs.twimg.com/media/GHxmZLlXQAA55ci?format=png&name=medium)
+![cluster_5](https://pbs.twimg.com/media/GIA9AP-WYAAxtTH?format=png&name=medium)  |  ![cluster_6](https://pbs.twimg.com/media/GIA9AQyWMAE6vJP?format=png&name=900x900)
 
 Cluster 7             |  Cluster 8
 :-------------------------:|:-------------------------:
-![cluster_5](https://pbs.twimg.com/media/GHxmZLlXQAA55ci?format=png&name=medium)  |  ![cluster_6](https://pbs.twimg.com/media/GHxmZLlXQAA55ci?format=png&name=medium)
+![cluster_5](https://pbs.twimg.com/media/GIA9ARrWAAAJsGs?format=png&name=medium)  |  ![cluster_6](https://pbs.twimg.com/media/GIA9ASkXgAAvBwa?format=png&name=900x900)
 
 Cluster 9             | 
 :-------------------------:|:-------------------------:
-![cluster_5](https://pbs.twimg.com/media/GHxmZLlXQAA55ci?format=png&name=medium)  | 
+![cluster_5](https://pbs.twimg.com/media/GIA9DihWsAENBQo?format=png&name=medium)  | 
+
+Using the 3-d KMeans for this dataset overall has been quite hit or miss as you indicate from the clusters above. Again much like the 2d model, I will have to apply a more comprehensive feature selection process to refine these outputs
 
 
 ### Conclusion
