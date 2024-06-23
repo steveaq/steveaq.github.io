@@ -467,7 +467,7 @@ The code integrates various steps to preprocess data, create metric scores, norm
 
 This comprehensive approach enables detailed player performance analysis, similarity comparison, and effective visualization using a radar chart.
 
-Here are the top 5 Players that profile most closely to William Saliba:
+Here are the top 5 players that profile most closely to William Saliba:
 
 ![l_costa](https://pbs.twimg.com/media/GQxG-riWcAAQGnC?format=png&name=900x900)
 
@@ -480,7 +480,7 @@ Here are the top 5 Players that profile most closely to William Saliba:
 ![mendy](https://pbs.twimg.com/media/GQxG7iGWgAASj9s?format=png&name=900x900)
 
 
-When Putting it all together, I have created a final visual, showing the top 15 most similar players to Saliba in handy table.
+When Putting it all together, I have created a final visual, showing the top 15 most similar players to Saliba in a handy table.
 
 
 ![saliba_sim](https://pbs.twimg.com/media/GQxG-rkXMAABmRq?format=jpg&name=large)
