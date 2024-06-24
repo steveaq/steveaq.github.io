@@ -17,7 +17,7 @@ I have a deep love for football and a strong dedication to analyzing the game fr
 
 On this platform, I combine my passion for the game with rigorous data analysis. My goal is to offer you in-depth insights that allow you to appreciate the nuances of football, both on and off the pitch.
 
-You will find longer, more academically-oriented posts on the Pitch IQ medium page. Additionally, I have created Cannon IQ, a dedicated medium mini-blog focusing exclusively on  Arsenal. As a die-hard Gunner, I explore the tactics, player analysis, and financial dynamics specific to Arsenal.
+Additionally, I have created Cannon IQ, a dedicated medium mini-blog focusing exclusively on  Arsenal. As a lifelong Gunner, I explore the tactics, player analysis, and financial dynamics specific to Arsenal.
 Cannon IQ is my way of connecting with other Arsenal fans and providing my perspective on my club.
 
 <style>
@@ -47,7 +47,7 @@ Cannon IQ is my way of connecting with other Arsenal fans and providing my persp
       <img class="img-rounded" src="https://pbs.twimg.com/media/F-A6rcGXEAA3bSj?format=png&name=small" alt="Stephen Ahiabah">
     </a>
     <br>
-    <a href="https://pitchiq800.substack.com/">Pitch IQ Medium</a>
+    <a href="https://cannoniq.substack.com/">CannonIQ Substack</a>
   </div>
 
 I firmly believe that understanding the data behind football can enhance your overall football experience.
