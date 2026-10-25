@@ -5,9 +5,9 @@ subtitle: Advanced applications of expected goals (xG) in football analysis
 description: >-
   Continuing from Part 2, this post explores advanced applications of expected goals (xG) in football analysis. Dive into xG models, xG timeline analysis, and xG in player evaluation to unlock new insights and enhance your understanding of xG's role in modern football analytics.
 image: >-
-  https://pbs.twimg.com/media/GAlVkWcWUAE8AxQ?format=jpg&name=large
+  /images/restored/GAlVkWcWUAE8AxQ.png
 optimized_image: >-
-  https://pbs.twimg.com/media/GAlVkWcWUAE8AxQ?format=jpg&name=large
+  /images/restored/GAlVkWcWUAE8AxQ.png
 category: [Data Visualisations]
 tags:
   - Blogging
@@ -37,7 +37,7 @@ xG rolling charts offer a comprehensive view of a team's performance dynamics, s
 
 Below you will find an example of an xG Rolling charts from [The Athletic](https://theathletic.com/football/premier-league/) which we will be recreating in this post. 
 
-![roll_xg](https://pbs.twimg.com/media/Fp-P4HoXsAEYUIv?format=jpg&name=4096x4096)
+![roll_xg](/images/restored/Fp-P4HoXsAEYUIv.jpg)
 
 Some of the key uses and benefits of using xG (expected goals) rolling charts over multiple seasons for team performance:
 
@@ -202,7 +202,7 @@ get_xG_rolling_data(8654)
 
 This is now our resulting table: 
 
-![xg_roll_table](https://pbs.twimg.com/media/GE4qtpyWMAA2d1o?format=png&name=small)
+![xg_roll_table](/images/restored/GE4qtpyWMAA2d1o.png)
 
 
 The next function we need to created , 'get_xG_interpolated_df,' takes a football team's ID, a rolling window size (default is 10), and the match data DataFrame ('df') as input. It first calls the 'get_xG_rolling_data' function to obtain the rolling xG DataFrame for the specified team. Here is breakdown of the steps required to build this function:
@@ -280,7 +280,7 @@ get_xG_interpolated_df(10260)
 ```
 This is now our resulting table: 
 
-![inpoloted_df](https://pbs.twimg.com/media/GE4rIE9XUAAnl5p?format=png&name=small)
+![inpoloted_df](/images/restored/GE4rIE9XUAAnl5p.png)
 
 
 ### Building Matplotlib Visuals
@@ -503,7 +503,7 @@ plot_xG_gradient(ax, 9825, 10)
 ```
 This is now our resulting mpl plot: 
 
-![pre_roll](https://pbs.twimg.com/media/GE4rj85XAAA5yqZ?format=jpg&name=large)
+![pre_roll](/images/restored/GE4rj85XAAA5yqZ.png)
 
 Now we have all the functions we need to plot multiple teams, lets put this all together to get our final plot.
 
@@ -679,7 +679,7 @@ ax3.imshow(img)
 
 ```
 
-![final_pic](https://pbs.twimg.com/media/GAlVkWcWUAE8AxQ?format=jpg&name=large)
+![final_pic](/images/restored/GAlVkWcWUAE8AxQ.png)
 
 ### Conclusion
 

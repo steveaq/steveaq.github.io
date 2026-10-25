@@ -5,9 +5,9 @@ subtitle: Exploring mplsoccer data visualisation
 description: >-
   This post aims to give a detailed walkthrough of how to access  data scraped from various web-sources and visualise them using the open-source mplsoccer python library. In this iteration, we'll be looking how to constuct individual and comparison Pizza plots for player evaluation.
 image: >-
-    https://pbs.twimg.com/media/GE3cjK3WkAAaA-l?format=png&name=small
+    /images/restored/GE95db_XcAEmPmz.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GE3cjK3WkAAaA-l?format=png&name=small
+    /images/restored/GE95db_XcAEmPmz.png
 
 category: [Data Visualisations]
 tags:
@@ -548,7 +548,7 @@ for player in players:
 
 This simple loop generates a pizza plot for a single football player, in this case, Giorgio Scalvini, resulting in the following visual:
 
-![scally_boy](https://pbs.twimg.com/media/GE95dbgWgAEK74E?format=png&name=small)
+![scally_boy](/images/restored/giorgio-scalvini-pizza.png)
 
 ### Creation of Comparison Pizza Chart
 
@@ -722,7 +722,7 @@ In this comparison, staying with the Atalanta theme, I've decided to pick Teun K
 create_comparison_pizza('Teun Koopmeiners', 'Granit Xhaka')
 ```
 
-![teun](https://pbs.twimg.com/media/GE95db_XcAEmPmz?format=png&name=900x900)
+![teun](/images/restored/GE95db_XcAEmPmz.png)
 
 ### Conclusion
 

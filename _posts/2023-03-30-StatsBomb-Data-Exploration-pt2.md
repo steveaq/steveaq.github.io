@@ -5,9 +5,9 @@ subtitle: Advanced techniques for analyzing football data from StatsBomb
 description: >-
   Continuing from Part 1, this post delves into advanced techniques for analyzing football data from StatsBomb. This looks at more player specific queries, visuals and tactical insights using the datasets provided by StatsBomb. 
 image: >-
-    https://pbs.twimg.com/media/GE2j-loXEAAJpfM?format=jpg&name=4096x4096
+    /images/multiplayer_pass.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GE2j-loXEAAJpfM?format=jpg&name=4096x4096
+    /images/multiplayer_pass.png
 category: [Analytics]
 tags:
   - Blogging
@@ -125,7 +125,7 @@ plt.savefig(f'Output Visuals/{player_name} - Hexbin Touch Map.png', dpi=300, bbo
 ```
 This is what the resulting visual should look like: 
 
-![Induvidual Player Touch Map](https://pbs.twimg.com/media/F0ysxO8WwAAC_9f?format=png&name=small) 
+![Induvidual Player Touch Map](/images/Touch_Map.png)
 
 ### Player Passes
 
@@ -234,7 +234,7 @@ plt.savefig(f'Output Visuals/{player_name} - Hexbin Touch Map.png', dpi=300, bbo
 
 the resulting visual should look like this: 
 
-![Induvidual Player Pass Map](https://pbs.twimg.com/media/F0ysxQSX0AIYYKV?format=png&name=small) 
+![Induvidual Player Pass Map](/images/Induvidual_Pass_Map.png)
 
 ### Combined Team Pass Map
 
@@ -458,7 +458,7 @@ plt.show()  # If you are using a Jupyter notebook you do not need this line
 ```
 The resulting chart should look like this: 
 
-![combine_pass](https://pbs.twimg.com/media/F0yxKPqWYAAQS6c?format=jpg&name=small)
+![combine_pass](/images/multiplayer_pass.png)
 
 
 ## Conclusion

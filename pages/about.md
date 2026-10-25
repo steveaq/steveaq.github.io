@@ -44,7 +44,7 @@ Cannon IQ is my way of connecting with other Arsenal fans and providing my persp
 
   <div class="image-container">
     <a href="link_to_image2">
-      <img class="img-rounded" src="https://pbs.twimg.com/media/F-A6rcGXEAA3bSj?format=png&name=small" alt="Stephen Ahiabah">
+      <img class="img-rounded" src="/images/dp.png" alt="Stephen Ahiabah">
     </a>
     <br>
     <a href="https://cannoniq.substack.com/">CannonIQ Substack</a>

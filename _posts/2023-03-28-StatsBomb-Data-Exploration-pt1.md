@@ -5,9 +5,9 @@ subtitle: Introduction to exploring football data with StatsBomb
 description: >-
   This post provides an introduction to exploring football data with StatsBomb. Part 1 covers the fundamentals of accessing and analyzing football datasets from StatsBomb, offering insights into player performance & team tactics.
 image: >-
-  https://pbs.twimg.com/media/GE2j-mQW8AE-CEz?format=png&name=small
+  /images/Shot_Map.png
 optimized_image: >-
-  https://pbs.twimg.com/media/GE2j-mQW8AE-CEz?format=png&name=small
+  /images/Shot_Map.png
 category: [Analytics]
 tags:
   - Blogging
@@ -425,7 +425,7 @@ Now we call the function by passing the team names to get the shot map.
 generateCombinedShotMap('England','Senegal')
 ```
 
-![Team Shot Map](https://pbs.twimg.com/media/GAlVfBwXYAAWPXU?format=jpg&name=large)
+![Team Shot Map](/images/Shot_Map.png)
 
 ### Conclusion
 

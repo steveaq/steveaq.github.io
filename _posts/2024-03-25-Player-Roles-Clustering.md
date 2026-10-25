@@ -5,9 +5,9 @@ subtitle: Analyzing and categorizing football player roles through clustering
 description: >-
   In this post, we explore player role analysis and clustering techniques in football. Discover how to categorize players based on their playing styles, positions, and attributes using clustering algorithms. Unveil the underlying patterns and gain insights into the different player roles in football.
 image: >-
-  https://pbs.twimg.com/media/GAlVKnSW0AALwj1?format=jpg&name=medium
+  /images/restored/GAlVKnSW0AALwj1.png
 optimized_image: >-
-  https://pbs.twimg.com/media/GAlVKnSW0AALwj1?format=jpg&name=medium
+  /images/restored/GAlVKnSW0AALwj1.png
 
 category: [Data Science]
 tags:
@@ -696,7 +696,7 @@ After executing this code, 'reduced' will contain the transformed data with redu
 
 Here's a constrained view of the output:
 
-![kmeans_reduced](https://pbs.twimg.com/media/GHxmeRoWQAADNUF?format=png&name=small)
+![kmeans_reduced](/images/restored/GHxmeRoWQAADNUF.png)
 
 
 Now that we've utilized PCA to reduce the dimensions of our dataset, we can generate a 2D plot to visualize the relationships among our players. However, it's important to note that this plot merely represents similarities between players, as the principal components (PC1 and PC2) derived from PCA aren't directly interpretable by technical or scouting teams.
@@ -713,10 +713,10 @@ for i in range(1, 11):
     wcss.append(kmeans.inertia_)
 ```
 
-![wcss](https://pbs.twimg.com/media/GHxmZLtWYAACV5c?format=png&name=small)
+![wcss](/images/restored/GHxmZLtWYAACV5c.png)
 
 ```python
-kmeans = KMeans(n_clusters=6)
+kmeans = KMeans(n_clusters=7)
 kmeans = kmeans.fit(reduced)
 
 labels = kmeans.predict(reduced)
@@ -729,13 +729,13 @@ reduced.head()
 ```
 
 
-According to the elbow method, we determine that K=6, identified as the point where the rate of decrease in WCSS slows down significantly on our graph.
+The recovered notebook uses K=7 for this example. The elbow chart helps compare candidate cluster counts.
 
-Now, let's proceed to train a K-means model for K=6 and observe its performance.
+Now, let's proceed to train a K-means model for K=7 and observe its performance.
 
-After training and using the trained model, each player in the dataset now has a number from 0 to 5 that represents their set. Let’s put this information in our reduced dataset and then plot it with the results of K-means.
+After training and using the trained model, each player in the dataset now has a number from 0 to 6 that represents their set. Let’s put this information in our reduced dataset and then plot it with the results of K-means.
 
-![kmeans_algo](https://pbs.twimg.com/media/GHxmZLsWQAAFXz8?format=png&name=900x900)
+![kmeans_algo](/images/restored/GHxmZLsWQAAFXz8.png)
 
 
 In order to quickly reproduce this model against another dataset if need be for later use, I've wrapped the code above into an easy to use function. 
@@ -762,7 +762,7 @@ Here is brief summary of the steps:
    - Store the WCSS values in a list.
 
 5: **Training K-means with Optimal K**:
-   - Instantiate a K-means model with the optimal number of clusters (K=6), as determined by the elbow method.
+   - Instantiate a K-means model with seven clusters, matching the recovered notebook run.
    - Fit the K-means model to the reduced data obtained from PCA.
 
 6: **Assigning Labels to Clusters**:
@@ -804,7 +804,7 @@ def create_kmeans_df(df):
         kmeans.fit(reduced) 
         wcss.append(kmeans.inertia_)
 
-    kmeans = KMeans(n_clusters=6)
+    kmeans = KMeans(n_clusters=7)
     kmeans = kmeans.fit(reduced)
 
     labels = kmeans.predict(reduced)
@@ -891,14 +891,14 @@ create_clustering_chart(kmeans_df,position)
 ```
 In this plot, each color represents a cluster.
 
-![kmeans_full_chart](https://pbs.twimg.com/media/GHxmZLuXgAAFB98?format=jpg&name=medium)
+![kmeans_full_chart](/images/restored/GHxmZLuXgAAFB98.png)
 
 Let's now inspect what players have been grouped together in each cluster
 
 The following code below will print out the respective dataframe for each cluster:
 
 ```python
-for i in range(0,6):
+for i in range(0,7):
     df = kmeans_df[kmeans_df['cluster'] == i]
     print(f'cluster - {i}')
     print(df)
@@ -908,17 +908,8 @@ for i in range(0,6):
 Using my elite ball knowledge :tm: I've attempted to ascribe a categorical classing/grouping to each cluster:
 
 
-Average Centre Backs          |  Average Traditional Full Backs
-:-------------------------:|:-------------------------:
-![cluster_1](https://pbs.twimg.com/media/GHxpZ7oWIAAqh7y?format=png&name=large)  |  ![cluster_2](https://pbs.twimg.com/media/GHxpZ7oWsAA4NOx?format=png&name=900x900)
+*Archive restoration: the original role-group screenshots were not preserved. The figures above show the saved seven-cluster notebook run; cluster labels depend on the particular run.*
 
-Above-Average Defensive Full Backs              |  Above-Average Attacking Full Backs    
-:-------------------------:|:-------------------------:
-![cluster_3](https://pbs.twimg.com/media/GHxpZ7jXcAAoZPG?format=png&name=large)  |  ![cluster_4](https://pbs.twimg.com/media/GHxpZ7qXgAE6u9W?format=png&name=900x900)
-
-Above-Average Centre Backs            |  
-:-------------------------:|:-------------------------:
-![cluster_5](https://pbs.twimg.com/media/GHxmZLlXQAA55ci?format=png&name=medium)  |  
 
 
 In summary, the model seems to be have done a good job in being able to group players together. In my personal opinion, I dont agree  with some of the names in the *Average Centre Backs* and *Above-Average Defensive Full Backs* cluster but i think its more a question of refining the data that I have applied the PCA algorithm with.
@@ -973,7 +964,7 @@ plt.plot(range(1, 15), wcss)
 plt.xlabel('Number of Clusters (K)')
 plt.ylabel('WCSS')
 ```
-![wcss_2](https://pbs.twimg.com/media/GIA82bmW8AAOuEV?format=png&name=small) 
+![wcss_2](/images/restored/GIA82bmW8AAOuEV.png)
 
 According to the elbow method, we determine that K=9, identified as the point where the rate of decrease in WCSS slows down significantly on our graph.
 
@@ -983,29 +974,16 @@ After training and using the trained model, each player in the dataset now has a
 
 In this plot, each color represents a cluster.
 
-![plot_3](https://pbs.twimg.com/media/GIA82ajXYAAkOl8?format=png&name=small) 
+![plot_3](/images/restored/GIA82ajXYAAkOl8.png)
 
 Let's now inspect what players have been grouped together in each cluster
 
-Cluster 1            |  Cluster 2
-:-------------------------:|:-------------------------:
-![cluster_1](https://pbs.twimg.com/media/GIA88EWW8AEJTv5?format=png&name=medium)  |  ![cluster_2](https://pbs.twimg.com/media/GIA88E8XAAAA-cZ?format=png&name=medium)
+The saved notebook preserves the following example from cluster 9:
 
-Cluster 3               |  Cluster 4   
-:-------------------------:|:-------------------------:
-![cluster_3](https://pbs.twimg.com/media/GIA88F0WsAASvyC?format=png&name=900x900)  |  ![cluster_4](https://pbs.twimg.com/media/GIA88GpXUAA8I6_?format=png&name=medium)
+![Saved players in cluster 9](/images/restored/cluster-9-saved-output.png)
 
-Cluster 5             |  Cluster 6
-:-------------------------:|:-------------------------:
-![cluster_5](https://pbs.twimg.com/media/GIA9AP-WYAAxtTH?format=png&name=medium)  |  ![cluster_6](https://pbs.twimg.com/media/GIA9AQyWMAE6vJP?format=png&name=900x900)
+*The other original cluster screenshots were not preserved in the project files.*
 
-Cluster 7             |  Cluster 8
-:-------------------------:|:-------------------------:
-![cluster_5](https://pbs.twimg.com/media/GIA9ARrWAAAJsGs?format=png&name=medium)  |  ![cluster_6](https://pbs.twimg.com/media/GIA9ASkXgAAvBwa?format=png&name=900x900)
-
-Cluster 9             | 
-:-------------------------:|:-------------------------:
-![cluster_5](https://pbs.twimg.com/media/GIA9DihWsAENBQo?format=png&name=medium)  | 
 
 Using the 3-d KMeans for this dataset overall has been quite hit or miss as you indicate from the clusters above. Again much like the 2d model, I will have to apply a more comprehensive feature selection process to refine these outputs
 

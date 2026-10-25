@@ -5,9 +5,9 @@ subtitle: Introduction to expected goals (xG) in football
 description: >-
    This post provides an introduction to expected goals (xG) in football. Part 1 covers the basics of xG, its calculation methods, and its significance in evaluating goal-scoring opportunities. Start exploring the fascinating world of xG and its impact on football analysis!
 image: >-
-    https://pbs.twimg.com/media/GAlVPWkXoAAV6He?format=jpg&name=900x900
+    /images/restored/GAlVPWkXoAAV6He.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GAlVPWkXoAAV6He?format=jpg&name=900x900
+    /images/restored/GAlVPWkXoAAV6He.png
 category: [Data Visualisations]
 tags:
   - Blogging
@@ -161,7 +161,7 @@ The code converts the `'xg_diff'` column in DataFrame df to numeric values and c
 
 We will have a resulting table that looks like this:
 
-![xgdiff_tab](https://pbs.twimg.com/media/GE2Fv3FXwAAvvsw?format=png&name=small)
+![xgdiff_tab](/images/xg_diff.png)
 
 In order to get the club logos, I created a CSV file with each of the PL teams FotMob id, this way we can access the FotMoB image library and request the correct team logo in the correct size without any weird inconsistencies with sizing or pixelation. This CSV was made manually, I will probabaly need to work out a way to do this more effieciently, but for now, this method will suffice.  
 
@@ -188,7 +188,7 @@ data.to_csv("CSVs/fotmob_epl_team_ids.csv")
 
 We will have a resulting table that looks like this:
 
-![xgdiff_tab](https://pbs.twimg.com/media/GE2Fv3lXAAAtW7H?format=png&name=small)
+![xgdiff_tab](/images/restored/GE2Fv3lXAAAtW7H.png)
 
 
 ## Building Visualisations
@@ -200,7 +200,7 @@ As we now have our cleaned up dataset. We can start work on the third  objective
 
 From the title image of this post, we will be creating an `xG Difference` tree. An example version created by StatBomb can be seen below. 
 
-![xgdiff_sb](https://pbs.twimg.com/media/FDqz7r8XMAoo1vA.png)
+![xgdiff_sb](/images/restored/FDqz7r8XMAoo1vA.png)
 
 These visuals are a really useful way of ascertaining both a teams, offensive and defensive performance simulataenously. The formaula for `xG Difference = xG - xGA`.
 Simply, the higher and more positive the `xG Difference` the better the teams overall performance from a statitical point of view, and vice versa.
@@ -545,14 +545,14 @@ ax3.imshow(img)
 
 Our final visual should look as follows:
 
-![xgdiff_tab](https://pbs.twimg.com/media/GAlVPWkXoAAV6He?format=jpg&name=900x900)
+![xgdiff_tab](/images/restored/GAlVPWkXoAAV6He.png)
 
 ### xG Difference vs Points per Game
 
 Now, we're going to go slightly further and create a new type of visual. `xG difference` is great way of assessing a teams statistical performance, however the fans of PL will know, the league is unforgiving and despite some teams putting up great statitcal numbers, they simply can't put the ball in the back of the net and win the points that are all so important in the league.
 Here is an example of this underperfromance from one of my favourite twitter accounts, [The xG Philosophy](https://twitter.com/xGPhilosophy) that illustrates this:
 
-![xgdiff_philo](https://pbs.twimg.com/media/FHOn50xWYAwugH0?format=jpg&name=900x900)
+![xgdiff_philo](/images/restored/FHOn50xWYAwugH0.jpg)
 
 So how can we capture a teams 'points on the board' performance along side their statistical performance?
 One way I thought of was to plot a teams xG Difference per 90 vs their Points per game.
@@ -561,7 +561,7 @@ One way I thought of was to plot a teams xG Difference per 90 vs their Points pe
 
 Earlier in this post, I outlined a way of pulling a generic dataframe from a webpage in FBREF (shown below), using the function `generate_league_data`. 
 
-![TABLE_FBREF](https://pbs.twimg.com/media/GE2T2Z0WIAAg0kQ?format=png&name=small)
+![TABLE_FBREF](/images/datalist.png)
 
 So will we re-suse this fucntion and assign it to the variable df.
 
@@ -854,7 +854,7 @@ plt.savefig('xGChart.png', dpi=1200)
 ```
 Our final visual should look as follows:
 
-![ppg_plot](https://pbs.twimg.com/media/GE2WBTGXEAAUoNh?format=jpg&name=small)
+![ppg_plot](/images/restored/GE2WBTGXEAAUoNh.png)
 
 
 ### Conclusion

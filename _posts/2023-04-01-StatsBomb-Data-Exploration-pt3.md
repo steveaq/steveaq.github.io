@@ -5,9 +5,9 @@ subtitle: Extracting valuable insights from StatsBomb football data
 description: >-
   In the final part of the StatsBomb data exploration series, this post focuses on extracting valuable insights from StatsBomb football data. Learn how to uncover trends, perform statistical analysis, and generate meaningful visualizations using the comprehensive football datasets provided by StatsBomb.
 image: >-
-    https://pbs.twimg.com/media/GE2j-lbXoAAyfuz?format=jpg&name=large
+    /images/race_chart.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GE2j-lbXoAAyfuz?format=jpg&name=large
+    /images/race_chart.png
 category: [Analytics]
 tags:
   - Blogging
@@ -38,7 +38,7 @@ We have now evaluted both a portion of team and player-based visualizations, now
 
 #### What are they?
 
-![xgrace](https://e0.365dm.com/22/04/768x432/skysports-graphic-liverpool_5735862.jpg?20220410183732)
+![xgrace](/images/restored/sky-xg-example.jpg)
 
 An xG race chart is a visualization that shows how the expected goals (xG) for each team in a match changes over time. xG is a measure of the likelihood that a shot will result in a goal, and it is calculated using a variety of factors, such as the distance from goal, the angle of the shot, and the goalkeeper's position.
 
@@ -309,7 +309,7 @@ ax.tick_params(axis='both', length=0)
 ```
 This is the resulting visual: 
 
-![xgrace2](https://pbs.twimg.com/media/F0yp5Z2WAAMNCqF?format=jpg&name=large)
+![xgrace2](/images/race_chart.png)
 
 Now were going to move on to our final section, where we will explore how to visualise some more advance metrics. 
 
@@ -318,7 +318,7 @@ Now were going to move on to our final section, where we will explore how to vis
 #### What are they?
 
 
-![obvchar](https://statsbomb.com/wp-content/uploads/2022/02/OBV-ENG1.png)
+
 
 
 On-Ball Value (OBV) is a statistical model that objectively and quantitatively measures the value of each event in football. It calculates the change in the probability of a team scoring or conceding as a result of a specific event. OBV offers two key benefits:
@@ -501,9 +501,7 @@ plt.show()
 
 ```
 
-And this is the resulting chart:
-
-![obvchar1](https://pbs.twimg.com/media/F0yrIYkWcAUk13m?format=jpg&name=large)
+*The original output figure was not preserved in the recovered project files. The chart-building code is included above.*
 
 
 ## Conclusion

@@ -5,9 +5,9 @@ subtitle: Advanced analysis of expected goals (xG) in football
 description: >-
   Building on Part 1, this post delves deeper into the analysis of expected goals (xG) in football. Discover advanced techniques for evaluating and interpreting xG metrics, explore their applications in player performance analysis and team strategies, and gain a deeper understanding of xG in football.
 image: >-
-    https://pbs.twimg.com/media/GE3YaVaWYAAqHDI?format=jpg&name=4096x4096
+    /images/xg_scatter.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GE3YaVaWYAAqHDI?format=jpg&name=4096x4096
+    /images/xg_scatter.png
 category: [Data Visualisations]
 tags:
   - Blogging
@@ -115,7 +115,7 @@ def generate_league_data(x):
     return(df)
 ```
 
-![TABLE_FBREF](https://pbs.twimg.com/media/GE2T2Z0WIAAg0kQ?format=png&name=small)
+![TABLE_FBREF](/images/datalist.png)
 
 So will we re-suse this fucntion and assign it to the variable df.
 
@@ -381,7 +381,7 @@ plt.show()  # Added this line to display the plot
 ```
 Our final visual should look as follows:
 
-![xgdiff_scor](https://pbs.twimg.com/media/GAlVPWbW4AAmV42?format=jpg&name=large)
+![xgdiff_scor](/images/xg%20diff.png)
 
 Using the same structure and principles we can simple change the variables we're plotting to now be the defensive performance metrics. The full code for that can be found below. 
 
@@ -532,7 +532,7 @@ plt.show()  # Added this line to display the plot
 
 Our final visual should look as follows:
 
-![xgdiff_agg](https://pbs.twimg.com/media/GAlVPWnXIAAsXAU?format=jpg&name=large)
+![xgdiff_agg](/images/CONC_1.png)
 
 ## xG Scatter Plots
 
@@ -575,7 +575,7 @@ Here's a breakdown of the key aspects and insights that can be gained from an xG
 
 For this visual, we'll be using another subpage from FBREF. This page has all the recent scores and upcoming fixtures in the EPL. A snippet of the page is shown below. 
 
-![FBREF_agg](https://pbs.twimg.com/media/GE26mypXsAAdHEh?format=jpg&name=medium)
+![FBREF_agg](/images/restored/GE26mypXsAAdHEh.png)
 
 
 The following code is a Python script for web scraping football fixtures data from a specific URL using the requests library to fetch the `HTML content` and `BeautifulSoup` from the `bs4 (Beautiful Soup) library` to parse the `HTML` and extract information. Additionally, it uses the pandas library to read the `HTML` tables into a DataFrame.
@@ -599,7 +599,7 @@ fixtures['match_id'] = range(1, len(fixtures) + 1)
 
 The resulting table should look like the following: 
 
-![Datascanned](https://pbs.twimg.com/media/GE26m1CW0AAiTo2?format=png&name=large)
+![Datascanned](/images/restored/GE26m1CW0AAiTo2.png)
 
 In order to get the data from the `fixtures` DataFrame in the correct shape to create our visual, we'll need to do some major surgery to it. 
 
@@ -713,7 +713,7 @@ In summary, this code segment is designed to transform and reshape football fixt
 
 Our `fixtures` DataFrame now should have the following shape: 
 
-![data_format](https://pbs.twimg.com/media/GE26mzeWQAAms_t?format=png&name=small)
+![data_format](/images/restored/GE26mzeWQAAms_t.png)
 
 We want to pull out the data and create the chart for the top 10 team in the EPL
 
@@ -998,7 +998,7 @@ ax3.imshow(img)
 Our final peice now looks like the following: 
 
 
-![final_plot](https://pbs.twimg.com/media/GE3YaVaWYAAqHDI?format=jpg&name=4096x4096)
+![final_plot](/images/xg_scatter.png)
 
 ### Conclusion
 

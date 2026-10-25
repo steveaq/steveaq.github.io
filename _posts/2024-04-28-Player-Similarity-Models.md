@@ -5,9 +5,9 @@ subtitle: Exploring player similarity analysis in football
 description: >-
    This post delves into the concept of player similarity analysis in football. Using K-Means clustering we will build a player similarity model and explore this application into talent scouting, team building, and performance evaluation.
 image: >-
-    https://pbs.twimg.com/media/GQxG-rkXMAABmRq?format=jpg&name=large
+    /images/restored/GQxG-rkXMAABmRq.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GQxG-rkXMAABmRq?format=jpg&name=large
+    /images/restored/GQxG-rkXMAABmRq.png
 
 category: [Data Science]
 tags:
@@ -270,7 +270,7 @@ Certainly! Let's break down the code `find_similar_players` and explain the impo
 ### Function: `find_similar_players`
 
 ```python
-def find_similar_players(player_name, df, top_n=15):
+def find_similar_players(player_name, df, top_n=20):
     player = df[df['name'] == player_name].iloc[0]
     df['distance'] = np.sqrt((df['x'] - player['x'])**2 + (df['y'] - player['y'])**2)
     
@@ -335,7 +335,7 @@ Returning a dataframe containing the names of similar players along with their p
 The `find_similar_players` function is important because it enables the identification of players who are spatially closest to a given player in terms of their coordinates (`x` and `y`). This functionality is crucial in various applications such as player scouting, team formation, or personalized recommendations in sports analytics. It provides a structured approach to understanding player similarity based on spatial data, which can inform strategic decisions in sports management and analysis.
 
 ```python
-def find_similar_players(player_name, df, top_n=15):
+def find_similar_players(player_name, df, top_n=20):
     player = df[df['name'] == player_name].iloc[0]
     df['distance'] = np.sqrt((df['x'] - player['x'])**2 + (df['y'] - player['y'])**2)
     
@@ -467,23 +467,25 @@ The code integrates various steps to preprocess data, create metric scores, norm
 
 This comprehensive approach enables detailed player performance analysis, similarity comparison, and effective visualization using a radar chart.
 
-Here are the top 5 players that profile most closely to William Saliba:
+*Archive restoration: the original Saliba figures were not preserved. These examples use the saved Bukayo Saka results from the July 2024 notebook.*
 
-![l_costa](https://pbs.twimg.com/media/GQxG-riWcAAQGnC?format=png&name=900x900)
+Here are the top 5 players that profile most closely to Bukayo Saka:
 
-![gabbia](https://pbs.twimg.com/media/GQxG7iEXQAEefDQ?format=png&name=900x900)
+![Bukayo Saka compared with Jamal Musiala](/images/restored/GQxG-riWcAAQGnC.png)
 
-![perrin](https://pbs.twimg.com/media/GQxG7h9XoAA-trO?format=png&name=900x900)
+![Bukayo Saka compared with Cole Palmer](/images/restored/GQxG7iEXQAEefDQ.png)
 
-![siersleben](https://pbs.twimg.com/media/GQxG7h_XcAAp3VP?format=png&name=900x900)
+![Bukayo Saka compared with Rafael Leao](/images/restored/GQxG7h9XoAA-trO.png)
 
-![mendy](https://pbs.twimg.com/media/GQxG7iGWgAASj9s?format=png&name=900x900)
+![Bukayo Saka compared with Raphinha](/images/restored/GQxG7h_XcAAp3VP.png)
+
+![Bukayo Saka compared with Amine Adli](/images/restored/GQxG7iGWgAASj9s.png)
 
 
-When Putting it all together, I have created a final visual, showing the top 15 most similar players to Saliba in a handy table.
+When Putting it all together, I have created a final visual, showing the top 20 most similar players to Saka in a handy table.
 
 
-![saliba_sim](https://pbs.twimg.com/media/GQxG-rkXMAABmRq?format=jpg&name=large)
+![Bukayo Saka similarity ranking](/images/restored/GQxG-rkXMAABmRq.png)
 
 
 ### Conclusion

@@ -5,9 +5,9 @@ subtitle: Data analysis and visualization using scraped FBREF data
 description: >-
   A 2024 Update and additional part of the FBREF data scraping series, this post focuses on data analysis and visualization using the scraped FBREF data. Learn how to extract insights, perform statistical analysis, and create visualizations with the scraped football data with more advanced techniques.
 image: >-
-    https://pbs.twimg.com/media/GHvkzCdXMAEPK7j?format=jpg&name=4096x4096
+    /images/restored/GHvkzCdXMAEPK7j.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GHvkzCdXMAEPK7j?format=jpg&name=4096x4096
+    /images/restored/GHvkzCdXMAEPK7j.png
 
 category: [Data Visualisations]
 tags:
@@ -45,13 +45,12 @@ I now exclusively use the methods I'll share with you in this post to fetch play
 
 As mentioned in the intro above, FBREF now has sub pages comprising of data for all players in the Top 5 European Leagues all in 1 table. 
 
-An example of which is shown in the figure below: 
+A data preview from the saved notebook is shown below:
 
-![big_data_base](https://pbs.twimg.com/media/GHsUWSHXAAAeQeD?format=png&name=large)
+![big_data_base](/images/restored/GHsUWSHXAAAeQeD.png)
 
 However, the catch is the types of data are split in to further sub-tables that are group by the 'type' of statistics, these type are: 
 
-![pages_data_base](https://pbs.twimg.com/media/GHsUWR7WoAABJFH?format=jpg&name=medium)
 
 In this post I will scrape all of these tables and combine them into 1 master table which we can save down and use for further analysis or visualisation.
 
@@ -704,7 +703,7 @@ def create_scatter_plot(players,Player_stats,x_var,y_var,Title):
 
 ```
 
-![data_creators](https://pbs.twimg.com/media/GHvWSuwWAAAr1nD?format=jpg&name=4096x4096)
+![data_creators](/images/restored/GHvWSuwWAAAr1nD.png)
 
 ### Comparing Player Shooting Stats 
 
@@ -733,7 +732,7 @@ The resulting plot should look like the following:
 ```python
 create_scatter_plot(players,Player_stats,x_var,y_var,Title)
 ```
-![data_shooters](https://pbs.twimg.com/media/GHvWSuxWUAIRCPM?format=jpg&name=4096x4096)
+![data_shooters](/images/restored/GHvWSuxWUAIRCPM.png)
 
 ### Creating Purpose Built Metrics Scores with sk.learn
 
@@ -1060,7 +1059,7 @@ create_scatter_plot(players,Player_stats,x_var,y_var,Title)
 
 The resulting plot we get looks like this: 
 
-![data_ball_playing_defenders](https://pbs.twimg.com/media/GHvkzCdXMAEPK7j?format=jpg&name=4096x4096)
+![data_ball_playing_defenders](/images/restored/GHvkzCdXMAEPK7j.png)
 
 ### Conclusion
 

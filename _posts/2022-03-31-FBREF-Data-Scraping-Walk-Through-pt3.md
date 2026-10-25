@@ -5,9 +5,9 @@ subtitle: Data analysis and visualization using scraped FBREF data
 description: >-
   In the final part of the FBREF data scraping series, this post focuses on data analysis and visualization using the scraped FBREF data. Learn how to extract insights, perform statistical analysis, and create visualizations with the scraped football data.
 image: >-
-    https://pbs.twimg.com/media/GE8Ot0bWMAAvNZj?format=png&name=small
+    /images/U26_CM_PROGRESSIVE.png
 optimized_image: >-
-    https://pbs.twimg.com/media/GE8Ot0bWMAAvNZj?format=png&name=small
+    /images/U26_CM_PROGRESSIVE.png
 category: [Player & Team Analysis]
 tags:
   - Blogging
